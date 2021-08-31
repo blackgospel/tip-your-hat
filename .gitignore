@@ -1,0 +1,8 @@
+node_modules/
+.cache
+dist
+.dynamodb
+.esbuild
+build
+bin
+.DS_Store

@@ -1,0 +1,4 @@
+name: tip-your-hat
+runtime: nodejs
+description: A minimal AWS TypeScript Pulumi program
+main: ./resources/pulumi/pulumi.config.ts

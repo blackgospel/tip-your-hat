@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "baseUrl": "./src",
+    "paths": {
+      "assets/*": ["./assets/*"],
+      "constants/*": ["./constants/*"],
+      "helpers/*": ["./helpers/*"],
+      "generated/*": ["./generated/*"],
+      "graphql/*": ["./graphql/*"],
+      "routes/*": ["./routes/*"],
+      "view/*": ["./view/*"],
+      "zustands/*": ["./zustands/*"],
+      "src/*": ["./*"]
+    },
+    "target": "es2019",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["dom", "es6", "es2019", "esnext.asynciterable"],
+    "sourceMap": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+}

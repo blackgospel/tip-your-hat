@@ -1,0 +1,3 @@
+mutation Register($registerOptions: RegisterType!) {
+  register(options: $registerOptions)
+}

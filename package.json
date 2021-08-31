@@ -1,0 +1,9 @@
+{
+  "name": "tip-your-hat",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "bash infrastructure/scripts/deploy.sh",
+    "destroy": "bash infrastructure/scripts/destroy.sh"
+  }
+}

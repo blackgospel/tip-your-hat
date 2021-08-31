@@ -1,0 +1,10 @@
+mutation Login($loginOptions: LoginType!) {
+  login(options: $loginOptions) {
+    accessToken
+    user {
+      id
+      email
+      name
+    }
+  }
+}
