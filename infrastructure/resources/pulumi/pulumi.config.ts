@@ -20,6 +20,10 @@ const testTable = new aws.dynamodb.Table('testTable', {
       name: 'entity',
       type: 'S',
     },
+    {
+      name: 'email',
+      type: 'S',
+    },
   ],
   globalSecondaryIndexes: [
     {
@@ -33,6 +37,14 @@ const testTable = new aws.dynamodb.Table('testTable', {
     {
       name: 'keyReverseGSI',
       hashKey: 'sk',
+      rangeKey: 'pk',
+      projectionType: 'ALL',
+      readCapacity: 5,
+      writeCapacity: 5,
+    },
+    {
+      name: 'userEmailGSI',
+      hashKey: 'email',
       rangeKey: 'pk',
       projectionType: 'ALL',
       readCapacity: 5,

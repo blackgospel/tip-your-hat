@@ -10,7 +10,7 @@ export const removeDBKey = (item: string) => {
   return value
 }
 
-export const formatDBResponse = (item: any, pkKey = 'id', skKey = 'option') => {
+export const formatDBResponse = (item: any, pkKey = 'id', skKey?: string) => {
   if (Array.isArray(item)) {
     return formatArrayResponse(item, pkKey, skKey)
   }
@@ -21,21 +21,21 @@ export const formatDBResponse = (item: any, pkKey = 'id', skKey = 'option') => {
 export const formatObjectResponse = (
   item: any,
   pkKey: string,
-  skKey: string
+  skKey?: string
 ) => {
   const { pk, sk, ...obj } = item
 
   return {
     ...obj,
     [pkKey]: pk,
-    [skKey]: sk,
+    ...skKey && {[skKey]: sk,}
   }
 }
 
 export const formatArrayResponse = (
   item: any,
   pkKey: string,
-  skKey: string
+  skKey?: string
 ) => {
   return item.map((value: { [x: string]: any; pk: string; sk: string }) => {
     const { pk, sk, ...obj } = value
@@ -43,7 +43,7 @@ export const formatArrayResponse = (
     return {
       ...obj,
       [pkKey]: pk,
-      [skKey]: sk,
+      ...skKey && {[skKey]: sk}
     }
   })
 }

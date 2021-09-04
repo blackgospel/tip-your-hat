@@ -1,5 +1,5 @@
 export const USER_DB = {
   ENTITY: 'USER',
-  PK: 'EMAIL',
+  PK: 'USER',
   SK: 'USER',
 }

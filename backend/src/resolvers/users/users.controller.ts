@@ -1,35 +1,38 @@
-import { formatDBResponse } from 'helpers/db-helpers'
-import { verify } from 'jsonwebtoken'
-import { UserDto } from 'resolvers/users/users.dto'
-import {
-  createUserService,
-  deleteUserService,
-  getAllUsersService,
-  updateUserService,
-} from 'resolvers/users/users.service'
-import { getUserByEmail } from 'resolvers/auth/auth.service'
-import { ApolloContext } from 'context/auth-context'
-import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql'
-import { DefaultUserInput } from './users.types'
+import { isEmpty } from 'class-validator'
+import { USER_ROLES } from 'constants/enums'
 import {
   USER_ALREADY_EXISTS,
   USER_DOES_NOT_EXIST,
   USER_INCORRECT_FIELDS,
-  USER_UPDATE_INCORRECT_FIELDS,
 } from 'constants/error-messages'
-import { isEmpty } from 'class-validator'
-import { USER_ROLES } from 'constants/enums'
+import { ApolloContext } from 'context/auth-context'
 import BadRequestError from 'errors/bad-request'
+import { formatDBResponse } from 'helpers/db-helpers'
+import { verify } from 'jsonwebtoken'
+import { getUserByEmail } from 'resolvers/auth/auth.service'
+import { UserDto } from 'resolvers/users/users.dto'
+import {
+  createUserService,
+  deleteUserPermanentService,
+  deleteUserService,
+  getAllUsersService,
+  getUserService,
+  restoreUserService,
+  updateUserService,
+} from 'resolvers/users/users.service'
+import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql'
+import {
+  CreateUserInput,
+  DeleteUserInput,
+  GetUserInput,
+  RestoreUserInput,
+  UpdateUserInput,
+} from './users.types'
 
 @Resolver()
 export class UserResolver {
-  @Query(() => String)
-  hello() {
-    return 'hello'
-  }
-
   @Query(() => UserDto, { nullable: true })
-  async getUser(@Ctx() context: ApolloContext) {
+  async getCurrentUser(@Ctx() context: ApolloContext) {
     const authorization = context.event.headers.authorization
 
     if (!authorization) {
@@ -40,18 +43,38 @@ export class UserResolver {
       const payload: any = verify(authorization, process.env.JWT_ACCESS_TOKEN!)
       const user = await getUserByEmail(payload.email)
 
-      return formatDBResponse(user, 'email', 'id')
+      return formatDBResponse(user)
     } catch (err) {
       console.log('err', err)
       return null
     }
   }
 
-  @Mutation(() => UserDto)
-  async createAdminUser(@Arg('options') options: DefaultUserInput) {
-    const { email, fields } = options
+  @Query(() => [UserDto])
+  async getAllUsers() {
+    const users = await getAllUsersService()
 
-    if (!email || !fields.password || !fields.name) {
+    return formatDBResponse(users)
+  }
+
+  @Query(() => [UserDto])
+  async getUser(@Arg('options') options: GetUserInput) {
+    const { id } = options
+
+    if (!id) {
+      throw new BadRequestError(USER_INCORRECT_FIELDS)
+    }
+
+    const users = await getUserService(id)
+
+    return formatDBResponse(users)
+  }
+
+  @Mutation(() => UserDto)
+  async createAdminUser(@Arg('options') options: CreateUserInput) {
+    const { email, password, name } = options
+
+    if (!name || !email || !password) {
       throw new BadRequestError(USER_INCORRECT_FIELDS)
     }
 
@@ -63,64 +86,91 @@ export class UserResolver {
 
     const user = await createUserService(
       email,
-      fields.password,
-      fields.name,
+      password,
+      name,
       USER_ROLES.ADMIN
     )
 
-    return user
+    return formatDBResponse(user)
   }
 
   @Mutation(() => UserDto)
-  async updateUser(@Arg('options') options: Partial<DefaultUserInput>) {
-    const { email, fields } = options
+  async updateUser(@Arg('options') options: UpdateUserInput) {
+    const { id, email, name, role } = options
 
-    if (!email) {
+    if (!id || (role && Object.values(USER_ROLES).includes(role))) {
       throw new BadRequestError(USER_INCORRECT_FIELDS)
     }
 
-    if (!fields || isEmpty(fields)) {
-      throw new BadRequestError(USER_UPDATE_INCORRECT_FIELDS)
-    }
-
-    const existingUser = await getUserByEmail(email)
+    const existingUser = await getUserService(id)
 
     if (!existingUser || isEmpty(existingUser)) {
       throw new BadRequestError(USER_DOES_NOT_EXIST)
     }
 
-    const user = await updateUserService(
-      existingUser.pk,
-      existingUser.sk,
-      fields
-    )
+    const user = await updateUserService(existingUser.pk, {
+      email,
+      name,
+      role,
+    })
 
     return user
   }
 
   @Mutation(() => Boolean)
-  async deleteUser(@Arg('options') options: Partial<DefaultUserInput>) {
-    const { email } = options
+  async deleteUser(@Arg('options') options: DeleteUserInput) {
+    const { id } = options
 
-    if (!email) {
+    if (!id) {
       throw new BadRequestError(USER_INCORRECT_FIELDS)
     }
 
-    const existingUser = await getUserByEmail(email)
+    const existingUser = await getUserService(id)
 
     if (!existingUser || isEmpty(existingUser)) {
       throw new BadRequestError(USER_DOES_NOT_EXIST)
     }
 
-    await deleteUserService(existingUser.pk, existingUser.sk)
+    await deleteUserService(existingUser.pk)
 
     return true
   }
 
-  @Query(() => [UserDto])
-  async users() {
-    const users = await getAllUsersService()
+  @Mutation(() => Boolean)
+  async deleteUserPermanently(@Arg('options') options: DeleteUserInput) {
+    const { id } = options
 
-    return formatDBResponse(users, 'email', 'id')
+    if (!id) {
+      throw new BadRequestError(USER_INCORRECT_FIELDS)
+    }
+
+    const existingUser = await getUserService(id)
+
+    if (!existingUser || isEmpty(existingUser)) {
+      throw new BadRequestError(USER_DOES_NOT_EXIST)
+    }
+
+    await deleteUserPermanentService(existingUser.pk)
+
+    return true
+  }
+
+  @Mutation(() => Boolean)
+  async restoreUser(@Arg('options') options: RestoreUserInput) {
+    const { id } = options
+
+    if (!id) {
+      throw new BadRequestError(USER_INCORRECT_FIELDS)
+    }
+
+    const existingUser = await getUserService(id)
+
+    if (!existingUser || isEmpty(existingUser)) {
+      throw new BadRequestError(USER_DOES_NOT_EXIST)
+    }
+
+    await restoreUserService(existingUser.pk)
+
+    return true
   }
 }

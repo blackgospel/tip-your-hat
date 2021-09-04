@@ -79,6 +79,7 @@ const serverlessConfiguration: AWS = {
             { AttributeName: 'pk', AttributeType: 'S' },
             { AttributeName: 'sk', AttributeType: 'S' },
             { AttributeName: 'entity', AttributeType: 'S' },
+            { AttributeName: 'email', AttributeType: 'S' },
           ],
           KeySchema: [
             { AttributeName: 'pk', KeyType: 'HASH' },
@@ -107,6 +108,20 @@ const serverlessConfiguration: AWS = {
               IndexName: 'keyReverseGSI',
               KeySchema: [
                 { AttributeName: 'sk', KeyType: 'HASH' },
+                { AttributeName: 'pk', KeyType: 'RANGE' },
+              ],
+              Projection: {
+                ProjectionType: 'ALL',
+              },
+              ProvisionedThroughput: {
+                ReadCapacityUnits: 3,
+                WriteCapacityUnits: 3,
+              },
+            },
+            {
+              IndexName: 'userEmailGSI',
+              KeySchema: [
+                { AttributeName: 'email', KeyType: 'HASH' },
                 { AttributeName: 'pk', KeyType: 'RANGE' },
               ],
               Projection: {

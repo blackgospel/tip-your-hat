@@ -2,10 +2,16 @@ import { UserDto } from 'resolvers/users/users.dto'
 import { Field, InputType, ObjectType } from 'type-graphql'
 
 @InputType()
-export class RegisterType {
-  @Field()
-  email: string
+export class DefaultAuthInput {
+  @Field({ nullable: true })
+  id?: string
 
+  @Field({ nullable: true })
+  email?: string
+}
+
+@InputType()
+export class RegisterUserInput extends DefaultAuthInput {
   @Field()
   password: string
 
@@ -14,16 +20,16 @@ export class RegisterType {
 }
 
 @InputType()
-export class LoginType {
-  @Field()
-  email: string
-
+export class LoginUserInput extends DefaultAuthInput {
   @Field()
   password: string
 }
 
+@InputType()
+export class RevokeRefreshTokenInput extends DefaultAuthInput {}
+
 @ObjectType()
-export class LoginResponse {
+export class LoginUserOutput {
   @Field()
   accessToken: string
 
@@ -32,7 +38,7 @@ export class LoginResponse {
 }
 
 @ObjectType()
-export class RefreshTokenResponse {
+export class RefreshTokenOutput {
   @Field()
   success: boolean
 

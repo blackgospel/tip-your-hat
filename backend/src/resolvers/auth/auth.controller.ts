@@ -1,36 +1,41 @@
+import { USER_ROLES } from 'constants/enums'
 import {
   AUTH_INCORRECT_FIELDS,
   USER_ALREADY_EXISTS,
   USER_DOES_NOT_EXIST,
+  USER_INCORRECT_FIELDS,
 } from 'constants/error-messages'
+import type { ApolloContext } from 'context/auth-context'
+import BadRequestError from 'errors/bad-request'
+import { formatDBResponse } from 'helpers/db-helpers'
 import { createJWTCookie, destroyJWTCookie, signAccessToken } from 'helpers/jwt'
 import { compare } from 'helpers/password'
 import { verify } from 'jsonwebtoken'
 import isEmpty from 'lodash.isempty'
-import BadRequestError from 'errors/bad-request'
-import type { ApolloContext } from 'context/auth-context'
+import { isAuth } from 'middleware/auth'
 import {
-  Query,
-  Ctx,
+  createUserService,
+  getUserService,
+} from 'resolvers/users/users.service'
+import {
   Arg,
+  Ctx,
   Mutation,
+  Query,
   Resolver,
   UseMiddleware,
 } from 'type-graphql'
 import {
-  getUserByEmail,
-  registerUser,
-  updateTokenVersion,
+  getUserByEmailService,
+  updateTokenVersionService,
 } from './auth.service'
 import {
-  RegisterType,
-  LoginResponse,
-  LoginType,
-  RefreshTokenResponse,
+  LoginUserInput,
+  LoginUserOutput,
+  RefreshTokenOutput,
+  RegisterUserInput,
+  RevokeRefreshTokenInput,
 } from './auth.types'
-import { isAuth } from 'middleware/auth'
-import { formatDBResponse } from 'helpers/db-helpers'
-import { USER_ROLES } from 'constants/enums'
 
 @Resolver()
 export class AuthResolver {
@@ -45,7 +50,62 @@ export class AuthResolver {
     return `your user id is: ${payload!.id}`
   }
 
-  @Mutation(() => RefreshTokenResponse)
+  @Mutation(() => Boolean)
+  async register(@Arg('options') options: RegisterUserInput) {
+    const { email, password, name } = options
+
+    if (!email || !password || !name) {
+      throw new BadRequestError(AUTH_INCORRECT_FIELDS)
+    }
+
+    const existingUser = await getUserByEmailService(email)
+
+    if (!isEmpty(existingUser)) {
+      throw new BadRequestError(USER_ALREADY_EXISTS)
+    }
+
+    await createUserService(email, password, name!, USER_ROLES.BASIC)
+
+    return true
+  }
+
+  @Mutation(() => LoginUserOutput)
+  async login(
+    @Arg('options') options: LoginUserInput,
+    @Ctx() context: ApolloContext
+  ) {
+    const { email, password } = options
+
+    if (!email || !password) {
+      throw new BadRequestError(AUTH_INCORRECT_FIELDS)
+    }
+
+    const user = await getUserByEmailService(email!)
+
+    if (!user || isEmpty(user)) {
+      throw new BadRequestError(USER_DOES_NOT_EXIST)
+    }
+
+    if (!(await compare(user.password, password!))) {
+      throw new BadRequestError(USER_DOES_NOT_EXIST)
+    }
+
+    createJWTCookie(context, user)
+
+    return {
+      accessToken: signAccessToken(user),
+      user: formatDBResponse(user),
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async logout(@Ctx() context: ApolloContext) {
+    destroyJWTCookie(context)
+
+    return true
+  }
+
+  @Mutation(() => RefreshTokenOutput)
   async refreshToken(@Ctx() context: ApolloContext) {
     const token = context.cookies?.jid
 
@@ -61,7 +121,7 @@ export class AuthResolver {
       return { success: false, accessToken: '' }
     }
 
-    const user = await getUserByEmail(payload.email)
+    const user = await getUserService(payload.id)
 
     if (!user) {
       return { success: false, accessToken: '' }
@@ -77,69 +137,22 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async revokeUserRefreshToken(@Arg('email', () => String) email: string) {
-    const user = await getUserByEmail(email)
+  async revokeUserRefreshToken(
+    @Arg('options') options: RevokeRefreshTokenInput
+  ) {
+    const { id } = options
+
+    if (!id) {
+      throw new BadRequestError(USER_INCORRECT_FIELDS)
+    }
+
+    const user = await getUserService(id)
 
     if (!user) {
       throw new BadRequestError(USER_DOES_NOT_EXIST)
     }
 
-    updateTokenVersion(user.pk, user.sk, user.tokenVersion + 1)
-
-    return true
-  }
-
-  @Mutation(() => Boolean)
-  async register(@Arg('options') options: RegisterType) {
-    const { email, password, name } = options
-
-    if (!email || !password || !name) {
-      throw new BadRequestError(AUTH_INCORRECT_FIELDS)
-    }
-
-    const existingUser = await getUserByEmail(email)
-
-    if (!isEmpty(existingUser)) {
-      throw new BadRequestError(USER_ALREADY_EXISTS)
-    }
-
-    await registerUser(email, password, name!, USER_ROLES.BASIC)
-
-    return true
-  }
-
-  @Mutation(() => LoginResponse)
-  async login(
-    @Arg('options', { validate: true }) options: LoginType,
-    @Ctx() context: ApolloContext
-  ) {
-    const { email, password } = options
-
-    if (!email || !password) {
-      throw new BadRequestError(AUTH_INCORRECT_FIELDS)
-    }
-
-    const user = await getUserByEmail(email!)
-
-    if (!user || isEmpty(user)) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
-    }
-
-    if (!(await compare(user.password, password!))) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
-    }
-
-    createJWTCookie(context, user)
-
-    return {
-      accessToken: signAccessToken(user),
-      user: formatDBResponse(user, 'id', 'email'),
-    }
-  }
-
-  @Mutation(() => Boolean)
-  async logout(@Ctx() context: ApolloContext) {
-    destroyJWTCookie(context)
+    updateTokenVersionService(user.pk, user.tokenVersion! + 1)
 
     return true
   }

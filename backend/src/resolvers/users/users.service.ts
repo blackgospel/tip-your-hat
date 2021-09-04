@@ -1,27 +1,21 @@
-import {
-  Metadata,
-  update,
-  update2,
-  UpdateExpression,
-  UpdateExpressionDefinitionFunction,
-} from '@shiftcoders/dynamo-easy'
+import { update2 } from '@shiftcoders/dynamo-easy'
 import { DB_GSI } from 'constants/db/db.entities'
 import { USER_DB } from 'constants/db/db.key'
 import { USER_ROLES } from 'constants/enums'
-import dayjs from 'dayjs'
 import { toHash } from 'helpers/password'
 import shortid from 'shortid'
 import User from './users.model'
 import { UserRepository } from './users.repository'
 
+export const getUserService = async (id: string) => {
+  return await UserRepository.get(id, id).exec()
+}
+
 export const getAllUsersService = async () => {
-  const data = await UserRepository.query()
+  return await UserRepository.query()
     .index(DB_GSI.ENTITY)
     .wherePartitionKey(USER_DB.ENTITY)
     .execFetchAll()
-    .then((res) => res)
-
-  return data
 }
 
 export const createUserService = async (
@@ -30,15 +24,15 @@ export const createUserService = async (
   name: string,
   role: USER_ROLES
 ) => {
+  const id = shortid()
+
   const user = {
-    pk: email,
-    sk: shortid(),
-    entity: USER_DB.ENTITY,
+    pk: id,
+    sk: id,
+    email,
     name,
     password: await toHash(password),
-    updatedAt: dayjs().unix(),
     role,
-    tokenVersion: 0,
   }
 
   await UserRepository.put(user).exec()
@@ -46,22 +40,26 @@ export const createUserService = async (
   return user
 }
 
-export const updateUserService = async (
-  id: string,
-  email: string,
-  fields: Partial<User>
-) => {
-  const user = await multipleUserUpdates(email, id, fields)
-
-  return user
+export const updateUserService = async (id: string, fields: Partial<User>) => {
+  return await updateUserFields(id, fields)
 }
 
-export const deleteUserService = async (email: string, id: string) => {
-  await UserRepository.delete(email, id).exec()
+export const deleteUserService = async (id: string) => {
+  const fields: Partial<User> = { isDeleted: true }
+  return await updateUserFields(id, fields)
 }
 
-const multipleUserUpdates = async (pk: string, sk: string, fields: any) => {
-  return await UserRepository.update(pk, sk)
+export const deleteUserPermanentService = async (id: string) => {
+  return await UserRepository.delete(id, id).exec()
+}
+
+export const restoreUserService = async (id: string) => {
+  const fields: Partial<User> = { isDeleted: false }
+  return await updateUserFields(id, fields)
+}
+
+const updateUserFields = async (id: string, fields: Partial<User>) => {
+  return await UserRepository.update(id, id)
     .operations(
       ...Object.keys(fields).map((item: string) => {
         const fieldAttribute = item as keyof User
@@ -70,5 +68,4 @@ const multipleUserUpdates = async (pk: string, sk: string, fields: any) => {
     )
     .returnValues('ALL_NEW')
     .exec()
-    .then((res) => res)
 }

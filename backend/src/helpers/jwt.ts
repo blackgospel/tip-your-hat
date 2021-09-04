@@ -3,7 +3,7 @@ import { ApolloContext } from 'context/auth-context'
 import User from 'src/resolvers/users/users.model'
 
 export const signAccessToken = (user: User) => {
-  return sign({ id: user.sk, email: user.pk }, process.env.JWT_ACCESS_TOKEN!, {
+  return sign({ id: user.pk }, process.env.JWT_ACCESS_TOKEN!, {
     expiresIn: '15m',
   })
 }
@@ -11,8 +11,7 @@ export const signAccessToken = (user: User) => {
 export const signRefreshToken = (user: User) => {
   return sign(
     {
-      id: user.sk,
-      email: user.pk,
+      id: user.pk,
       tokenVersion: user.tokenVersion,
     },
     process.env.JWT_REFRESH_TOKEN!,

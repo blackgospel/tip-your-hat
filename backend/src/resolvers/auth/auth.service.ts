@@ -1,51 +1,33 @@
-import { USER_DB } from 'constants/db/db.key'
-import dayjs from 'dayjs'
-import { toHash } from 'helpers/password'
-import shortid from 'shortid'
-import { USER_ROLES } from 'constants/enums'
+import { update2 } from '@shiftcoders/dynamo-easy'
+import { DB_GSI } from 'constants/db/db.entities'
 import User from 'resolvers/users/users.model'
 import { AuthRepository } from './auth.repository'
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmailService = async (email: string) => {
   const data = await AuthRepository.query()
+    .index(DB_GSI.USER_EMAIL)
     .wherePartitionKey(email)
     .execSingle()
 
   return data
 }
 
-export const registerUser = async (
-  email: string,
-  password: string,
-  name: string,
-  role: USER_ROLES
-) => {
-  const user = {
-    pk: email,
-    sk: shortid(),
-    entity: USER_DB.ENTITY,
-    name,
-    password: await toHash(password),
-    updatedAt: dayjs().unix(),
-    role,
-    tokenVersion: 0,
-  }
-
-  await AuthRepository.put(user).exec()
-
-  return true
-}
-
-export const updateTokenVersion = async (
+export const updateTokenVersionService = async (
   id: string,
-  email: string,
   tokenVersion: number
 ) => {
-  const data = await AuthRepository.update(email, id)
-    .updateAttribute('tokenVersion')
-    .set(tokenVersion)
-    .returnValues('UPDATED_NEW')
-    .exec()
+  const fields: Partial<User> = { tokenVersion }
+  return await updateAuthFields(id, fields)
+}
 
-  return data
+const updateAuthFields = async (id: string, fields: Partial<User>) => {
+  return await AuthRepository.update(id, id)
+    .operations(
+      ...Object.keys(fields).map((item: string) => {
+        const fieldAttribute = item as keyof User
+        return update2(User, fieldAttribute).set(fields[fieldAttribute]!)
+      })
+    )
+    .returnValues('ALL_NEW')
+    .exec()
 }
