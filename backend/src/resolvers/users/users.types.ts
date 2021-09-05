@@ -19,6 +19,9 @@ export class CreateUserInput extends DefaultUserInput {
 
   @Field()
   name: string
+
+  @Field({ nullable: true })
+  role?: number
 }
 
 @InputType()

@@ -1,9 +1,9 @@
-import { sign } from 'jsonwebtoken'
 import { ApolloContext } from 'context/auth-context'
+import { sign } from 'jsonwebtoken'
 import User from 'src/resolvers/users/users.model'
 
 export const signAccessToken = (user: User) => {
-  return sign({ id: user.pk }, process.env.JWT_ACCESS_TOKEN!, {
+  return sign({ id: user.pk, role: user.role }, process.env.JWT_ACCESS_TOKEN!, {
     expiresIn: '15m',
   })
 }

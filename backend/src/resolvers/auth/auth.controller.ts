@@ -15,20 +15,19 @@ import isEmpty from 'lodash.isempty'
 import { isAuth } from 'middleware/auth'
 import {
   createUserService,
+  getUserByEmailService,
   getUserService,
 } from 'resolvers/users/users.service'
 import {
   Arg,
+  Authorized,
   Ctx,
   Mutation,
   Query,
   Resolver,
   UseMiddleware,
 } from 'type-graphql'
-import {
-  getUserByEmailService,
-  updateTokenVersionService,
-} from './auth.service'
+import { updateTokenVersionService } from './auth.service'
 import {
   LoginUserInput,
   LoginUserOutput,
@@ -44,6 +43,7 @@ export class AuthResolver {
     return 'hi'
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.BASIC])
   @Query(() => String)
   @UseMiddleware(isAuth)
   bye(@Ctx() { payload }: ApolloContext) {
@@ -105,6 +105,7 @@ export class AuthResolver {
     return true
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.BASIC])
   @Mutation(() => RefreshTokenOutput)
   async refreshToken(@Ctx() context: ApolloContext) {
     const token = context.cookies?.jid
@@ -136,6 +137,7 @@ export class AuthResolver {
     return { success: true, accessToken: signAccessToken(user) }
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
   async revokeUserRefreshToken(
     @Arg('options') options: RevokeRefreshTokenInput

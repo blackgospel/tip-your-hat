@@ -9,18 +9,18 @@ import { ApolloContext } from 'context/auth-context'
 import BadRequestError from 'errors/bad-request'
 import { formatDBResponse } from 'helpers/db-helpers'
 import { verify } from 'jsonwebtoken'
-import { getUserByEmail } from 'resolvers/auth/auth.service'
 import { UserDto } from 'resolvers/users/users.dto'
 import {
   createUserService,
   deleteUserPermanentService,
   deleteUserService,
   getAllUsersService,
+  getUserByEmailService,
   getUserService,
   restoreUserService,
   updateUserService,
 } from 'resolvers/users/users.service'
-import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql'
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql'
 import {
   CreateUserInput,
   DeleteUserInput,
@@ -31,6 +31,7 @@ import {
 
 @Resolver()
 export class UserResolver {
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Query(() => UserDto, { nullable: true })
   async getCurrentUser(@Ctx() context: ApolloContext) {
     const authorization = context.event.headers.authorization
@@ -41,15 +42,15 @@ export class UserResolver {
 
     try {
       const payload: any = verify(authorization, process.env.JWT_ACCESS_TOKEN!)
-      const user = await getUserByEmail(payload.email)
+      const user = await getUserService(payload.id)
 
       return formatDBResponse(user)
     } catch (err) {
-      console.log('err', err)
       return null
     }
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Query(() => [UserDto])
   async getAllUsers() {
     const users = await getAllUsersService()
@@ -57,6 +58,7 @@ export class UserResolver {
     return formatDBResponse(users)
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Query(() => [UserDto])
   async getUser(@Arg('options') options: GetUserInput) {
     const { id } = options
@@ -70,15 +72,21 @@ export class UserResolver {
     return formatDBResponse(users)
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => UserDto)
-  async createAdminUser(@Arg('options') options: CreateUserInput) {
-    const { email, password, name } = options
+  async createUser(@Arg('options') options: CreateUserInput) {
+    const { email, password, name, role } = options
 
-    if (!name || !email || !password) {
+    if (
+      !email ||
+      !name ||
+      !password ||
+      (role && !Object.values(USER_ROLES).includes(role))
+    ) {
       throw new BadRequestError(USER_INCORRECT_FIELDS)
     }
 
-    const existingUser = await getUserByEmail(email)
+    const existingUser = await getUserByEmailService(email)
 
     if (!isEmpty(existingUser)) {
       throw new BadRequestError(USER_ALREADY_EXISTS)
@@ -88,17 +96,18 @@ export class UserResolver {
       email,
       password,
       name,
-      USER_ROLES.ADMIN
+      role || USER_ROLES.BASIC
     )
 
     return formatDBResponse(user)
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => UserDto)
   async updateUser(@Arg('options') options: UpdateUserInput) {
     const { id, email, name, role } = options
 
-    if (!id || (role && Object.values(USER_ROLES).includes(role))) {
+    if (!id || (role && !Object.values(USER_ROLES).includes(role))) {
       throw new BadRequestError(USER_INCORRECT_FIELDS)
     }
 
@@ -114,9 +123,10 @@ export class UserResolver {
       role,
     })
 
-    return user
+    return formatDBResponse(user)
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
   async deleteUser(@Arg('options') options: DeleteUserInput) {
     const { id } = options
@@ -136,6 +146,7 @@ export class UserResolver {
     return true
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
   async deleteUserPermanently(@Arg('options') options: DeleteUserInput) {
     const { id } = options
@@ -155,6 +166,7 @@ export class UserResolver {
     return true
   }
 
+  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
   async restoreUser(@Arg('options') options: RestoreUserInput) {
     const { id } = options

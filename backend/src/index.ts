@@ -1,11 +1,11 @@
-import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server-lambda'
-import { buildSchemaSync } from 'type-graphql'
-import { UserResolver } from 'resolvers/users/users.controller'
-import { AuthResolver } from 'resolvers/auth/auth.controller'
 import httpHeadersPlugin from 'apollo-server-plugin-http-headers'
-import { cookieParser } from './middleware/auth'
 import { config } from 'aws-sdk'
+import 'reflect-metadata'
+import { AuthResolver } from 'resolvers/auth/auth.controller'
+import { UserResolver } from 'resolvers/users/users.controller'
+import { buildSchemaSync } from 'type-graphql'
+import { authorizationChecker, cookieParser } from './middleware/auth'
 
 config.update({
   accessKeyId: process.env.ACCESS_KEY,
@@ -18,6 +18,8 @@ const app = new ApolloServer({
     resolvers: [AuthResolver, UserResolver],
     globalMiddlewares: [cookieParser],
     validate: false,
+    authChecker: authorizationChecker,
+    authMode: 'null',
   }),
   plugins: [httpHeadersPlugin],
   context: ({ event, context }) => ({
