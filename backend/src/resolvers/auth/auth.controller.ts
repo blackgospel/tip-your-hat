@@ -1,12 +1,7 @@
 import { USER_ROLES } from 'constants/enums'
-import {
-  AUTH_INCORRECT_FIELDS,
-  USER_ALREADY_EXISTS,
-  USER_DOES_NOT_EXIST,
-  USER_INCORRECT_FIELDS,
-} from 'constants/error-messages'
 import type { ApolloContext } from 'context/auth-context'
 import BadRequestError from 'errors/bad-request'
+import { AUTH_ERRORS, USER_ERRORS } from 'errors/error-messages'
 import { formatDBResponse } from 'helpers/db-helpers'
 import { createJWTCookie, destroyJWTCookie, signAccessToken } from 'helpers/jwt'
 import { compare } from 'helpers/password'
@@ -55,13 +50,13 @@ export class AuthResolver {
     const { email, password, name } = options
 
     if (!email || !password || !name) {
-      throw new BadRequestError(AUTH_INCORRECT_FIELDS)
+      throw new BadRequestError(AUTH_ERRORS.AUTH_INCORRECT_FIELDS)
     }
 
     const existingUser = await getUserByEmailService(email)
 
     if (!isEmpty(existingUser)) {
-      throw new BadRequestError(USER_ALREADY_EXISTS)
+      throw new BadRequestError(USER_ERRORS.USER_ALREADY_EXISTS)
     }
 
     await createUserService(email, password, name!, USER_ROLES.BASIC)
@@ -77,17 +72,17 @@ export class AuthResolver {
     const { email, password } = options
 
     if (!email || !password) {
-      throw new BadRequestError(AUTH_INCORRECT_FIELDS)
+      throw new BadRequestError(AUTH_ERRORS.AUTH_INCORRECT_FIELDS)
     }
 
     const user = await getUserByEmailService(email!)
 
     if (!user || isEmpty(user)) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
+      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
     }
 
     if (!(await compare(user.password, password!))) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
+      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
     }
 
     createJWTCookie(context, user)
@@ -145,13 +140,13 @@ export class AuthResolver {
     const { id } = options
 
     if (!id) {
-      throw new BadRequestError(USER_INCORRECT_FIELDS)
+      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
     }
 
     const user = await getUserService(id)
 
     if (!user) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
+      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
     }
 
     updateTokenVersionService(user.pk, user.tokenVersion! + 1)

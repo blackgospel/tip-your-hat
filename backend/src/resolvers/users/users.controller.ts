@@ -1,12 +1,8 @@
 import { isEmpty } from 'class-validator'
 import { USER_ROLES } from 'constants/enums'
-import {
-  USER_ALREADY_EXISTS,
-  USER_DOES_NOT_EXIST,
-  USER_INCORRECT_FIELDS,
-} from 'constants/error-messages'
 import { ApolloContext } from 'context/auth-context'
 import BadRequestError from 'errors/bad-request'
+import { USER_ERRORS } from 'errors/error-messages'
 import { formatDBResponse } from 'helpers/db-helpers'
 import { verify } from 'jsonwebtoken'
 import { UserDto } from 'resolvers/users/users.dto'
@@ -64,7 +60,7 @@ export class UserResolver {
     const { id } = options
 
     if (!id) {
-      throw new BadRequestError(USER_INCORRECT_FIELDS)
+      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
     }
 
     const users = await getUserService(id)
@@ -83,13 +79,13 @@ export class UserResolver {
       !password ||
       (role && !Object.values(USER_ROLES).includes(role))
     ) {
-      throw new BadRequestError(USER_INCORRECT_FIELDS)
+      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
     }
 
     const existingUser = await getUserByEmailService(email)
 
     if (!isEmpty(existingUser)) {
-      throw new BadRequestError(USER_ALREADY_EXISTS)
+      throw new BadRequestError(USER_ERRORS.USER_ALREADY_EXISTS)
     }
 
     const user = await createUserService(
@@ -108,13 +104,13 @@ export class UserResolver {
     const { id, email, name, role } = options
 
     if (!id || (role && !Object.values(USER_ROLES).includes(role))) {
-      throw new BadRequestError(USER_INCORRECT_FIELDS)
+      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
     }
 
     const existingUser = await getUserService(id)
 
     if (!existingUser || isEmpty(existingUser)) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
+      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
     }
 
     const user = await updateUserService(existingUser.pk, {
@@ -132,13 +128,13 @@ export class UserResolver {
     const { id } = options
 
     if (!id) {
-      throw new BadRequestError(USER_INCORRECT_FIELDS)
+      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
     }
 
     const existingUser = await getUserService(id)
 
     if (!existingUser || isEmpty(existingUser)) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
+      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
     }
 
     await deleteUserService(existingUser.pk)
@@ -152,13 +148,13 @@ export class UserResolver {
     const { id } = options
 
     if (!id) {
-      throw new BadRequestError(USER_INCORRECT_FIELDS)
+      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
     }
 
     const existingUser = await getUserService(id)
 
     if (!existingUser || isEmpty(existingUser)) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
+      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
     }
 
     await deleteUserPermanentService(existingUser.pk)
@@ -172,13 +168,13 @@ export class UserResolver {
     const { id } = options
 
     if (!id) {
-      throw new BadRequestError(USER_INCORRECT_FIELDS)
+      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
     }
 
     const existingUser = await getUserService(id)
 
     if (!existingUser || isEmpty(existingUser)) {
-      throw new BadRequestError(USER_DOES_NOT_EXIST)
+      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
     }
 
     await restoreUserService(existingUser.pk)
