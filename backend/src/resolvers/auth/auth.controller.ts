@@ -1,5 +1,5 @@
 import { USER_ROLES } from 'constants/enums'
-import type { ApolloContext } from 'context/auth-context'
+import type { ApolloContext } from 'context/apollo.context'
 import BadRequestError from 'errors/bad-request'
 import { AUTH_ERRORS, USER_ERRORS } from 'errors/error-messages'
 import { formatDBResponse } from 'helpers/db-helpers'
@@ -7,7 +7,9 @@ import { createJWTCookie, destroyJWTCookie, signAccessToken } from 'helpers/jwt'
 import { compare } from 'helpers/password'
 import { verify } from 'jsonwebtoken'
 import isEmpty from 'lodash.isempty'
-import { isAuth } from 'middleware/auth'
+import { isAuth } from 'middleware/auth-middleware'
+import CurrentUser from 'middleware/current-user-decorator'
+import { ValidateArgs } from 'middleware/validate-input-decorator'
 import {
   createUserService,
   getUserByEmailService,
@@ -41,8 +43,8 @@ export class AuthResolver {
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.BASIC])
   @Query(() => String)
   @UseMiddleware(isAuth)
-  bye(@Ctx() { payload }: ApolloContext) {
-    return `your user id is: ${payload!.id}`
+  bye(@CurrentUser() id: string) {
+    return `your user id is: ${id}`
   }
 
   @Mutation(() => Boolean)
@@ -65,15 +67,12 @@ export class AuthResolver {
   }
 
   @Mutation(() => LoginUserOutput)
+  @ValidateArgs(LoginUserInput)
   async login(
     @Arg('options') options: LoginUserInput,
     @Ctx() context: ApolloContext
   ) {
     const { email, password } = options
-
-    if (!email || !password) {
-      throw new BadRequestError(AUTH_ERRORS.AUTH_INCORRECT_FIELDS)
-    }
 
     const user = await getUserByEmailService(email!)
 

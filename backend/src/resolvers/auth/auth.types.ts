@@ -1,3 +1,4 @@
+import { IsEmail, IsNotEmpty } from 'class-validator'
 import { UserDto } from 'resolvers/users/users.dto'
 import { Field, InputType, ObjectType } from 'type-graphql'
 
@@ -22,6 +23,11 @@ export class RegisterUserInput extends DefaultAuthInput {
 @InputType()
 export class LoginUserInput extends DefaultAuthInput {
   @Field()
+  @IsEmail(undefined, { message: 'Invalid email' })
+  email: string
+
+  @Field()
+  @IsNotEmpty({ message: 'Invalid password' })
   password: string
 }
 

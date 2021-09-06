@@ -1,6 +1,7 @@
 export enum GENERAL_ERRORS {
   NO_JWT_SECRET = 'No JWT Secret could be found',
   UNAUTHORIZED_ACCESS = 'Not authenticated',
+  INVALID_PARAMETERES = 'Invalid parameters',
 }
 
 export enum USER_ERRORS {

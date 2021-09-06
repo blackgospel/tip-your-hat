@@ -1,4 +1,4 @@
-import type { ApolloContext } from 'context/auth-context'
+import type { ApolloContext } from 'context/apollo.context'
 import cookie from 'cookie'
 import { GENERAL_ERRORS } from 'errors/error-messages'
 import { verify } from 'jsonwebtoken'

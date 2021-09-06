@@ -1,4 +1,4 @@
-import { ApolloContext } from 'context/auth-context'
+import { ApolloContext } from 'context/apollo.context'
 import { sign } from 'jsonwebtoken'
 import User from 'src/resolvers/users/users.model'
 

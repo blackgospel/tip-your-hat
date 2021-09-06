@@ -1,14 +1,10 @@
-import CustomError from "./error"
+import { ApolloError } from 'apollo-server-lambda'
 
-class BadRequestError extends CustomError {
-  statusCode = 400
-
+class BadRequestError extends ApolloError {
   constructor(public message: string) {
-    super(message)
-  }
-
-  serializeErrors() {
-    return [{ message: this.message }]
+    super('Something went wrong', 'BAD_REQUEST_ERROR', {
+      formattedErrors: [{ message }],
+    })
   }
 }
 

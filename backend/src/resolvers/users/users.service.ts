@@ -2,6 +2,7 @@ import { update2 } from '@shiftcoders/dynamo-easy'
 import { DB_GSI } from 'constants/db/db.entities'
 import { USER_DB } from 'constants/db/db.key'
 import { USER_ROLES } from 'constants/enums'
+import dayjs from 'dayjs'
 import { removeEmptyValues } from 'helpers/generic'
 import { toHash } from 'helpers/password'
 import shortid from 'shortid'
@@ -67,7 +68,10 @@ export const restoreUserService = (id: string) => {
 }
 
 const updateUserFields = async (id: string, fields: Partial<User>) => {
-  const formattedFields = removeEmptyValues(fields)
+  const formattedFields: Partial<User> = {
+    ...removeEmptyValues(fields),
+    updatedAt: dayjs().valueOf(),
+  }
 
   return await UserRepository.update(id, id)
     .operations(

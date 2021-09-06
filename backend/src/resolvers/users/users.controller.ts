@@ -1,6 +1,6 @@
 import { isEmpty } from 'class-validator'
 import { USER_ROLES } from 'constants/enums'
-import { ApolloContext } from 'context/auth-context'
+import { ApolloContext } from 'context/apollo.context'
 import BadRequestError from 'errors/bad-request'
 import { USER_ERRORS } from 'errors/error-messages'
 import { formatDBResponse } from 'helpers/db-helpers'

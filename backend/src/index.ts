@@ -5,7 +5,10 @@ import 'reflect-metadata'
 import { AuthResolver } from 'resolvers/auth/auth.controller'
 import { UserResolver } from 'resolvers/users/users.controller'
 import { buildSchemaSync } from 'type-graphql'
-import { authorizationChecker, cookieParser } from './middleware/auth'
+import {
+  authorizationChecker,
+  cookieParser,
+} from './middleware/auth-middleware'
 
 config.update({
   accessKeyId: process.env.ACCESS_KEY,
@@ -28,6 +31,14 @@ const app = new ApolloServer({
     setCookies: new Array(),
     setHeaders: new Array(),
   }),
+  // formatError: (err) => {
+  //   if (err instanceof CustomError) {
+  //     console.log('err', err)
+  //     console.log('err', { errors: err.serializeErrors() })
+  //     return err
+  //   }
+  //   return err
+  // },
 })
 
 export const handler = app.createHandler({
