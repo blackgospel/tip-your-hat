@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-lambda'
 import httpHeadersPlugin from 'apollo-server-plugin-http-headers'
 import { config } from 'aws-sdk'
+import BadRequestError from 'errors/bad-request'
 import 'reflect-metadata'
 import { AuthResolver } from 'resolvers/auth/auth.controller'
 import { UserResolver } from 'resolvers/users/users.controller'
@@ -31,14 +32,12 @@ const app = new ApolloServer({
     setCookies: new Array(),
     setHeaders: new Array(),
   }),
-  // formatError: (err) => {
-  //   if (err instanceof CustomError) {
-  //     console.log('err', err)
-  //     console.log('err', { errors: err.serializeErrors() })
-  //     return err
-  //   }
-  //   return err
-  // },
+  formatError: (err) => {
+    if (!err.extensions?.formattedErrors) {
+      throw new BadRequestError(err.message)
+    }
+    return err
+  },
 })
 
 export const handler = app.createHandler({

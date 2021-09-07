@@ -1,22 +1,22 @@
 import { isEmpty } from 'class-validator'
 import { USER_ROLES } from 'constants/enums'
-import { ApolloContext } from 'context/apollo.context'
 import BadRequestError from 'errors/bad-request'
 import { USER_ERRORS } from 'errors/error-messages'
 import { formatDBResponse } from 'helpers/db-helpers'
-import { verify } from 'jsonwebtoken'
+import CurrentContextUser from 'middleware/current-context-user-decorator'
+import UserExist from 'middleware/user-exist-decorator'
+import ValidateArgs from 'middleware/validate-input-decorator'
 import { UserDto } from 'resolvers/users/users.dto'
 import {
   createUserService,
   deleteUserPermanentService,
   deleteUserService,
   getAllUsersService,
-  getUserByEmailService,
-  getUserService,
   restoreUserService,
   updateUserService,
 } from 'resolvers/users/users.service'
-import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql'
+import { Arg, Authorized, Mutation, Query, Resolver } from 'type-graphql'
+import User from './users.model'
 import {
   CreateUserInput,
   DeleteUserInput,
@@ -29,21 +29,12 @@ import {
 export class UserResolver {
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Query(() => UserDto, { nullable: true })
-  async getCurrentUser(@Ctx() context: ApolloContext) {
-    const authorization = context.event.headers.authorization
-
-    if (!authorization) {
-      return null
+  async getCurrentUser(@CurrentContextUser() currentUser: User | null) {
+    if (!currentUser) {
+      throw new BadRequestError(USER_ERRORS.USER_CURRENT_USER_CONTEXT)
     }
 
-    try {
-      const payload: any = verify(authorization, process.env.JWT_ACCESS_TOKEN!)
-      const user = await getUserService(payload.id)
-
-      return formatDBResponse(user)
-    } catch (err) {
-      return null
-    }
+    return formatDBResponse(currentUser)
   }
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
@@ -56,64 +47,42 @@ export class UserResolver {
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Query(() => [UserDto])
-  async getUser(@Arg('options') options: GetUserInput) {
-    const { id } = options
-
-    if (!id) {
-      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
-    }
-
-    const users = await getUserService(id)
-
-    return formatDBResponse(users)
+  @ValidateArgs(GetUserInput)
+  async getUser(
+    @Arg('options') _options: GetUserInput,
+    @UserExist({ existingUserError: true }) existingUser: User
+  ) {
+    return formatDBResponse(existingUser)
   }
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => UserDto)
-  async createUser(@Arg('options') options: CreateUserInput) {
+  @ValidateArgs(CreateUserInput)
+  async createUser(
+    @Arg('options') options: CreateUserInput,
+    @UserExist({ existingUserError: false }) existingUser: User
+  ) {
     const { email, password, name, role } = options
-
-    if (
-      !email ||
-      !name ||
-      !password ||
-      (role && !Object.values(USER_ROLES).includes(role))
-    ) {
-      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
-    }
-
-    const existingUser = await getUserByEmailService(email)
 
     if (!isEmpty(existingUser)) {
       throw new BadRequestError(USER_ERRORS.USER_ALREADY_EXISTS)
     }
 
-    const user = await createUserService(
-      email,
-      password,
-      name,
-      role || USER_ROLES.BASIC
-    )
+    const user = await createUserService(email, password, name, role)
 
     return formatDBResponse(user)
   }
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => UserDto)
-  async updateUser(@Arg('options') options: UpdateUserInput) {
+  @ValidateArgs(UpdateUserInput)
+  async updateUser(
+    @Arg('options') options: UpdateUserInput,
+    @UserExist({ existingUserError: true }) _existingUser: User
+  ) {
     const { id, email, name, role } = options
 
-    if (!id || (role && !Object.values(USER_ROLES).includes(role))) {
-      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
-    }
-
-    const existingUser = await getUserService(id)
-
-    if (!existingUser || isEmpty(existingUser)) {
-      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
-    }
-
-    const user = await updateUserService(existingUser.pk, {
+    const user = await updateUserService(id, {
       email,
       name,
       role,
@@ -124,60 +93,42 @@ export class UserResolver {
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
-  async deleteUser(@Arg('options') options: DeleteUserInput) {
+  @ValidateArgs(DeleteUserInput)
+  async deleteUser(
+    @Arg('options') options: DeleteUserInput,
+    @UserExist({ existingUserError: true }) _existingUser: User
+  ) {
     const { id } = options
 
-    if (!id) {
-      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
-    }
-
-    const existingUser = await getUserService(id)
-
-    if (!existingUser || isEmpty(existingUser)) {
-      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
-    }
-
-    await deleteUserService(existingUser.pk)
+    await deleteUserService(id)
 
     return true
   }
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
-  async deleteUserPermanently(@Arg('options') options: DeleteUserInput) {
+  @ValidateArgs(DeleteUserInput)
+  async deleteUserPermanently(
+    @Arg('options') options: DeleteUserInput,
+    @UserExist({ existingUserError: true }) _existingUser: User
+  ) {
     const { id } = options
 
-    if (!id) {
-      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
-    }
-
-    const existingUser = await getUserService(id)
-
-    if (!existingUser || isEmpty(existingUser)) {
-      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
-    }
-
-    await deleteUserPermanentService(existingUser.pk)
+    await deleteUserPermanentService(id)
 
     return true
   }
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
-  async restoreUser(@Arg('options') options: RestoreUserInput) {
+  @ValidateArgs(RestoreUserInput)
+  async restoreUser(
+    @Arg('options') options: RestoreUserInput,
+    @UserExist({ existingUserError: true }) _existingUser: User
+  ) {
     const { id } = options
 
-    if (!id) {
-      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
-    }
-
-    const existingUser = await getUserService(id)
-
-    if (!existingUser || isEmpty(existingUser)) {
-      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
-    }
-
-    await restoreUserService(existingUser.pk)
+    await restoreUserService(id)
 
     return true
   }

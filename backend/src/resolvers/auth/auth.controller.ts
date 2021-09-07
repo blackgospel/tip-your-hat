@@ -1,18 +1,19 @@
 import { USER_ROLES } from 'constants/enums'
 import type { ApolloContext } from 'context/apollo.context'
 import BadRequestError from 'errors/bad-request'
-import { AUTH_ERRORS, USER_ERRORS } from 'errors/error-messages'
+import { USER_ERRORS } from 'errors/error-messages'
 import { formatDBResponse } from 'helpers/db-helpers'
 import { createJWTCookie, destroyJWTCookie, signAccessToken } from 'helpers/jwt'
 import { compare } from 'helpers/password'
 import { verify } from 'jsonwebtoken'
 import isEmpty from 'lodash.isempty'
 import { isAuth } from 'middleware/auth-middleware'
-import CurrentUser from 'middleware/current-user-decorator'
-import { ValidateArgs } from 'middleware/validate-input-decorator'
+import CurrentContextUser from 'middleware/current-context-user-decorator'
+import UserExist from 'middleware/user-exist-decorator'
+import ValidateArgs from 'middleware/validate-input-decorator'
+import User from 'resolvers/users/users.model'
 import {
   createUserService,
-  getUserByEmailService,
   getUserService,
 } from 'resolvers/users/users.service'
 import {
@@ -40,28 +41,26 @@ export class AuthResolver {
     return 'hi'
   }
 
-  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.BASIC])
+  @Authorized()
   @Query(() => String)
   @UseMiddleware(isAuth)
-  bye(@CurrentUser() id: string) {
-    return `your user id is: ${id}`
+  bye(@CurrentContextUser() currentUser: User) {
+    return `your user email is: ${currentUser.email}`
   }
 
   @Mutation(() => Boolean)
-  async register(@Arg('options') options: RegisterUserInput) {
+  @ValidateArgs(RegisterUserInput)
+  async register(
+    @Arg('options') options: RegisterUserInput,
+    @UserExist({ existingUserError: false }) existingUser: User
+  ) {
     const { email, password, name } = options
-
-    if (!email || !password || !name) {
-      throw new BadRequestError(AUTH_ERRORS.AUTH_INCORRECT_FIELDS)
-    }
-
-    const existingUser = await getUserByEmailService(email)
 
     if (!isEmpty(existingUser)) {
       throw new BadRequestError(USER_ERRORS.USER_ALREADY_EXISTS)
     }
 
-    await createUserService(email, password, name!, USER_ROLES.BASIC)
+    await createUserService(email, password, name, USER_ROLES.BASIC)
 
     return true
   }
@@ -70,25 +69,21 @@ export class AuthResolver {
   @ValidateArgs(LoginUserInput)
   async login(
     @Arg('options') options: LoginUserInput,
-    @Ctx() context: ApolloContext
+    @Ctx() context: ApolloContext,
+    @UserExist({ checkDeleted: true, existingUserError: true })
+    existingUser: User
   ) {
-    const { email, password } = options
+    const { password } = options
 
-    const user = await getUserByEmailService(email!)
-
-    if (!user || isEmpty(user)) {
+    if (!(await compare(existingUser.password, password!))) {
       throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
     }
 
-    if (!(await compare(user.password, password!))) {
-      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
-    }
-
-    createJWTCookie(context, user)
+    createJWTCookie(context, existingUser)
 
     return {
-      accessToken: signAccessToken(user),
-      user: formatDBResponse(user),
+      accessToken: signAccessToken(existingUser),
+      user: formatDBResponse(existingUser),
     }
   }
 
@@ -99,7 +94,7 @@ export class AuthResolver {
     return true
   }
 
-  @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN, USER_ROLES.BASIC])
+  @Authorized()
   @Mutation(() => RefreshTokenOutput)
   async refreshToken(@Ctx() context: ApolloContext) {
     const token = context.cookies?.jid
@@ -133,22 +128,15 @@ export class AuthResolver {
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
+  @ValidateArgs(RevokeRefreshTokenInput)
   async revokeUserRefreshToken(
-    @Arg('options') options: RevokeRefreshTokenInput
+    @Arg('options') options: RevokeRefreshTokenInput,
+    @UserExist({ checkDeleted: true, existingUserError: true })
+    existingUser: User
   ) {
     const { id } = options
 
-    if (!id) {
-      throw new BadRequestError(USER_ERRORS.USER_INCORRECT_FIELDS)
-    }
-
-    const user = await getUserService(id)
-
-    if (!user) {
-      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
-    }
-
-    updateTokenVersionService(user.pk, user.tokenVersion! + 1)
+    updateTokenVersionService(id, existingUser.tokenVersion! + 1)
 
     return true
   }

@@ -4,7 +4,7 @@ import { GENERAL_ERRORS } from 'errors/error-messages'
 import InputValidationError from 'errors/input-validate'
 import { ClassType, createMethodDecorator } from 'type-graphql'
 
-export function ValidateArgs<T extends object>(Type: ClassType<T>) {
+function ValidateArgs<T extends object>(Type: ClassType<T>) {
   return createMethodDecorator(async ({ args }, next) => {
     const { options } = args
 
@@ -22,3 +22,5 @@ export function ValidateArgs<T extends object>(Type: ClassType<T>) {
     return next()
   })
 }
+
+export default ValidateArgs

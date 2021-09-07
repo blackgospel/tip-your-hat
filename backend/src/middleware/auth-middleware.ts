@@ -49,12 +49,16 @@ export const authorizationChecker: AuthChecker<ApolloContext> = (
 ) => {
   const authorization = context.event.headers.authorization
 
-  if (!authorization || roles.length === 0) {
+  if (!authorization) {
     throw new BadRequestError(GENERAL_ERRORS.UNAUTHORIZED_ACCESS)
   }
 
   try {
     const payload: any = verify(authorization, process.env.JWT_ACCESS_TOKEN!)
+
+    if (roles.length === 0) {
+      return payload && payload.id
+    }
 
     return roles.includes(payload.role)
   } catch (err) {

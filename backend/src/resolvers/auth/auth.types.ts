@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty } from 'class-validator'
+import { GENERAL_ERRORS } from 'errors/error-messages'
 import { UserDto } from 'resolvers/users/users.dto'
 import { Field, InputType, ObjectType } from 'type-graphql'
 
@@ -14,25 +15,35 @@ export class DefaultAuthInput {
 @InputType()
 export class RegisterUserInput extends DefaultAuthInput {
   @Field()
+  @IsEmail(undefined, { message: GENERAL_ERRORS.VALIDATION_ERROR })
+  email: string
+
+  @Field()
+  @IsNotEmpty({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   password: string
 
   @Field()
+  @IsNotEmpty({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   name: string
 }
 
 @InputType()
 export class LoginUserInput extends DefaultAuthInput {
   @Field()
-  @IsEmail(undefined, { message: 'Invalid email' })
+  @IsEmail(undefined, { message: GENERAL_ERRORS.VALIDATION_ERROR })
   email: string
 
   @Field()
-  @IsNotEmpty({ message: 'Invalid password' })
+  @IsNotEmpty({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   password: string
 }
 
 @InputType()
-export class RevokeRefreshTokenInput extends DefaultAuthInput {}
+export class RevokeRefreshTokenInput extends DefaultAuthInput {
+  @Field()
+  @IsNotEmpty({ message: GENERAL_ERRORS.VALIDATION_ERROR })
+  id: string
+}
 
 @ObjectType()
 export class LoginUserOutput {
