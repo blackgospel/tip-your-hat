@@ -46,3 +46,8 @@ export const ModalTitle = styled.h3`
   ${({ theme }) => theme.fonts.smallTitle};
   margin-bottom: ${({ theme }) => theme.sizes.base}px;
 `
+
+export const ModalText = styled.p`
+  ${({ theme }) => theme.fonts.body3};
+  margin-bottom: ${({ theme }) => theme.sizes.base}px;
+`

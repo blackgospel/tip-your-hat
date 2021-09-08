@@ -26,6 +26,9 @@ const UserManagement: React.FC = () => {
           return (
             <li key={item.id}>
               {item.name} - {item.email}
+              {/* <Button onClick={}>
+                <BiPencil /> Update
+              </Button> */}
             </li>
           )
         })}

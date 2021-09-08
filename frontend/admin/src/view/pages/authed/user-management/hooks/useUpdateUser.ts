@@ -1,7 +1,7 @@
-import { useCreateUserMutation } from 'generated/graphql'
+import { useUpdateUserMutation } from 'generated/graphql'
 import useFormField from 'helpers/hooks/useFormField'
 
-const useCreateUser = (onSuccess = () => {}) => {
+const useUpdateUser = (onSuccess = () => {}) => {
   const { fields, onChange, resetFields } = useFormField({
     email: '',
     password: '',
@@ -9,11 +9,11 @@ const useCreateUser = (onSuccess = () => {}) => {
     role: 0,
   })
 
-  const [createUser, { loading, error }] = useCreateUserMutation({
+  const [updateUser, { loading, error }] = useUpdateUserMutation({
     variables: {
-      createUserOptions: {
+      updateUserOptions: {
+        id: 'dsfsdfs',
         email: fields.email,
-        password: fields.password,
         name: fields.name,
         role: fields.role,
       },
@@ -22,7 +22,7 @@ const useCreateUser = (onSuccess = () => {}) => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault()
-    await createUser()
+    await updateUser()
 
     resetFields()
     onSuccess()
@@ -37,4 +37,4 @@ const useCreateUser = (onSuccess = () => {}) => {
   }
 }
 
-export default useCreateUser
+export default useUpdateUser

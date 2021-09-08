@@ -1,0 +1,7 @@
+mutation UpdateUser($updateUserOptions: UpdateUserInput!) {
+  updateUser(options: $updateUserOptions) {
+    id
+    email
+    name
+  }
+}
