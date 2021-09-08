@@ -1,28 +1,27 @@
 import { BiHome, BiUser } from 'react-icons/bi'
 import Dashboard from 'view/pages/authed/dashboard'
+import UserManagement from 'view/pages/authed/user-management'
 import Home from 'view/pages/unauthed/home'
 import Login from 'view/pages/unauthed/login'
-import Register from 'view/pages/unauthed/register'
-import UserManagement from 'view/pages/authed/user-management'
 
 export const UnAuthorisedRoutes = [
-  {
-    name: 'Home',
-    exact: true,
-    path: '/',
-    Component: Home,
-  },
   {
     name: 'Login',
     exact: true,
     path: '/login',
     Component: Login,
   },
+  // {
+  //   name: 'Register',
+  //   exact: true,
+  //   path: '/register',
+  //   Component: Register,
+  // },
   {
-    name: 'Register',
+    name: 'Home',
     exact: true,
-    path: '/register',
-    Component: Register,
+    path: '/',
+    Component: Home,
   },
 ]
 

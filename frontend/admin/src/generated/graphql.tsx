@@ -14,59 +14,132 @@ export type Scalars = {
   Float: number;
 };
 
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  accessToken: Scalars['String'];
-  user: UserDto;
+export type CreateUserInput = {
+  id?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  password: Scalars['String'];
+  name: Scalars['String'];
+  role: Scalars['Float'];
 };
 
-export type LoginType = {
+export type DeleteUserInput = {
+  id: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+};
+
+export type GetUserInput = {
+  id: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+};
+
+export type LoginUserInput = {
+  id?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  refreshToken: RefreshTokenResponse;
-  revokeUserRefreshToken: Scalars['Boolean'];
-  register: Scalars['Boolean'];
-  login: LoginResponse;
-  logout: Scalars['Boolean'];
+export type LoginUserOutput = {
+  __typename?: 'LoginUserOutput';
+  accessToken: Scalars['String'];
+  user: UserDto;
 };
 
-
-export type MutationRevokeUserRefreshTokenArgs = {
-  email: Scalars['String'];
+export type Mutation = {
+  __typename?: 'Mutation';
+  register: Scalars['Boolean'];
+  login: LoginUserOutput;
+  logout: Scalars['Boolean'];
+  refreshToken: RefreshTokenOutput;
+  revokeUserRefreshToken: Scalars['Boolean'];
+  createUser: UserDto;
+  updateUser: UserDto;
+  deleteUser: Scalars['Boolean'];
+  deleteUserPermanently: Scalars['Boolean'];
+  restoreUser: Scalars['Boolean'];
 };
 
 
 export type MutationRegisterArgs = {
-  options: RegisterType;
+  options: RegisterUserInput;
 };
 
 
 export type MutationLoginArgs = {
-  options: LoginType;
+  options: LoginUserInput;
+};
+
+
+export type MutationRevokeUserRefreshTokenArgs = {
+  options: RevokeRefreshTokenInput;
+};
+
+
+export type MutationCreateUserArgs = {
+  options: CreateUserInput;
+};
+
+
+export type MutationUpdateUserArgs = {
+  options: UpdateUserInput;
+};
+
+
+export type MutationDeleteUserArgs = {
+  options: DeleteUserInput;
+};
+
+
+export type MutationDeleteUserPermanentlyArgs = {
+  options: DeleteUserInput;
+};
+
+
+export type MutationRestoreUserArgs = {
+  options: RestoreUserInput;
 };
 
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
-  getUser?: Maybe<UserDto>;
-  users: Array<UserDto>;
   bye: Scalars['String'];
+  getCurrentUser?: Maybe<UserDto>;
+  getAllUsers: Array<UserDto>;
+  getUser: Array<UserDto>;
 };
 
-export type RefreshTokenResponse = {
-  __typename?: 'RefreshTokenResponse';
+
+export type QueryGetUserArgs = {
+  options: GetUserInput;
+};
+
+export type RefreshTokenOutput = {
+  __typename?: 'RefreshTokenOutput';
   success: Scalars['Boolean'];
   accessToken: Scalars['String'];
 };
 
-export type RegisterType = {
+export type RegisterUserInput = {
+  id?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   password: Scalars['String'];
   name: Scalars['String'];
+};
+
+export type RestoreUserInput = {
+  id: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+};
+
+export type RevokeRefreshTokenInput = {
+  id: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+};
+
+export type UpdateUserInput = {
+  id: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['Float']>;
 };
 
 export type UserDto = {
@@ -87,11 +160,11 @@ export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 export type HelloQuery = { __typename?: 'Query', hello: string };
 
 export type LoginMutationVariables = Exact<{
-  loginOptions: LoginType;
+  loginOptions: LoginUserInput;
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'UserDto', id: string, email: string, name: string } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginUserOutput', accessToken: string, user: { __typename?: 'UserDto', id: string, email: string, name: string } } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -101,24 +174,26 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type RefreshAccessTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RefreshAccessTokenMutation = { __typename?: 'Mutation', refreshToken: { __typename?: 'RefreshTokenResponse', accessToken: string } };
+export type RefreshAccessTokenMutation = { __typename?: 'Mutation', refreshToken: { __typename?: 'RefreshTokenOutput', accessToken: string } };
 
 export type RegisterMutationVariables = Exact<{
-  registerOptions: RegisterType;
+  registerOptions: RegisterUserInput;
 }>;
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: boolean };
 
-export type UserQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetUserQueryVariables = Exact<{
+  getUserOptions: GetUserInput;
+}>;
 
 
-export type UserQuery = { __typename?: 'Query', getUser?: Maybe<{ __typename?: 'UserDto', id: string, email: string, name: string }> };
+export type GetUserQuery = { __typename?: 'Query', getUser: Array<{ __typename?: 'UserDto', id: string, email: string, name: string }> };
 
-export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'UserDto', id: string, email: string, name: string }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'UserDto', id: string, email: string, name: string }> };
 
 
 export const ByeDocument = gql`
@@ -186,7 +261,7 @@ export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
 export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
 export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;
 export const LoginDocument = gql`
-    mutation Login($loginOptions: LoginType!) {
+    mutation Login($loginOptions: LoginUserInput!) {
   login(options: $loginOptions) {
     accessToken
     user {
@@ -286,7 +361,7 @@ export type RefreshAccessTokenMutationHookResult = ReturnType<typeof useRefreshA
 export type RefreshAccessTokenMutationResult = Apollo.MutationResult<RefreshAccessTokenMutation>;
 export type RefreshAccessTokenMutationOptions = Apollo.BaseMutationOptions<RefreshAccessTokenMutation, RefreshAccessTokenMutationVariables>;
 export const RegisterDocument = gql`
-    mutation Register($registerOptions: RegisterType!) {
+    mutation Register($registerOptions: RegisterUserInput!) {
   register(options: $registerOptions)
 }
     `;
@@ -316,9 +391,9 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
-export const UserDocument = gql`
-    query User {
-  getUser {
+export const GetUserDocument = gql`
+    query GetUser($getUserOptions: GetUserInput!) {
+  getUser(options: $getUserOptions) {
     id
     email
     name
@@ -327,34 +402,35 @@ export const UserDocument = gql`
     `;
 
 /**
- * __useUserQuery__
+ * __useGetUserQuery__
  *
- * To run a query within a React component, call `useUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useUserQuery({
+ * const { data, loading, error } = useGetUserQuery({
  *   variables: {
+ *      getUserOptions: // value for 'getUserOptions'
  *   },
  * });
  */
-export function useUserQuery(baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
+export function useGetUserQuery(baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+        return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
       }
-export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
+export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+          return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
         }
-export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
-export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
-export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
-export const UsersDocument = gql`
-    query Users {
-  users {
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export const GetAllUsersDocument = gql`
+    query GetAllUsers {
+  getAllUsers {
     id
     email
     name
@@ -363,28 +439,28 @@ export const UsersDocument = gql`
     `;
 
 /**
- * __useUsersQuery__
+ * __useGetAllUsersQuery__
  *
- * To run a query within a React component, call `useUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `useUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAllUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useUsersQuery({
+ * const { data, loading, error } = useGetAllUsersQuery({
  *   variables: {
  *   },
  * });
  */
-export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
+export function useGetAllUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+        return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
       }
-export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>) {
+export function useGetAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+          return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
         }
-export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
-export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
-export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
+export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
+export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;

@@ -1,12 +1,15 @@
+import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
-import Form from 'view/common/form'
-import { RegisterContainer } from './index.styles'
 import { RouteComponentProps } from 'react-router-dom'
+import Form from 'view/common/form'
 import useRegister from './hooks/useRegister'
+import { RegisterContainer } from './index.styles'
 
 const Register: React.FC<RouteComponentProps> = ({ history }) => {
-  const { handleSubmit, fields, onChange, loading, formattedError } =
-    useRegister(() => history.push('/'))
+  const { handleSubmit, fields, onChange, loading, error } = useRegister(() =>
+    history.push('/login')
+  )
+  const { errors } = useErrors(error)
 
   return (
     <RegisterContainer>
@@ -14,8 +17,8 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
       <Form
         handleSubmit={handleSubmit}
         loading={loading}
-        error={formattedError}
-        // fieldError={fieldError}
+        error={errors.formErrors}
+        fieldError={errors.fieldErrors}
       >
         <Form.Input
           name="name"

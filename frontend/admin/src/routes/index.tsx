@@ -1,16 +1,20 @@
-import React from 'react'
-import { RouteContainer } from './index.styles'
-import useRouter from 'helpers/hooks/useRouter'
-import { AUTH_PATH } from 'constants/auth'
+import useRefreshToken from 'helpers/hooks/useRefreshToken'
+import useCurrentUserStore from 'zustands/stores/current-user'
 import AuthedRoutes from './index.authed'
+import { RouteContainer } from './index.styles'
 import UnauthedRoutes from './index.unauthed'
 
 const Routes: React.FC = () => {
-  const router = useRouter()
+  const { loading } = useRefreshToken()
+  const { currentUser } = useCurrentUserStore()
+
+  if (loading) {
+    return <div>...Loading</div>
+  }
 
   return (
     <RouteContainer>
-      {router.pathname.includes(AUTH_PATH) ? (
+      {currentUser ? (
         <AuthedRoutes />
       ) : (
         <UnauthedRoutes />

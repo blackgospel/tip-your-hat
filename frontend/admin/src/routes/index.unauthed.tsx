@@ -1,5 +1,4 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { UnAuthorisedRoutes } from './index.routes'
 import { UnauthedContainer } from './index.styles'
 
@@ -17,6 +16,7 @@ const UnauthedRoutes = () => {
             />
           )
         })}
+        <Redirect to={UnAuthorisedRoutes[0].path} />
       </Switch>
     </UnauthedContainer>
   )

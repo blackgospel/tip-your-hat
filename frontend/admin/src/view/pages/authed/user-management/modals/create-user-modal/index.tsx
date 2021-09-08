@@ -1,3 +1,4 @@
+import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import Form from 'view/common/form'
 import Modal from 'view/common/modal'
@@ -7,11 +8,20 @@ import useCreateUser from '../../hooks/useCreateUser'
 interface CreateUserModalProps {
   data?: any
   close: any
+  refetch?: any
 }
 
-const CreateUserModal: React.FC<CreateUserModalProps> = ({ close }) => {
-  const { handleSubmit, fields, onChange, loading, formattedError } =
-    useCreateUser(() => close())
+const CreateUserModal: React.FC<CreateUserModalProps> = ({
+  close,
+  refetch,
+}) => {
+  const { handleSubmit, fields, onChange, loading, error } = useCreateUser(
+    () => {
+      refetch()
+      close()
+    }
+  )
+  const { errors } = useErrors(error)
 
   return (
     <Modal close={close}>
@@ -19,7 +29,8 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({ close }) => {
       <Form
         handleSubmit={handleSubmit}
         loading={loading}
-        error={formattedError}
+        error={errors.formErrors}
+        fieldError={errors.fieldErrors}
       >
         <Form.Input
           name="name"
@@ -39,6 +50,15 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({ close }) => {
           type="password"
           onChange={onChange('password')}
           value={fields.password}
+        />
+        <Form.Input
+          name="role"
+          placeholder="Role"
+          type="number"
+          onChange={onChange('role')}
+          value={fields.role}
+          min={0}
+          max={2}
         />
       </Form>
     </Modal>

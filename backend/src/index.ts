@@ -46,7 +46,6 @@ export const handler = app.createHandler({
       origin: [
         'localhost:1234',
         'http://localhost:1234',
-        'd3609ksraw681r.cloudfront.net',
         'http://d3609ksraw681r.cloudfront.net',
         'https://d3609ksraw681r.cloudfront.net',
       ],

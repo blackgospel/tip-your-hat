@@ -1,22 +1,27 @@
 import { useState } from 'react'
 
+interface ModalHookProps {
+  show: boolean
+  data?: any
+}
+
 const useModal = () => {
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<ModalHookProps>({
     show: false,
-    data: [],
+    data: null,
   })
 
-  const handleModal = ({ state, data }: { state?: boolean; data?: any }) => {
-    if (!state) {
-      setModal({ ...modal, show: false, data: [] })
-    } else {
-      setModal({ ...modal, show: true, data })
-    }
+  const handleModal = (show: boolean, data?: any) => {
+    setModal({ ...modal, show, data })
   }
 
-  const showModal = (data?: any) => handleModal({ state: true, data })
+  const showModal = (data?: any) => {
+    handleModal(true, data)
+  }
 
-  const closeModal = () => handleModal({ state: false })
+  const closeModal = () => {
+    handleModal(false)
+  }
 
   return [modal.show, modal.data, showModal, closeModal]
 }

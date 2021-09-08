@@ -15,3 +15,5 @@ export const AuthedNavbar = styled.div`
 `
 
 export const AuthedNavbarItem = styled(Link)``
+
+export const NavbarLogoutItem = styled.span``

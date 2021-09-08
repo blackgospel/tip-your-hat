@@ -1,10 +1,9 @@
-import 'regenerator-runtime/runtime'
-import React from 'react'
-import { render } from 'react-dom'
 import { ApolloProvider } from '@apollo/client'
-import App from './app'
 import client from 'helpers/apollo/apollo.config'
 import GlobalStyle from 'helpers/theme/global'
+import { render } from 'react-dom'
+import 'regenerator-runtime/runtime'
+import App from './app'
 
 if (module.hot) {
   module.hot.accept()

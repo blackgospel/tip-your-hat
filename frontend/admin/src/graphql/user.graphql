@@ -1,5 +1,5 @@
-query User {
-  getUser {
+query GetUser($getUserOptions: GetUserInput!) {
+  getUser(options: $getUserOptions) {
     id
     email
     name

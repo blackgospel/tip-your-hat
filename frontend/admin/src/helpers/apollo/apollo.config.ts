@@ -7,9 +7,9 @@ import {
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { TokenRefreshLink } from 'apollo-link-token-refresh'
-import jwtDecode from 'jwt-decode'
-import dotenv from 'dotenv'
 import { ACCESS_TOKEN_KEY } from 'constants/auth'
+import dotenv from 'dotenv'
+import jwtDecode from 'jwt-decode'
 
 dotenv.config()
 
@@ -23,13 +23,12 @@ const httpMiddleware = new HttpLink({
 const errorMiddleware = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach((error) => {
-      // console.log('error', error)
-      // console.log(
-      //   `[GraphQL error]: Message: ${error.message}, Location: ${error.locations}, Path: ${error.path}`
-      // )
+      // console.log('[GraphQL Error]', error.extensions?.formattedErrors)
     })
 
-  if (networkError) console.log(`[Network error]: ${networkError}`)
+  if (networkError) {
+    // console.log('[Network Error]', networkError)
+  }
 })
 
 const authMiddleware = new ApolloLink((operation, forward) => {

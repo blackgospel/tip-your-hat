@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 type InitialValueType = {
-  [x: string]: string
+  [x: string]: any
 }
 
 const useFormField = (initialValue: InitialValueType) => {

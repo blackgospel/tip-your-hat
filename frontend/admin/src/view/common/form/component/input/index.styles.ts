@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
 export const InputContainer = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: ${({ theme }) => theme.sizes.base}px;
 `
 
 export const FormInput = styled.input`
   border: 2px solid red;
-  ${({ theme }) => theme.fonts.body4};
   padding: ${({ theme }) => theme.sizes.base}px;
+  ${({ theme }) => theme.fonts.body4};
 `

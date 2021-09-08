@@ -1,16 +1,16 @@
-import { useUsersQuery } from 'generated/graphql'
+import { useGetAllUsersQuery } from 'generated/graphql'
 import useModal from 'helpers/hooks/useModal'
 import React from 'react'
 import { BiPlus } from 'react-icons/bi'
 import { Button, Title } from 'view/common/global'
-import CreateUserModal from './modals/create-user-modal'
 import { UserManagementContainer } from './index.styles'
+import CreateUserModal from './modals/create-user-modal'
 
 const UserManagement: React.FC = () => {
   const [show, modalData, showModal, closeModal] = useModal()
-  const { data } = useUsersQuery()
+  const { data, loading, refetch } = useGetAllUsersQuery()
 
-  if (!data) {
+  if (loading || !data) {
     return <UserManagementContainer>...loading</UserManagementContainer>
   }
 
@@ -22,16 +22,21 @@ const UserManagement: React.FC = () => {
         Create User
       </Button>
       <ul>
-        {data.users.map((item) => {
+        {data.getAllUsers.map((item) => {
           return (
             <li key={item.id}>
-              {item.email}
-              {item.name}
+              {item.name} - {item.email}
             </li>
           )
         })}
       </ul>
-      {show && <CreateUserModal data={modalData} close={closeModal} />}
+      {show && (
+        <CreateUserModal
+          data={modalData}
+          close={closeModal}
+          refetch={refetch}
+        />
+      )}
     </UserManagementContainer>
   )
 }

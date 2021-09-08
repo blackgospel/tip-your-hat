@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, InputHTMLAttributes } from 'react'
 
 export type RawErrorType = [{ message: string; field?: string }]
 
@@ -13,13 +13,8 @@ export interface FormProps {
   fieldError?: FieldErrorType
 }
 
-export interface InputProps {
-  name: string
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   handleChange?: () => void
-  placeholder?: string
-  onChange?: any
-  value: any
-  type?: string
   error?: ErrorType
   fieldError?: FieldErrorType
 }
@@ -36,7 +31,7 @@ export interface ErrorProps {
 }
 
 export interface FormSubComponents {
-  Select: FC<InputProps>
+  // Select: FC<InputProps>
   Input: FC<InputProps>
   Error: FC<ErrorProps>
 }

@@ -1,4 +1,4 @@
-mutation Login($loginOptions: LoginType!) {
+mutation Login($loginOptions: LoginUserInput!) {
   login(options: $loginOptions) {
     accessToken
     user {

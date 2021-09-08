@@ -1,16 +1,12 @@
-import React from 'react'
+import useErrors from 'helpers/hooks/useErrors'
 import Form from 'view/common/form'
 import { Container } from 'view/common/global'
-import { LoginContainer } from './index.styles'
-import { RouteComponentProps } from 'react-router-dom'
 import useLogin from './hooks/useLogin'
+import { LoginContainer } from './index.styles'
 
-const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const { handleSubmit, fields, onChange, loading, formattedError } = useLogin(
-    () => {
-      history.push('/')
-    }
-  )
+const Login: React.FC = () => {
+  const { handleSubmit, fields, onChange, loading, error } = useLogin()
+  const { errors } = useErrors(error)
 
   return (
     <LoginContainer>
@@ -19,8 +15,8 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
         <Form
           handleSubmit={handleSubmit}
           loading={loading}
-          error={formattedError}
-          // fieldError={fieldError}
+          error={errors.formErrors}
+          fieldError={errors.fieldErrors}
         >
           <Form.Input
             name="email"
