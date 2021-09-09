@@ -1,3 +1,4 @@
+import Chance from 'chance'
 import { useCreateUserMutation } from 'generated/graphql'
 import useFormField from 'helpers/hooks/useFormField'
 
@@ -15,10 +16,17 @@ const useCreateUser = (onSuccess = () => {}) => {
         email: fields.email,
         password: fields.password,
         name: fields.name,
-        role: fields.role,
+        role: +fields.role,
       },
     },
   })
+
+  const randomUser = (event: any) => {
+    onChange('email')(event, Chance().email())
+    onChange('name')(event, Chance().name())
+    onChange('password')(event, 'test')
+    onChange('role')(event, 2)
+  }
 
   const handleSubmit = async (event: any) => {
     event.preventDefault()
@@ -31,6 +39,7 @@ const useCreateUser = (onSuccess = () => {}) => {
   return {
     handleSubmit,
     onChange,
+    randomUser,
     fields,
     loading,
     error,

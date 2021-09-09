@@ -1,6 +1,7 @@
 import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import Form from 'view/common/form'
+import { Button } from 'view/common/global'
 import Modal from 'view/common/modal'
 import { ModalTitle } from 'view/common/modal/index.styles'
 import useCreateUser from '../../hooks/useCreateUser'
@@ -15,17 +16,18 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
   close,
   refetch,
 }) => {
-  const { handleSubmit, fields, onChange, loading, error } = useCreateUser(
-    () => {
+  const { handleSubmit, onChange, fields, loading, error, randomUser } =
+    useCreateUser(() => {
       refetch()
       close()
-    }
-  )
+    })
+
   const { errors } = useErrors(error)
 
   return (
     <Modal close={close}>
       <ModalTitle>Create User</ModalTitle>
+      <Button onClick={randomUser}>Random User</Button>
       <Form
         handleSubmit={handleSubmit}
         loading={loading}

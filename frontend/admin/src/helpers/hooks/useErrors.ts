@@ -20,6 +20,8 @@ const useErrors = (error?: ApolloError) => {
 
     const { type, formattedError } = formatError(error)
 
+    console.log('formattedError', formattedError)
+
     if (type === 'error') {
       setErrors({
         ...errors,

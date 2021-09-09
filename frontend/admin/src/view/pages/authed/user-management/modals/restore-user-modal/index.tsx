@@ -1,3 +1,4 @@
+import { UserDto } from 'generated/graphql'
 import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import { Button } from 'view/common/global'
@@ -5,13 +6,18 @@ import Modal from 'view/common/modal'
 import { ModalText, ModalTitle } from 'view/common/modal/index.styles'
 import useRestoreUser from '../../hooks/useRestoreUser'
 
-interface RestoreUserProps {
+interface RestoreUserModalProps {
+  data: UserDto
   close: any
   refetch?: any
 }
 
-const RestoreUser: React.FC<RestoreUserProps> = ({ close, refetch }) => {
-  const { handleSubmit, loading, error } = useRestoreUser(() => {
+const RestoreUserModal: React.FC<RestoreUserModalProps> = ({
+  data,
+  close,
+  refetch,
+}) => {
+  const { handleSubmit, loading, error } = useRestoreUser(data, () => {
     refetch()
     close()
   })
@@ -28,4 +34,4 @@ const RestoreUser: React.FC<RestoreUserProps> = ({ close, refetch }) => {
   )
 }
 
-export default RestoreUser
+export default RestoreUserModal

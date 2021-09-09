@@ -39,7 +39,7 @@ export class LoginUserInput extends DefaultAuthInput {
 }
 
 @InputType()
-export class RevokeRefreshTokenInput extends DefaultAuthInput {
+export class RevokeUserTokenInput extends DefaultAuthInput {
   @Field()
   @IsNotEmpty({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   id: string

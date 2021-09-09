@@ -35,8 +35,9 @@ const AuthedRoutes = () => {
               key={index}
               exact={exact}
               path={`/${AUTH_PATH}${path}`}
-              component={Component}
-            />
+            >
+              <Component />
+            </PrivateRoute>
           )
         })}
         <Redirect to={`${AUTH_PATH}${AuthorisedRoutes[0].path}`} />

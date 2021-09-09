@@ -8,5 +8,9 @@ export const removeEmptyValues = (
     return collection.filter(Boolean)
   }
 
-  return Object.fromEntries(Object.entries(collection).filter(([_, v]) => !!v))
+  return Object.fromEntries(
+    Object.entries(collection).filter(
+      ([_, item]) => item !== null || item !== undefined || item !== ''
+    )
+  )
 }

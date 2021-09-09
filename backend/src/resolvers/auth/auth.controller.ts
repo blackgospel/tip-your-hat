@@ -31,7 +31,7 @@ import {
   LoginUserOutput,
   RefreshTokenOutput,
   RegisterUserInput,
-  RevokeRefreshTokenInput,
+  RevokeUserTokenInput,
 } from './auth.types'
 
 @Resolver()
@@ -94,7 +94,6 @@ export class AuthResolver {
     return true
   }
 
-  @Authorized()
   @Mutation(() => RefreshTokenOutput)
   async refreshToken(@Ctx() context: ApolloContext) {
     const token = context.cookies?.jid
@@ -128,9 +127,9 @@ export class AuthResolver {
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
   @Mutation(() => Boolean)
-  @ValidateArgs(RevokeRefreshTokenInput)
-  async revokeUserRefreshToken(
-    @Arg('options') options: RevokeRefreshTokenInput,
+  @ValidateArgs(RevokeUserTokenInput)
+  async revokeUserToken(
+    @Arg('options') options: RevokeUserTokenInput,
     @UserExist({ checkDeleted: true, existingUserError: true })
     existingUser: User
   ) {

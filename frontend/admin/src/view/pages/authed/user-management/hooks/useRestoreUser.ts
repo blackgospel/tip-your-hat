@@ -1,17 +1,17 @@
-import { useRestoreUserMutation } from 'generated/graphql'
+import { UserDto, useRestoreUserMutation } from 'generated/graphql'
 
-const useRestoreUser = (onSuccess = () => {}) => {
-  const [deleteUser, { loading, error }] = useRestoreUserMutation({
+const useRestoreUser = (data: UserDto, onSuccess = () => {}) => {
+  const [restoreUser, { loading, error }] = useRestoreUserMutation({
     variables: {
       restoreUserOptions: {
-        id: 'dsfsdfs',
+        id: data.id,
       },
     },
   })
 
   const handleSubmit = async (event: any) => {
     event.preventDefault()
-    await deleteUser()
+    await restoreUser()
     onSuccess()
   }
 

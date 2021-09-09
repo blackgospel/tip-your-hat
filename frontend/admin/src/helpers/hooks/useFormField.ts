@@ -7,8 +7,8 @@ type InitialValueType = {
 const useFormField = (initialValue: InitialValueType) => {
   const [fields, setFields] = useState(initialValue)
 
-  const onChange = (key: string) => (event: any) => {
-    const value = event.target.value
+  const onChange = (key: string) => (event: any, manualValue?: any) => {
+    const value = manualValue || event.target.value
     setFields((state) => ({ ...state, [key]: value }))
   }
 

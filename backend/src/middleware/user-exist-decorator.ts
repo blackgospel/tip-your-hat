@@ -35,7 +35,7 @@ const UserExist = (options?: UserExistOptions) => {
       existingUser &&
       existingUser.isDeleted
     ) {
-      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
+      throw new BadRequestError(USER_ERRORS.USER_DELETED)
     }
 
     return existingUser

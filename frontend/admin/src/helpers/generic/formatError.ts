@@ -3,6 +3,12 @@ import arrToObj from './arrToObj'
 
 const formatError = (error: ApolloError) => {
   const [initialError] = error.graphQLErrors
+  if (!('extensions' in initialError))
+    return {
+      type: 'error',
+      formattedError: { 0: [{ message: error.graphQLErrors[0].message }] },
+    }
+
   const apiErrors = initialError.extensions?.formattedErrors
 
   const [initial] = apiErrors

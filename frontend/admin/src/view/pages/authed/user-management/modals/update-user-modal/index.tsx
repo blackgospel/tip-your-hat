@@ -5,13 +5,16 @@ import Modal from 'view/common/modal'
 import { ModalTitle } from 'view/common/modal/index.styles'
 import useCreateUser from '../../hooks/useCreateUser'
 
-interface UpdateUserProps {
+interface UpdateUserModalProps {
   data?: any
   close: any
   refetch?: any
 }
 
-const UpdateUser: React.FC<UpdateUserProps> = ({ close, refetch }) => {
+const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
+  close,
+  refetch,
+}) => {
   const { handleSubmit, fields, onChange, loading, error } = useCreateUser(
     () => {
       refetch()
@@ -62,4 +65,4 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ close, refetch }) => {
   )
 }
 
-export default UpdateUser
+export default UpdateUserModal

@@ -3,5 +3,6 @@ query GetAllUsers {
     id
     email
     name
+    isDeleted
   }
 }

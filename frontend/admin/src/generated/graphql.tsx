@@ -50,7 +50,7 @@ export type Mutation = {
   login: LoginUserOutput;
   logout: Scalars['Boolean'];
   refreshToken: RefreshTokenOutput;
-  revokeUserRefreshToken: Scalars['Boolean'];
+  revokeUserToken: Scalars['Boolean'];
   createUser: UserDto;
   updateUser: UserDto;
   deleteUser: Scalars['Boolean'];
@@ -69,8 +69,8 @@ export type MutationLoginArgs = {
 };
 
 
-export type MutationRevokeUserRefreshTokenArgs = {
-  options: RevokeRefreshTokenInput;
+export type MutationRevokeUserTokenArgs = {
+  options: RevokeUserTokenInput;
 };
 
 
@@ -130,7 +130,7 @@ export type RestoreUserInput = {
   email?: Maybe<Scalars['String']>;
 };
 
-export type RevokeRefreshTokenInput = {
+export type RevokeUserTokenInput = {
   id: Scalars['String'];
   email?: Maybe<Scalars['String']>;
 };
@@ -147,6 +147,7 @@ export type UserDto = {
   id: Scalars['String'];
   email: Scalars['String'];
   name: Scalars['String'];
+  isDeleted: Scalars['Boolean'];
 };
 
 export type ByeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -204,6 +205,13 @@ export type RestoreUserMutationVariables = Exact<{
 
 export type RestoreUserMutation = { __typename?: 'Mutation', restoreUser: boolean };
 
+export type RevokeUserTokenMutationVariables = Exact<{
+  revokeUserTokenOptions: RevokeUserTokenInput;
+}>;
+
+
+export type RevokeUserTokenMutation = { __typename?: 'Mutation', revokeUserToken: boolean };
+
 export type UpdateUserMutationVariables = Exact<{
   updateUserOptions: UpdateUserInput;
 }>;
@@ -216,12 +224,12 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', getUser: Array<{ __typename?: 'UserDto', id: string, email: string, name: string }> };
+export type GetUserQuery = { __typename?: 'Query', getUser: Array<{ __typename?: 'UserDto', id: string, email: string, name: string, isDeleted: boolean }> };
 
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'UserDto', id: string, email: string, name: string }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'UserDto', id: string, email: string, name: string, isDeleted: boolean }> };
 
 
 export const ByeDocument = gql`
@@ -516,6 +524,37 @@ export function useRestoreUserMutation(baseOptions?: Apollo.MutationHookOptions<
 export type RestoreUserMutationHookResult = ReturnType<typeof useRestoreUserMutation>;
 export type RestoreUserMutationResult = Apollo.MutationResult<RestoreUserMutation>;
 export type RestoreUserMutationOptions = Apollo.BaseMutationOptions<RestoreUserMutation, RestoreUserMutationVariables>;
+export const RevokeUserTokenDocument = gql`
+    mutation RevokeUserToken($revokeUserTokenOptions: RevokeUserTokenInput!) {
+  revokeUserToken(options: $revokeUserTokenOptions)
+}
+    `;
+export type RevokeUserTokenMutationFn = Apollo.MutationFunction<RevokeUserTokenMutation, RevokeUserTokenMutationVariables>;
+
+/**
+ * __useRevokeUserTokenMutation__
+ *
+ * To run a mutation, you first call `useRevokeUserTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRevokeUserTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [revokeUserTokenMutation, { data, loading, error }] = useRevokeUserTokenMutation({
+ *   variables: {
+ *      revokeUserTokenOptions: // value for 'revokeUserTokenOptions'
+ *   },
+ * });
+ */
+export function useRevokeUserTokenMutation(baseOptions?: Apollo.MutationHookOptions<RevokeUserTokenMutation, RevokeUserTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RevokeUserTokenMutation, RevokeUserTokenMutationVariables>(RevokeUserTokenDocument, options);
+      }
+export type RevokeUserTokenMutationHookResult = ReturnType<typeof useRevokeUserTokenMutation>;
+export type RevokeUserTokenMutationResult = Apollo.MutationResult<RevokeUserTokenMutation>;
+export type RevokeUserTokenMutationOptions = Apollo.BaseMutationOptions<RevokeUserTokenMutation, RevokeUserTokenMutationVariables>;
 export const UpdateUserDocument = gql`
     mutation UpdateUser($updateUserOptions: UpdateUserInput!) {
   updateUser(options: $updateUserOptions) {
@@ -557,6 +596,7 @@ export const GetUserDocument = gql`
     id
     email
     name
+    isDeleted
   }
 }
     `;
@@ -594,6 +634,7 @@ export const GetAllUsersDocument = gql`
     id
     email
     name
+    isDeleted
   }
 }
     `;

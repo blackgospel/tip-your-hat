@@ -5,7 +5,7 @@ import useCurrentUserStore from 'zustands/stores/current-user'
 const useLogin = (onSuccess = () => {}) => {
   const { setCurrentUser } = useCurrentUserStore()
   const { fields, onChange } = useFormField({
-    email: 'foo@bar.com',
+    email: 'seun@ade.com',
     password: 'test',
   })
 

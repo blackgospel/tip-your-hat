@@ -53,11 +53,8 @@ const refreshTokenMiddleware = new TokenRefreshLink({
 
     try {
       const { exp } = jwtDecode(token) as any
-      if (Date.now() >= exp * 1000) {
-        return false
-      } else {
-        return true
-      }
+
+      return !(Date.now() >= exp * 1000)
     } catch {
       return false
     }
@@ -84,9 +81,11 @@ const refreshTokenMiddleware = new TokenRefreshLink({
     })
   },
   handleResponse: (_operation, _accessTokenField) => (response: any) => {
-    return response.json().then((json: any) => ({
-      accessToken: json.data.refreshToken.accessToken,
-    }))
+    return response.json().then((json: any) => {
+      return {
+        accessToken: json.data.refreshToken.accessToken,
+      }
+    })
   },
   handleFetch: (accessToken) => {
     localStorage.setItem(ACCESS_TOKEN_KEY, accessToken)
