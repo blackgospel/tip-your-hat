@@ -1,9 +1,9 @@
 import { ACCESS_TOKEN_KEY } from 'constants/auth'
-import { useLoginMutation } from 'generated/graphql'
+import { useLogoutMutation } from 'generated/graphql'
 import useCurrentUserStore from 'zustands/stores/current-user'
 
 const useLogout = () => {
-  const [logout, { client }] = useLoginMutation()
+  const [logout, { client }] = useLogoutMutation()
   const { removeCurrentUser } = useCurrentUserStore()
 
   const handlelogout = () => {

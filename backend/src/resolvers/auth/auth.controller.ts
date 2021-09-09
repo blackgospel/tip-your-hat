@@ -1,7 +1,7 @@
 import { USER_ROLES } from 'constants/enums'
 import type { ApolloContext } from 'context/apollo.context'
 import BadRequestError from 'errors/bad-request'
-import { USER_ERRORS } from 'errors/error-messages'
+import { GENERAL_ERRORS, USER_ERRORS } from 'errors/error-messages'
 import { formatDBResponse } from 'helpers/db-helpers'
 import { createJWTCookie, destroyJWTCookie, signAccessToken } from 'helpers/jwt'
 import { compare } from 'helpers/password'
@@ -74,6 +74,32 @@ export class AuthResolver {
     existingUser: User
   ) {
     const { password } = options
+
+    if (!(await compare(existingUser.password, password!))) {
+      throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)
+    }
+
+    createJWTCookie(context, existingUser)
+
+    return {
+      accessToken: signAccessToken(existingUser),
+      user: formatDBResponse(existingUser),
+    }
+  }
+
+  @Mutation(() => LoginUserOutput)
+  @ValidateArgs(LoginUserInput)
+  async loginAdmin(
+    @Arg('options') options: LoginUserInput,
+    @Ctx() context: ApolloContext,
+    @UserExist({ checkDeleted: true, existingUserError: true })
+    existingUser: User
+  ) {
+    const { password } = options
+
+    if (existingUser.role === USER_ROLES.BASIC) {
+      throw new BadRequestError(GENERAL_ERRORS.UNAUTHORIZED_ACCESS)
+    }
 
     if (!(await compare(existingUser.password, password!))) {
       throw new BadRequestError(USER_ERRORS.USER_DOES_NOT_EXIST)

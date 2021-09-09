@@ -1,18 +1,17 @@
-import { useUpdateUserMutation } from 'generated/graphql'
+import { UserDto, useUpdateUserMutation } from 'generated/graphql'
 import useFormField from 'helpers/hooks/useFormField'
 
-const useUpdateUser = (onSuccess = () => {}) => {
+const useUpdateUser = (data: UserDto, onSuccess = () => {}) => {
   const { fields, onChange, resetFields } = useFormField({
-    email: '',
-    password: '',
-    name: '',
+    email: data.email,
+    name: data.name,
     role: 0,
   })
 
   const [updateUser, { loading, error }] = useUpdateUserMutation({
     variables: {
       updateUserOptions: {
-        id: 'dsfsdfs',
+        id: data.id,
         email: fields.email,
         name: fields.name,
         role: fields.role,

@@ -1,17 +1,17 @@
-import { useLoginMutation } from 'generated/graphql'
+import { useLoginAdminMutation } from 'generated/graphql'
 import useFormField from 'helpers/hooks/useFormField'
 import useCurrentUserStore from 'zustands/stores/current-user'
 
 const useLogin = (onSuccess = () => {}) => {
   const { setCurrentUser } = useCurrentUserStore()
   const { fields, onChange } = useFormField({
-    email: 'seun@ade.com',
-    password: 'test',
+    email: '',
+    password: '',
   })
 
-  const [login, { loading, error }] = useLoginMutation({
+  const [login, { loading, error }] = useLoginAdminMutation({
     variables: {
-      loginOptions: {
+      loginAdminOptions: {
         email: fields.email,
         password: fields.password,
       },
@@ -23,7 +23,7 @@ const useLogin = (onSuccess = () => {}) => {
     const response = await login()
 
     if (response && response.data) {
-      setCurrentUser(response.data.login.accessToken)
+      setCurrentUser(response.data.loginAdmin.accessToken)
     }
 
     onSuccess()

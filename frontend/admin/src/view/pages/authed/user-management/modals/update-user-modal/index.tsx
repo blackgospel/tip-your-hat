@@ -1,21 +1,24 @@
+import { UserDto } from 'generated/graphql'
 import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import Form from 'view/common/form'
 import Modal from 'view/common/modal'
 import { ModalTitle } from 'view/common/modal/index.styles'
-import useCreateUser from '../../hooks/useCreateUser'
+import useUpdateUser from '../../hooks/useUpdateUser'
 
 interface UpdateUserModalProps {
-  data?: any
+  data: UserDto
   close: any
   refetch?: any
 }
 
 const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
+  data,
   close,
   refetch,
 }) => {
-  const { handleSubmit, fields, onChange, loading, error } = useCreateUser(
+  const { handleSubmit, fields, onChange, loading, error } = useUpdateUser(
+    data,
     () => {
       refetch()
       close()
@@ -43,13 +46,6 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
           placeholder="Email"
           onChange={onChange('email')}
           value={fields.email}
-        />
-        <Form.Input
-          name="password"
-          placeholder="Password"
-          type="password"
-          onChange={onChange('password')}
-          value={fields.password}
         />
         <Form.Input
           name="role"

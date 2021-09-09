@@ -44,10 +44,10 @@ export const handler = app.createHandler({
   expressGetMiddlewareOptions: {
     cors: {
       origin: [
-        'localhost:1234',
         'http://localhost:1234',
         'http://d3609ksraw681r.cloudfront.net',
         'https://d3609ksraw681r.cloudfront.net',
+        'https://studio.apollographql.com',
       ],
       credentials: true,
     },

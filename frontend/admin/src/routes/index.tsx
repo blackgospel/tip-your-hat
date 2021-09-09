@@ -9,16 +9,12 @@ const Routes: React.FC = () => {
   const { currentUser } = useCurrentUserStore()
 
   if (loading) {
-    return <div>...Loading</div>
+    return <div>...Initial Loading</div>
   }
 
   return (
     <RouteContainer>
-      {currentUser ? (
-        <AuthedRoutes />
-      ) : (
-        <UnauthedRoutes />
-      )}
+      {currentUser ? <AuthedRoutes /> : <UnauthedRoutes />}
     </RouteContainer>
   )
 }

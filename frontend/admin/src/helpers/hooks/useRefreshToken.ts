@@ -12,8 +12,8 @@ const useRefreshToken = () => {
       .then((res) => {
         if (res.data?.refreshToken.accessToken) {
           setCurrentUser(res.data.refreshToken.accessToken)
-          setLoading(false)
         }
+        setLoading(false)
       })
       .catch(() => {
         setLoading(false)
