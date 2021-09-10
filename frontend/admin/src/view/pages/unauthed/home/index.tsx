@@ -1,8 +1,8 @@
 import React from 'react'
-import { HomeContainer } from './index.styles'
+import { PageContainer } from 'view/common/global/page-container'
 
 const Home: React.FC = () => {
-  return <HomeContainer>Tip Your Hat Homepage</HomeContainer>
+  return <PageContainer>Tip Your Hat Homepage</PageContainer>
 }
 
 export default Home

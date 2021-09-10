@@ -2,8 +2,8 @@ import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import Form from 'view/common/form'
+import { PageContainer } from 'view/common/global/page-container'
 import useRegister from './hooks/useRegister'
-import { RegisterContainer } from './index.styles'
 
 const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const { handleSubmit, fields, onChange, loading, error } = useRegister(() =>
@@ -12,7 +12,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const { errors } = useErrors(error)
 
   return (
-    <RegisterContainer>
+    <PageContainer>
       Register
       <Form
         handleSubmit={handleSubmit}
@@ -40,7 +40,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
           value={fields.password}
         />
       </Form>
-    </RegisterContainer>
+    </PageContainer>
   )
 }
 

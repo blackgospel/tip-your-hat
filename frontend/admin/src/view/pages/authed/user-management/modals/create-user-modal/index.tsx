@@ -1,7 +1,7 @@
 import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import Form from 'view/common/form'
-import { Button } from 'view/common/global'
+import { Button } from 'view/common/global/button'
 import Modal from 'view/common/modal'
 import { ModalTitle } from 'view/common/modal/index.styles'
 import useCreateUser from '../../hooks/useCreateUser'

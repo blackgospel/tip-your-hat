@@ -1,21 +1,4 @@
-import styled, { css } from 'styled-components'
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  ${({ spaceBetween }: { spaceBetween?: boolean }) =>
-    spaceBetween &&
-    css`
-      flex-direction: row;
-      justify-content: space-between;
-    `}
-`
-
-export const Title = styled.h3`
-  ${({ theme }) => theme.fonts.smallTitle};
-  margin-bottom: ${({ theme }) => theme.sizes.base}px;
-`
+import styled from 'styled-components'
 
 export const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};

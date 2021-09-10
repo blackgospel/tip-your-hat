@@ -1,7 +1,7 @@
 import { UserDto } from 'generated/graphql'
 import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
-import { Button } from 'view/common/global'
+import { Button } from 'view/common/global/button'
 import Modal from 'view/common/modal'
 import { ModalText, ModalTitle } from 'view/common/modal/index.styles'
 import useRestoreUser from '../../hooks/useRestoreUser'

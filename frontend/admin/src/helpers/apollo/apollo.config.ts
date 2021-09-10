@@ -22,7 +22,7 @@ const httpMiddleware = new HttpLink({
 
 const errorMiddleware = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
-    graphQLErrors.forEach((error) => {
+    graphQLErrors.forEach((_error) => {
       // console.log('[GraphQL Error]', error.extensions?.formattedErrors)
     })
 
