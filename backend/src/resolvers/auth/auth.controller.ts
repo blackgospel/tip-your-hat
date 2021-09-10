@@ -125,6 +125,7 @@ export class AuthResolver {
     const token = context.cookies?.jid
 
     if (!token) {
+      console.error('no refresh token sent')
       return { success: false, accessToken: '' }
     }
 
@@ -133,16 +134,19 @@ export class AuthResolver {
     try {
       payload = verify(token, process.env.JWT_REFRESH_TOKEN!)
     } catch (err) {
+      console.error('no could not verify user from refresh token')
       return { success: false, accessToken: '' }
     }
 
     const user = await getUserService(payload.id)
 
     if (!user) {
+      console.error('no could not find user from refresh token id')
       return { success: false, accessToken: '' }
     }
 
     if (user.tokenVersion !== payload.tokenVersion) {
+      console.error('user token was different in refresh token')
       return { success: false, accessToken: '' }
     }
 
