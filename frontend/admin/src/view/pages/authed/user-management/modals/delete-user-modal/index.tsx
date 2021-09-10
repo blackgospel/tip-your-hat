@@ -1,5 +1,4 @@
 import { UserDto } from 'generated/graphql'
-import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import { Button } from 'view/common/global/button'
 import Modal from 'view/common/modal'
@@ -17,11 +16,10 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({
   close,
   refetch,
 }) => {
-  const { handleSubmit, loading, error } = useDeleteUser(data, () => {
+  const { handleSubmit, loading } = useDeleteUser(data, () => {
     refetch()
     close()
   })
-  const { errors } = useErrors(error)
 
   return (
     <Modal close={close}>

@@ -1,7 +1,7 @@
 import { UserDto, useUpdateUserMutation } from 'generated/graphql'
 import useFormField from 'helpers/hooks/useFormField'
 
-const useUpdateUser = (data: UserDto, onSuccess = () => {}) => {
+const useUpdateUser = (data: UserDto, onSuccess?: () => void) => {
   const { fields, onChange, resetFields } = useFormField({
     email: data.email,
     name: data.name,
@@ -24,7 +24,10 @@ const useUpdateUser = (data: UserDto, onSuccess = () => {}) => {
     await updateUser()
 
     resetFields()
-    onSuccess()
+
+    if (onSuccess) {
+      onSuccess()
+    }
   }
 
   return {

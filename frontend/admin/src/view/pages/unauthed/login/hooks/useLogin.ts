@@ -2,7 +2,7 @@ import { useLoginAdminMutation } from 'generated/graphql'
 import useFormField from 'helpers/hooks/useFormField'
 import useCurrentUserStore from 'zustands/stores/current-user'
 
-const useLogin = (onSuccess = () => {}) => {
+const useLogin = (onSuccess?: () => void) => {
   const { setCurrentUser } = useCurrentUserStore()
   const { fields, onChange } = useFormField({
     email: '',
@@ -18,7 +18,7 @@ const useLogin = (onSuccess = () => {}) => {
     },
   })
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     const response = await login()
 
@@ -26,7 +26,9 @@ const useLogin = (onSuccess = () => {}) => {
       setCurrentUser(response.data.loginAdmin.accessToken)
     }
 
-    onSuccess()
+    if (onSuccess) {
+      onSuccess()
+    }
   }
 
   return {

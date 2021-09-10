@@ -28,6 +28,17 @@ const serverlessConfiguration: AWS = {
       stages: ['dev'],
       start: {
         migrate: true,
+        seed: true,
+      },
+      seed: {
+        domain: {
+          sources: [
+            {
+              table: 'testTable',
+              sources: ['./table-seed.json'],
+            },
+          ],
+        },
       },
     },
   },

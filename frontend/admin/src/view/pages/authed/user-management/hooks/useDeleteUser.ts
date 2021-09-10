@@ -1,6 +1,6 @@
 import { useDeleteUserMutation, UserDto } from 'generated/graphql'
 
-const useDeleteUser = (data: UserDto, onSuccess = () => {}) => {
+const useDeleteUser = (data: UserDto, onSuccess?: () => void) => {
   const [deleteUser, { loading, error }] = useDeleteUserMutation({
     variables: {
       deleteUserOptions: {
@@ -12,7 +12,10 @@ const useDeleteUser = (data: UserDto, onSuccess = () => {}) => {
   const handleSubmit = async (event: any) => {
     event.preventDefault()
     await deleteUser()
-    onSuccess()
+
+    if (onSuccess) {
+      onSuccess()
+    }
   }
 
   return {

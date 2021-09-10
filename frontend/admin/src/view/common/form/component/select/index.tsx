@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { SelectProps } from '../../index.types'
+import Error from '../error'
 import {
   FormInput,
   InputContainer,
@@ -8,22 +9,21 @@ import {
   SelectList,
   SelectListItem,
 } from './index.styles'
-import Error from '../error'
 
 const Select: React.FC<SelectProps> = ({
   name,
   title,
-  handleChange,
+  // handleChange,
   fieldError,
   options,
-  ...inputProps
+  // ...inputProps
 }) => {
-  const [isListOpen, setIsListOpen] = useState(false)
-  const [headerTitle, setHeaderTitle] = useState(title)
+  const [isListOpen, _setIsListOpen] = useState(false)
+  const [headerTitle, _setHeaderTitle] = useState(title)
 
-  const toggleList = () => {
-    setIsListOpen((state) => !state)
-  }
+  // const toggleList = () => {
+  //   setIsListOpen((state) => !state)
+  // }
 
   return (
     <InputContainer>

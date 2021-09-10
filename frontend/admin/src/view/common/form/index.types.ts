@@ -14,6 +14,7 @@ export interface FormProps {
 }
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  name: string
   handleChange?: () => void
   error?: ErrorType
   fieldError?: FieldErrorType

@@ -1,7 +1,7 @@
 import React from 'react'
 import { InputProps } from '../../index.types'
-import { FormInput, InputContainer } from './index.styles'
 import Error from '../error'
+import { FormInput, InputContainer } from './index.styles'
 
 const Input: React.FC<InputProps> = ({
   name,
@@ -12,7 +12,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <InputContainer>
       <FormInput name={name} onChange={handleChange} {...inputProps} />
-      {fieldError && fieldError[name!] && (
+      {fieldError && fieldError[name] && (
         <Error fieldError={fieldError} name={name} />
       )}
     </InputContainer>

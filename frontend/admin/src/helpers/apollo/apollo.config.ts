@@ -8,10 +8,7 @@ import {
 import { onError } from '@apollo/client/link/error'
 import { TokenRefreshLink } from 'apollo-link-token-refresh'
 import { ACCESS_TOKEN_KEY } from 'constants/auth'
-import dotenv from 'dotenv'
 import jwtDecode from 'jwt-decode'
-
-dotenv.config()
 
 const API_URL = process.env.API_URL
 
@@ -20,15 +17,8 @@ const httpMiddleware = new HttpLink({
   credentials: 'include',
 })
 
-const errorMiddleware = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.forEach((_error) => {
-      // console.log('[GraphQL Error]', error.extensions?.formattedErrors)
-    })
-
-  if (networkError) {
-    // console.log('[Network Error]', networkError)
-  }
+const errorMiddleware = onError((error) => {
+  console.error('error', error)
 })
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -67,7 +57,12 @@ const refreshTokenMiddleware = new TokenRefreshLink({
         }
       }
     `
-    return fetch(API_URL!, {
+
+    if (!API_URL) {
+      throw new Error('API URL not defined')
+    }
+
+    return fetch(API_URL, {
       method: 'POST',
       credentials: 'include',
       mode: 'cors',
@@ -80,7 +75,7 @@ const refreshTokenMiddleware = new TokenRefreshLink({
       }),
     })
   },
-  handleResponse: (_operation, _accessTokenField) => (response: any) => {
+  handleResponse: () => (response: any) => {
     return response.json().then((json: any) => {
       return {
         accessToken: json.data.refreshToken.accessToken,

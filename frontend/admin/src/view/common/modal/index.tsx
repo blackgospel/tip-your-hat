@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { BiX } from 'react-icons/bi'
-import { CloseButton, Backdrop, Container } from './index.styles'
+import { Backdrop, CloseButton, Container } from './index.styles'
 
 interface ModalProps {
   close: () => void
@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ close, children }) => {
         {children}
       </Container>
     </Backdrop>,
-    document.getElementById('root-modal')!
+    document.getElementById('root-modal') as HTMLElement
   )
 }
 

@@ -1,0 +1,15 @@
+[
+  {
+    "pk": "USER#-ZaEaTv7t",
+    "sk": "USER#-ZaEaTv7t",
+    "entity": "USER",
+    "password": "6aa5f10cbfa4be64d457e7be2dff1ba86fb85513ee325da978e10f091d88c0ce928417ffc860dd886d52dfea7aff4ccf0c61b4ac8758dc896c6dc82571ddb9c0.71f6acb67fbaea18",
+    "role": 2,
+    "updatedAt": 1631213723647,
+    "createdAt": 1631213723647,
+    "isDeleted": false,
+    "tokenVersion": 0,
+    "email": "seun@ade.com",
+    "name": "Seun Adesina"
+  }
+]

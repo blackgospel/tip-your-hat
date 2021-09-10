@@ -1,6 +1,6 @@
 import { UserDto, useRevokeUserTokenMutation } from 'generated/graphql'
 
-const useRevokeUserToken = (data: UserDto, onSuccess = () => {}) => {
+const useRevokeUserToken = (data: UserDto, onSuccess?: () => void) => {
   const [revokeUserToken, { loading, error }] = useRevokeUserTokenMutation({
     variables: {
       revokeUserTokenOptions: {
@@ -12,7 +12,10 @@ const useRevokeUserToken = (data: UserDto, onSuccess = () => {}) => {
   const handleSubmit = async (event: any) => {
     event.preventDefault()
     await revokeUserToken()
-    onSuccess()
+
+    if (onSuccess) {
+      onSuccess()
+    }
   }
 
   return {

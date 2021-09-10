@@ -1,5 +1,5 @@
+import { ApolloQueryResult, OperationVariables } from '@apollo/client'
 import { UserDto } from 'generated/graphql'
-import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import { Button } from 'view/common/global/button'
 import Modal from 'view/common/modal'
@@ -8,8 +8,10 @@ import useRevokeUserToken from '../../hooks/useRevokeUserToken'
 
 interface RevokeUserTokenModalProps {
   data: UserDto
-  close: any
-  refetch?: any
+  close: () => void
+  refetch: (
+    variables?: Partial<OperationVariables>
+  ) => Promise<ApolloQueryResult<unknown>>
 }
 
 const RevokeUserTokenModal: React.FC<RevokeUserTokenModalProps> = ({
@@ -17,17 +19,16 @@ const RevokeUserTokenModal: React.FC<RevokeUserTokenModalProps> = ({
   close,
   refetch,
 }) => {
-  const { handleSubmit, loading, error } = useRevokeUserToken(data, () => {
+  const { handleSubmit, loading } = useRevokeUserToken(data, () => {
     refetch()
     close()
   })
-  const { errors } = useErrors(error)
 
   return (
     <Modal close={close}>
       <ModalTitle>Revoke User</ModalTitle>
       <ModalText>
-        Are you sure that you want to revoke this user's token: {data.name}.
+        Are you sure that you want to revoke this users token: {data.name}.
       </ModalText>
       <Button onClick={handleSubmit}>{!loading ? 'Revoke' : 'Revoking'}</Button>
     </Modal>

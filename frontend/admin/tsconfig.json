@@ -10,6 +10,8 @@
       "generated/*": ["./generated/*"],
       "graphql/*": ["./graphql/*"],
       "routes/*": ["./routes/*"],
+      "common/*": ["./view/common/*"],
+      "pages/*": ["./view/pages/*"],
       "view/*": ["./view/*"],
       "zustands/*": ["./zustands/*"],
       "src/*": ["./*"]
@@ -17,7 +19,7 @@
     "target": "es2019",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": ["dom", "es6", "es2019", "esnext.asynciterable"],
+    "lib": ["dom", "dom.iterable", "esnext", "esnext.asynciterable"],
     "sourceMap": true,
     "removeComments": true,
     "noImplicitAny": true,
@@ -30,7 +32,12 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.tsx", "./src/**/*.ts"]

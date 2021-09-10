@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 interface ModalHookProps {
   show: boolean
-  data?: any
+  data?: any | null
 }
 
 const useModal = () => {
@@ -12,7 +12,8 @@ const useModal = () => {
   })
 
   const handleModal = (show: boolean, data?: any) => {
-    setModal({ ...modal, show, data })
+    const formattedData = data ? data : null
+    setModal({ ...modal, show, data: formattedData })
   }
 
   const showModal = (data?: any) => {

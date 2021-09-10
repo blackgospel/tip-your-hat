@@ -2,7 +2,7 @@ import Chance from 'chance'
 import { useCreateUserMutation } from 'generated/graphql'
 import useFormField from 'helpers/hooks/useFormField'
 
-const useCreateUser = (onSuccess = () => {}) => {
+const useCreateUser = (onSuccess?: () => void) => {
   const { fields, onChange, resetFields } = useFormField({
     email: '',
     password: '',
@@ -33,7 +33,10 @@ const useCreateUser = (onSuccess = () => {}) => {
     await createUser()
 
     resetFields()
-    onSuccess()
+
+    if (onSuccess) {
+      onSuccess()
+    }
   }
 
   return {

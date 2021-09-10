@@ -1,6 +1,6 @@
 import { ApolloError } from '@apollo/client'
 import formatError from 'helpers/generic/formatError'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const useErrors = (error?: ApolloError) => {
   const [errors, setErrors] = useState({
@@ -15,12 +15,10 @@ const useErrors = (error?: ApolloError) => {
     })
   }
 
-  const setAPIErrors = () => {
+  const setAPIErrors = useCallback(() => {
     if (!error) return
 
     const { type, formattedError } = formatError(error)
-
-    console.log('formattedError', formattedError)
 
     if (type === 'error') {
       setErrors({
@@ -33,7 +31,7 @@ const useErrors = (error?: ApolloError) => {
         fieldErrors: formattedError,
       })
     }
-  }
+  }, [error, errors])
 
   useEffect(() => {
     if (error) {
