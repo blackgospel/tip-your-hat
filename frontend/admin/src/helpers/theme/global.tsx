@@ -20,9 +20,11 @@ const GlobalStyle = createGlobalStyle`
     -webkit-overflow-scrolling: touch;
     min-height: 100vh;
     min-height: -webkit-fill-available;
+    color: #8493a5;
+    background-color: #f9fafc;
   }
   
-  #app {
+  #root {
     min-height: 100vh;
   }
 

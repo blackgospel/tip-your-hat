@@ -18,8 +18,7 @@ const useLogin = (onSuccess?: () => void) => {
     },
   })
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
+  const handleSubmit = async () => {
     const response = await login()
 
     if (response && response.data) {

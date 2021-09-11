@@ -1,16 +1,33 @@
-const colors = {
+export const colors = {
   primary: '#F96D41',
   secondary: '#25282F',
   black: '#1E1B26',
   white: '#FFFFFF',
   gray: '#2D3038',
+  danger: '#ed1c24',
+  text: {
+    primary: '#1f2d3d',
+    hover: '#626c77',
+    disabled: '#626c77',
+    muted: '#8493a5',
+  },
+  border: {
+    primary: '#dee2e6',
+    secondary: '#80bdff',
+  },
+  button: {
+    primary: '#F96D41',
+    hover: '#fba68b',
+    disabled: '#fba68b',
+    text: '#212529',
+  },
 }
 
-const sizes = {
+export const sizes = {
+  small: 4,
   base: 8,
-  font: 14,
   radius: 12,
-  radius2: 24,
+  normal: 16,
   padding: 24,
   padding2: 36,
   margin: {
@@ -23,7 +40,7 @@ const sizes = {
   },
 }
 
-const fontSizes = {
+export const fontSizes = {
   largeTitle: 50,
   h1: 30,
   h2: 22,
@@ -37,7 +54,7 @@ const fontSizes = {
   body5: 12,
 }
 
-const fontWeights = {
+export const fontWeights = {
   thin: '100',
   light: '200',
   regular1: '300',
@@ -48,7 +65,7 @@ const fontWeights = {
   black: '800',
 }
 
-const fonts = {
+export const fonts = {
   largeTitle: {
     'font-size': fontSizes.largeTitle,
     'font-weight': fontWeights.regular2,
@@ -111,12 +128,20 @@ const fonts = {
   },
 }
 
-const breakpoints = {
+export const breakpoints = {
   xs: 600,
   sm: 960,
   md: 1200,
   lg: 1440,
   xl: 1920,
+}
+
+export const transitions = {
+  primary: '150ms ease-in-out',
+}
+
+export const borderRadius = {
+  primary: '0.25em',
 }
 
 const theme = {
@@ -126,6 +151,8 @@ const theme = {
   fontWeights,
   fonts,
   breakpoints,
+  transitions,
+  borderRadius,
 }
 
 export default theme

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components/macro'
 
 interface PageContainerProps {
   spaceBetween?: boolean
@@ -8,6 +8,7 @@ interface PageContainerProps {
 export const PageContainer = styled.div<PageContainerProps>`
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 
   ${({ spaceBetween }) =>
     spaceBetween &&
@@ -20,6 +21,6 @@ export const PageContainer = styled.div<PageContainerProps>`
     center &&
     css`
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
     `}
 `

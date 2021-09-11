@@ -44,11 +44,26 @@ const config: Configuration = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif|jp2|webp)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/[name].[ext]',
+        },
+      },
     ],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     plugins: [new TsconfigPathsPlugin()],
+    fallback: {
+      assert: false,
+      path: false,
+      os: false,
+      fs: false,
+      util: false,
+      module: false,
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({

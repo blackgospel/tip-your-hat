@@ -1,7 +1,7 @@
 import { useRegisterMutation } from 'generated/graphql'
 import useFormField from 'helpers/hooks/useFormField'
 
-const useRegister = (onSuccess = () => {}) => {
+const useRegister = (onSuccess?: () => void) => {
   const { fields, onChange } = useFormField({
     email: '',
     password: '',
@@ -17,11 +17,12 @@ const useRegister = (onSuccess = () => {}) => {
     },
   })
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault()
+  const handleSubmit = async () => {
     await register()
 
-    onSuccess()
+    if (onSuccess) {
+      onSuccess()
+    }
   }
 
   return {

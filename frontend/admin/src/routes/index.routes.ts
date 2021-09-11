@@ -1,14 +1,13 @@
 import { BiHome, BiUser } from 'react-icons/bi'
 import Dashboard from 'view/pages/authed/dashboard'
 import UserManagement from 'view/pages/authed/user-management'
-import Home from 'view/pages/unauthed/home'
 import Login from 'view/pages/unauthed/login'
 
 export const UnAuthorisedRoutes = [
   {
     name: 'Login',
     exact: true,
-    path: '/login',
+    path: '/',
     Component: Login,
   },
   // {
@@ -17,12 +16,12 @@ export const UnAuthorisedRoutes = [
   //   path: '/register',
   //   Component: Register,
   // },
-  {
-    name: 'Home',
-    exact: true,
-    path: '/',
-    Component: Home,
-  },
+  // {
+  //   name: 'Home',
+  //   exact: true,
+  //   path: '/',
+  //   Component: Home,
+  // },
 ]
 
 export const AuthorisedRoutes = [

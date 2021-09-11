@@ -28,8 +28,7 @@ const useCreateUser = (onSuccess?: () => void) => {
     onChange('role')(event, 2)
   }
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault()
+  const handleSubmit = async () => {
     await createUser()
 
     resetFields()

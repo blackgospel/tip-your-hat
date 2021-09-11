@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
-export const RouteContainer = styled.div``
-
-export const UnauthedContainer = styled.div``
+export const RouteContainer = styled.div`
+  height: 100%;
+`
 
 export const AuthedContainer = styled.div`
   display: flex;
+  height: 100%;
 `
 
 export const AuthedNavbar = styled.div`

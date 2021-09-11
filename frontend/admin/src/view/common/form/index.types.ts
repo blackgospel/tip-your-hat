@@ -18,6 +18,8 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   handleChange?: () => void
   error?: ErrorType
   fieldError?: FieldErrorType
+  label?: string
+  required?: boolean
 }
 
 export interface SelectProps extends InputProps {

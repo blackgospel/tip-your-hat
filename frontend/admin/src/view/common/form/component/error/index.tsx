@@ -1,6 +1,6 @@
 import React from 'react'
 import { ErrorProps } from '../../index.types'
-import { ErrorItem, ErrorList, Errors } from './index.styles'
+import { ErrorItem, ErrorItemMessage, ErrorList, Errors } from './index.styles'
 
 const Error: React.FC<ErrorProps> = ({ error, fieldError, name }) => {
   if (fieldError && name) {
@@ -8,7 +8,9 @@ const Error: React.FC<ErrorProps> = ({ error, fieldError, name }) => {
       <Errors>
         <ErrorList>
           {fieldError[name].map((item, index) => (
-            <ErrorItem key={index}>{item.message}</ErrorItem>
+            <ErrorItem key={index}>
+              <ErrorItemMessage>{item.message}</ErrorItemMessage>
+            </ErrorItem>
           ))}
         </ErrorList>
       </Errors>
@@ -22,7 +24,9 @@ const Error: React.FC<ErrorProps> = ({ error, fieldError, name }) => {
           {Object.values(error)
             .flat()
             .map((item, index) => (
-              <ErrorItem key={index}>{item.message}</ErrorItem>
+              <ErrorItem key={index}>
+                <ErrorItemMessage>{item.message}</ErrorItemMessage>
+              </ErrorItem>
             ))}
         </ErrorList>
       </Errors>

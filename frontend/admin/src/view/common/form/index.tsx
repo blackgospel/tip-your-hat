@@ -1,6 +1,6 @@
-import React from 'react'
-import Input from './component/input'
+import React, { FormEvent } from 'react'
 import Error from './component/error'
+import Input from './component/input'
 import { FormButton, FormContainer } from './index.styles'
 import { FormProps, FormSubComponents } from './index.types'
 
@@ -17,10 +17,27 @@ const Form: React.FC<FormProps> & FormSubComponents = ({
     })
   })
 
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    // if (formattedChildren ) {
+    //   const { isEmpty, fieldErrors } = checkEmptyFormValues(formattedChildren)
+    //   if(isEmpty) {
+    //     set
+    //   }
+    // }
+
+    if (handleSubmit) {
+      handleSubmit(event)
+    }
+  }
+
   return (
-    <FormContainer onSubmit={handleSubmit}>
+    <FormContainer onSubmit={onSubmit}>
       {formattedChildren}
-      <FormButton>{loading ? 'Submitting' : 'Submit'}</FormButton>
+      <FormButton disabled={loading}>
+        {loading ? 'Submitting' : 'Submit'}
+      </FormButton>
       {error && <Error error={error} />}
     </FormContainer>
   )

@@ -9,8 +9,7 @@ const useRestoreUser = (data: UserDto, onSuccess?: () => void) => {
     },
   })
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault()
+  const handleSubmit = async () => {
     await restoreUser()
 
     if (onSuccess) {
