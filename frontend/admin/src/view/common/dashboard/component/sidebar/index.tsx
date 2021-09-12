@@ -1,7 +1,7 @@
 import { VerticalSpacing } from 'common/global/spacing'
 import Logo from 'common/logo'
+import useRouter from 'helpers/hooks/useRouter'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { AuthorisedNavbarRoutes } from 'routes/index.routes'
 import { DashboardSidebarProps } from '../../index.types'
 import {
@@ -13,12 +13,16 @@ import {
   DashboardSidebarInfoRole,
   DashboardSidebarList,
   DashboardSidebarListItem,
+  DashboardSidebarListItemLink,
+  DashboardSidebarListItemText,
   DashboardSidebarLogoContainer,
   DashboardSidebarLogoText,
   DashboardSidebarUserInfo,
 } from './index.styles'
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
+  const { pathname } = useRouter()
+
   return (
     <DashboardSidebarContainer>
       <DashboardSidebarLogoContainer>
@@ -40,11 +44,13 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
       <DashboardSidebarList>
         {AuthorisedNavbarRoutes.map(({ name, path, NavbarIcon }) => {
           return (
-            <DashboardSidebarListItem key={name}>
-              <Link to={`/dashboard${path}`}>
+            <DashboardSidebarListItem key={name} active={pathname === path}>
+              <DashboardSidebarListItemLink to={path}>
                 <NavbarIcon />
-                {name}
-              </Link>
+                <DashboardSidebarListItemText>
+                  {name}
+                </DashboardSidebarListItemText>
+              </DashboardSidebarListItemLink>
             </DashboardSidebarListItem>
           )
         })}

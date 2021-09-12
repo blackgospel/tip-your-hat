@@ -6,22 +6,8 @@ import { AuthedContainer } from './index.styles'
 import PrivateRoute from './private-route'
 
 const AuthedRoutes = () => {
-  // const logout = useLogout()
-
   return (
     <AuthedContainer>
-      {/* <AuthedNavbar>
-        {AuthorisedNavbarRoutes.map(({ NavbarIcon, path }) => {
-          return (
-            <AuthedNavbarItem key={path} to={`/${AUTH_PATH}${path}`}>
-              <NavbarIcon />
-            </AuthedNavbarItem>
-          )
-        })}
-        <NavbarLogoutItem onClick={() => logout()}>
-          <BiExit />
-        </NavbarLogoutItem>
-      </AuthedNavbar> */}
       <Dashboard>
         <Switch>
           {AuthorisedRoutes.map(({ exact, path, Component }, index) => {

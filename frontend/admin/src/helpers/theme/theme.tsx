@@ -23,7 +23,10 @@ export const colors = {
     text: '#212529',
   },
   sidebar: {
-    background: '#fff',
+    background: {
+      primary: '#fff',
+      hover: '#ccc',
+    },
     border: '1px solid #dee2e6',
     text: {
       primary: '#1f2d3d',
