@@ -14,12 +14,29 @@ export const colors = {
   border: {
     primary: '#dee2e6',
     secondary: '#80bdff',
+    muted: '#e9ecef',
   },
   button: {
     primary: '#F96D41',
     hover: '#fba68b',
     disabled: '#fba68b',
     text: '#212529',
+  },
+  sidebar: {
+    background: '#fff',
+    border: '1px solid #dee2e6',
+    text: {
+      primary: '#1f2d3d',
+      muted: '#8493a5',
+      hover: '#30465f',
+    },
+  },
+  menu: {
+    text: {
+      primary: '#8493a5',
+      icon: '#ced4da',
+      hover: '#1f2d3d',
+    },
   },
 }
 
@@ -38,6 +55,7 @@ export const sizes = {
     xl: 22,
     xxl: 26,
   },
+  spacing: [2, 4, 6, 8, 12, 16, 20, 24, 28, 32, 36, 42, 54, 64, 72, 96, 112],
 }
 
 export const fontSizes = {
@@ -52,6 +70,7 @@ export const fontSizes = {
   body3: 16,
   body4: 14,
   body5: 12,
+  avatar: 26,
 }
 
 export const fontWeights = {
@@ -83,22 +102,22 @@ export const fonts = {
   },
   h2: {
     'font-size': fontSizes.h2,
-    'font-weight': fontWeights.semiBold1,
+    'font-weight': fontWeights.bold,
     'line-height': 30,
   },
   h3: {
     'font-size': fontSizes.h3,
-    'font-weight': fontWeights.semiBold1,
+    'font-weight': fontWeights.bold,
     'line-height': 22,
   },
   h4: {
     'font-size': fontSizes.h4,
-    'font-weight': fontWeights.semiBold1,
+    'font-weight': fontWeights.bold,
     'line-height': 22,
   },
   h5: {
     'font-size': fontSizes.h5,
-    'font-weight': fontWeights.semiBold1,
+    'font-weight': fontWeights.bold,
     'line-height': 22,
   },
   body1: {
@@ -144,6 +163,11 @@ export const borderRadius = {
   primary: '0.25em',
 }
 
+const fontFamily = {
+  primary: 'DM Sans',
+  secondary: 'Poppins',
+}
+
 const theme = {
   colors,
   sizes,
@@ -153,6 +177,7 @@ const theme = {
   breakpoints,
   transitions,
   borderRadius,
+  fontFamily,
 }
 
 export default theme

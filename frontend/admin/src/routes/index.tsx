@@ -1,7 +1,7 @@
 import useRefreshToken from 'helpers/hooks/useRefreshToken'
 import useCurrentUserStore from 'zustands/stores/current-user'
 import AuthedRoutes from './index.authed'
-import { RouteContainer } from './index.styles'
+import { RouteContainer, RoutesLoading, Spinner } from './index.styles'
 import UnauthedRoutes from './index.unauthed'
 
 const Routes: React.FC = () => {
@@ -9,7 +9,11 @@ const Routes: React.FC = () => {
   const { currentUser } = useCurrentUserStore()
 
   if (loading) {
-    return <div>...Initial Loading</div>
+    return (
+      <RoutesLoading>
+        <Spinner />
+      </RoutesLoading>
+    )
   }
 
   return (
