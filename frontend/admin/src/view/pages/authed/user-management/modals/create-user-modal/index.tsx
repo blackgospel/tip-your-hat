@@ -1,3 +1,4 @@
+import { VerticalSpacing } from 'common/global/spacing'
 import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import Form from 'view/common/form'
@@ -28,6 +29,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
     <Modal close={close}>
       <ModalTitle>Create User</ModalTitle>
       <Button onClick={randomUser}>Random User</Button>
+      <VerticalSpacing />
       <Form
         handleSubmit={handleSubmit}
         loading={loading}

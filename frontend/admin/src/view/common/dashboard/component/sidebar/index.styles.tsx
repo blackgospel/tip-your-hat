@@ -13,6 +13,7 @@ export const DashboardSidebarContainer = styled.aside`
   display: none;
   background-color: ${({ theme }) => theme.colors.sidebar.background.primary};
   padding: ${({ theme }) => theme.sizes.radius}px 0;
+  border-right: ${({ theme }) => theme.colors.sidebar.border};
 
   ${media.xs`
     display: flex;
@@ -74,12 +75,29 @@ export const DashboardSidebarInfoRole = styled(Typography)`
 
 export const DashboardSidebarList = styled.ul`
   padding: 0;
+  flex: 1;
 `
 
 export const DashboardSidebarListItem = styled.li<MenuLinkProps>`
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background-color: transparent;
+  }
+
   ${({ active }) =>
     active &&
     css`
+      &:before {
+        background-color: ${({ theme }) => theme.colors.primary};
+      }
+
       p {
         color: ${colors.menu.text.hover} !important;
       }
@@ -93,7 +111,8 @@ export const DashboardSidebarListItem = styled.li<MenuLinkProps>`
 export const DashboardSidebarListItemLink = styled(Link)`
   display: inline-flex;
   align-items: center;
-  padding: ${({ theme }) => theme.sizes.base}px 0;
+  padding: ${({ theme }) => theme.sizes.base}px
+    ${({ theme }) => theme.sizes.padding}px;
 
   svg {
     color: ${({ theme }) => theme.colors.menu.text.icon};
@@ -116,8 +135,38 @@ export const DashboardSidebarListItemText = styled(Typography)`
   margin-top: ${({ theme }) => theme.sizes.small / 2}px;
   margin-left: ${({ theme }) => theme.sizes.base}px;
   transition: ${({ theme }) => theme.transitions.primary};
+  ${({ theme }) => theme.fonts.h3};
 `
 
-export const DashboardSidebarBottomNav = styled.div``
+export const DashboardSidebarBottomNav = styled.div`
+  padding: 0 ${({ theme }) => theme.sizes.padding}px;
+`
 
-export const DashboardSidebarDateInfo = styled(Typography)``
+export const DashboardSidebarSignOut = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  svg {
+    color: ${({ theme }) => theme.colors.menu.text.icon};
+    transition: ${({ theme }) => theme.transitions.primary};
+  }
+
+  ${hover`
+    p {
+      color: ${colors.primary};
+    }
+
+    svg {
+      color: ${colors.primary};
+    }
+  `}
+`
+
+export const DashboardSidebarSignOutText = styled(Typography)`
+  color: ${({ theme }) => theme.colors.menu.text.primary};
+  margin-top: ${({ theme }) => theme.sizes.small / 2}px;
+  margin-left: ${({ theme }) => theme.sizes.base}px;
+  transition: ${({ theme }) => theme.transitions.primary};
+  ${({ theme }) => theme.fonts.h3};
+`

@@ -43,8 +43,9 @@ export const CloseButton = styled.div`
 `
 
 export const ModalTitle = styled.h3`
-  ${({ theme }) => theme.fonts.smallTitle};
   margin-bottom: ${({ theme }) => theme.sizes.base}px;
+  color: ${({ theme }) => theme.colors.secondary};
+  ${({ theme }) => theme.fonts.smallTitle};
 `
 
 export const ModalText = styled.p`

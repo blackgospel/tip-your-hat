@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/macro'
 import { mapToTheme as theme } from 'styled-map'
 
 export const Button = styled.button`
-  color: ${({ theme }) => theme.colors.button.text};
+  color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.primary};
   padding: ${({ theme }) => theme.sizes.base}px
     ${({ theme }) => theme.sizes.radius}px;
@@ -27,8 +27,7 @@ export const Button = styled.button`
     `}
 
   ${hover`
-    background-color: ${colors.button.hover};
-    color: ${colors.text.hover};
+    filter: brightness(1.2);
   `}
 `
 

@@ -1,5 +1,4 @@
 import Dashboard from 'common/dashboard'
-import { AUTH_PATH } from 'constants/auth'
 import { Redirect, Switch } from 'react-router-dom'
 import { AuthorisedRoutes } from './index.routes'
 import { AuthedContainer } from './index.styles'
@@ -12,16 +11,12 @@ const AuthedRoutes = () => {
         <Switch>
           {AuthorisedRoutes.map(({ exact, path, Component }, index) => {
             return (
-              <PrivateRoute
-                key={index}
-                exact={exact}
-                path={`/${AUTH_PATH}${path}`}
-              >
+              <PrivateRoute key={index} exact={exact} path={path}>
                 <Component />
               </PrivateRoute>
             )
           })}
-          <Redirect to={`${AUTH_PATH}${AuthorisedRoutes[0].path}`} />
+          <Redirect to={AuthorisedRoutes[0].path} />
         </Switch>
       </Dashboard>
     </AuthedContainer>

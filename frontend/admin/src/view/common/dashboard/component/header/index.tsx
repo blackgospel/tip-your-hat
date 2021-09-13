@@ -1,16 +1,17 @@
 import React from 'react'
+import { BiBellPlus } from 'react-icons/bi'
 import { DashboardHeaderProps } from '../../index.types'
 import {
-  DashboardHeaderAvatar,
   DashboardHeaderContainer,
-  DashboardHeaderSearch,
+  DashboardHeaderNotification,
 } from './index.styles'
 
 const DashboardHeader: React.FC<DashboardHeaderProps> = () => {
   return (
     <DashboardHeaderContainer>
-      <DashboardHeaderSearch>Search</DashboardHeaderSearch>
-      <DashboardHeaderAvatar>Avatar</DashboardHeaderAvatar>
+      <DashboardHeaderNotification>
+        <BiBellPlus />
+      </DashboardHeaderNotification>
     </DashboardHeaderContainer>
   )
 }

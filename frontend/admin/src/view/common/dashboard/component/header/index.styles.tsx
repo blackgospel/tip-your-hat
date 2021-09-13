@@ -1,14 +1,22 @@
+import media from 'helpers/theme/media'
 import styled from 'styled-components/macro'
 
 export const DashboardHeaderContainer = styled.header`
   grid-area: header;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  background-color: #648ca6;
+  display: none;
+  padding: 0 ${({ theme }) => theme.sizes.padding}px;
+
+  ${media.xs`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  `}
 `
 
-export const DashboardHeaderSearch = styled.div``
+export const DashboardHeaderNotification = styled.div`
+  cursor: pointer;
 
-export const DashboardHeaderAvatar = styled.div``
+  svg {
+    font-size: 24px;
+  }
+`

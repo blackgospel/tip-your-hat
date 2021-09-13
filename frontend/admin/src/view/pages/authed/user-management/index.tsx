@@ -1,9 +1,12 @@
-import { useGetAllUsersQuery } from 'generated/graphql'
+import DashboardTable from 'common/dashboard/component/table'
+import FloatingActionButton from 'common/fab'
+import { useGetAllUsersQuery, UserDto } from 'generated/graphql'
 import useModal from 'helpers/hooks/useModal'
 import React from 'react'
-import { BiPencil, BiPlus, BiStopCircle, BiSync, BiTrash } from 'react-icons/bi'
-import { Button } from 'view/common/global/button'
+import { BiPencil, BiPlus, BiSync, BiTrash } from 'react-icons/bi'
+import { Spinner } from 'routes/index.styles'
 import { Title } from 'view/common/global/title'
+import userTableColumns from './index.columns'
 import { UserManagementContainer } from './index.styles'
 import CreateUserModal from './modals/create-user-modal'
 import DeleteUserModal from './modals/delete-user-modal'
@@ -22,45 +25,41 @@ const UserManagement: React.FC = () => {
     useModal()
   const [revokeShow, revokeModalData, showRevokeModal, closeRevokeModal] =
     useModal()
-  const { data, loading, refetch } = useGetAllUsersQuery({
-    fetchPolicy: 'network-only',
-  })
+  const { data, loading, refetch } = useGetAllUsersQuery()
 
   if (loading || !data) {
-    return <UserManagementContainer>...loading</UserManagementContainer>
+    return (
+      <UserManagementContainer loading={loading || !data}>
+        <Spinner />
+      </UserManagementContainer>
+    )
   }
 
   return (
     <UserManagementContainer>
       <Title>User Management</Title>
-      <Button onClick={() => showCreateModal()}>
-        <BiPlus />
-        Create User
-      </Button>
-      <ul>
-        {data.getAllUsers.map((item) => {
-          return (
-            <li key={item.id}>
-              {item.name} - {item.email}
-              <Button onClick={() => showUpdateModal(item)}>
-                <BiPencil /> Update
-              </Button>
-              {!item.isDeleted ? (
-                <Button onClick={() => showDeleteModal(item)}>
-                  <BiTrash /> Delete
-                </Button>
-              ) : (
-                <Button onClick={() => showRestoreModal(item)}>
-                  <BiSync /> Restore
-                </Button>
-              )}
-              <Button onClick={() => showRevokeModal(item)}>
-                <BiStopCircle /> Revoke
-              </Button>
-            </li>
-          )
-        })}
-      </ul>
+      <DashboardTable
+        title="Users"
+        columns={userTableColumns((row: UserDto) => [
+          {
+            name: 'Update',
+            icon: <BiPencil />,
+            onClick: () => showUpdateModal(row),
+          },
+          {
+            name: `${!row.isDeleted ? 'Delete' : 'Restore'}`,
+            icon: <BiTrash />,
+            onClick: () =>
+              !row.isDeleted ? showDeleteModal(row) : showRestoreModal(row),
+          },
+          {
+            name: 'Revoke',
+            icon: <BiSync />,
+            onClick: () => showRevokeModal(row),
+          },
+        ])}
+        data={data.getAllUsers}
+      />
       {createShow && (
         <CreateUserModal
           data={createModalData}
@@ -96,6 +95,9 @@ const UserManagement: React.FC = () => {
           refetch={refetch}
         />
       )}
+      <FloatingActionButton x="right" y="bottom" onClick={showCreateModal}>
+        <BiPlus />
+      </FloatingActionButton>
     </UserManagementContainer>
   )
 }

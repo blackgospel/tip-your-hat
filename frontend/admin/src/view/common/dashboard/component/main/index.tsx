@@ -1,45 +1,11 @@
 import React from 'react'
 import { DashboardMainProps } from '../../index.types'
-import {
-  DashboardMainContainer,
-  DashboardMainWrapper,
-  MainCards,
-  MainCardsContainer,
-  MainOverviewCard,
-  MainOverviewCardInfo,
-  MainOverviewCardTitle,
-  MainOverviewContainer,
-} from './index.styles'
+import { DashboardMainContainer, DashboardMainWrapper } from './index.styles'
 
-const DashboardMain: React.FC<DashboardMainProps> = () => {
+const DashboardMain: React.FC<DashboardMainProps> = ({ children }) => {
   return (
     <DashboardMainContainer>
-      <DashboardMainWrapper>
-        <MainOverviewContainer>
-          {/* {children} */}
-          <MainOverviewCard>
-            <MainOverviewCardTitle>Overview</MainOverviewCardTitle>
-            <MainOverviewCardInfo>Card</MainOverviewCardInfo>
-          </MainOverviewCard>
-          <MainOverviewCard>
-            <MainOverviewCardTitle>Overview</MainOverviewCardTitle>
-            <MainOverviewCardInfo>Card</MainOverviewCardInfo>
-          </MainOverviewCard>
-          <MainOverviewCard>
-            <MainOverviewCardTitle>Overview</MainOverviewCardTitle>
-            <MainOverviewCardInfo>Card</MainOverviewCardInfo>
-          </MainOverviewCard>
-          <MainOverviewCard>
-            <MainOverviewCardTitle>Overview</MainOverviewCardTitle>
-            <MainOverviewCardInfo>Card</MainOverviewCardInfo>
-          </MainOverviewCard>
-        </MainOverviewContainer>
-        <MainCardsContainer>
-          <MainCards>Card</MainCards>
-          <MainCards>Card</MainCards>
-          <MainCards>Card</MainCards>
-        </MainCardsContainer>
-      </DashboardMainWrapper>
+      <DashboardMainWrapper>{children}</DashboardMainWrapper>
     </DashboardMainContainer>
   )
 }

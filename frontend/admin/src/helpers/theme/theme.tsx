@@ -1,10 +1,27 @@
+import { createTheme } from '@material-ui/core'
+
+export const muiTheme = createTheme({
+  typography: {
+    fontFamily: ['DM Sans', 'Poppins'].join(','),
+  },
+})
+
 export const colors = {
   primary: '#F96D41',
   secondary: '#25282F',
+  danger: '#ed1c24',
   black: '#1E1B26',
   white: '#FFFFFF',
   gray: '#2D3038',
-  danger: '#ed1c24',
+  red: '#ed1c24',
+  yellow: '#f7bf47',
+  green: '#1bb934',
+  blue: '#1eb7ff',
+  teal: '#33ae9a',
+  orange: '#f27212',
+  indigo: '#6610f2',
+  purple: '#ca8eff',
+  pink: '#e83e8c',
   text: {
     primary: '#1f2d3d',
     hover: '#626c77',
@@ -15,6 +32,7 @@ export const colors = {
     primary: '#dee2e6',
     secondary: '#80bdff',
     muted: '#e9ecef',
+    default: '1px solid #dee2e6',
   },
   button: {
     primary: '#F96D41',
@@ -150,6 +168,14 @@ export const fonts = {
   },
 }
 
+export const dashboardFonts = {
+  title: {
+    'font-size': fontSizes.largeTitle,
+    'font-weight': fontWeights.regular2,
+    'line-height': 55,
+  },
+}
+
 export const breakpoints = {
   xs: 600,
   sm: 960,
@@ -177,6 +203,7 @@ const theme = {
   fontSizes,
   fontWeights,
   fonts,
+  dashboardFonts,
   breakpoints,
   transitions,
   borderRadius,

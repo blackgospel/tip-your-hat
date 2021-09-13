@@ -1,12 +1,15 @@
 import { VerticalSpacing } from 'common/global/spacing'
 import Logo from 'common/logo'
+import useLogout from 'helpers/hooks/useLogout'
 import useRouter from 'helpers/hooks/useRouter'
 import React from 'react'
+import { BiPowerOff } from 'react-icons/bi'
 import { AuthorisedNavbarRoutes } from 'routes/index.routes'
 import { DashboardSidebarProps } from '../../index.types'
 import {
   DashboardSidebarAvatar,
   DashboardSidebarAvatarContainer,
+  DashboardSidebarBottomNav,
   DashboardSidebarContainer,
   DashboardSidebarInfo,
   DashboardSidebarInfoName,
@@ -17,11 +20,14 @@ import {
   DashboardSidebarListItemText,
   DashboardSidebarLogoContainer,
   DashboardSidebarLogoText,
+  DashboardSidebarSignOut,
+  DashboardSidebarSignOutText,
   DashboardSidebarUserInfo,
 } from './index.styles'
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
   const { pathname } = useRouter()
+  const logout = useLogout()
 
   return (
     <DashboardSidebarContainer>
@@ -55,6 +61,13 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
           )
         })}
       </DashboardSidebarList>
+      <VerticalSpacing />
+      <DashboardSidebarBottomNav>
+        <DashboardSidebarSignOut onClick={logout}>
+          <BiPowerOff />
+          <DashboardSidebarSignOutText>Sign Out</DashboardSidebarSignOutText>
+        </DashboardSidebarSignOut>
+      </DashboardSidebarBottomNav>
     </DashboardSidebarContainer>
   )
 }
