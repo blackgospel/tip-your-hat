@@ -1,3 +1,4 @@
+import { VerticalSpacing } from 'common/global/spacing'
 import { UserDto } from 'generated/graphql'
 import React from 'react'
 import { Button } from 'view/common/global/button'
@@ -24,7 +25,9 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({
   return (
     <Modal close={close}>
       <ModalTitle>Delete User</ModalTitle>
+      <VerticalSpacing />
       <ModalText>Are you sure that you want to delete: {data.name}.</ModalText>
+      <VerticalSpacing />
       <Button onClick={handleSubmit}>{!loading ? 'Delete' : 'Deleting'}</Button>
     </Modal>
   )

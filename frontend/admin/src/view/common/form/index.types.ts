@@ -1,4 +1,8 @@
-import { FC, InputHTMLAttributes } from 'react'
+import {
+  OutlinedInputProps,
+  SelectProps as MuiSelectProps,
+} from '@material-ui/core'
+import { FC } from 'react'
 
 export type RawErrorType = [{ message: string; field?: string }]
 
@@ -13,28 +17,25 @@ export interface FormProps {
   fieldError?: FieldErrorType
 }
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends OutlinedInputProps {
   name: string
-  handleChange?: () => void
-  error?: ErrorType
   fieldError?: FieldErrorType
-  label?: string
-  required?: boolean
 }
 
-export interface SelectProps extends InputProps {
-  options: { [x: string]: any }[]
-  title?: string
+export interface SelectProps extends MuiSelectProps {
+  name: string
+  options: { label: string; value: string | number }[]
+  fieldError?: FieldErrorType
 }
 
 export interface ErrorProps {
+  name?: string
   error?: ErrorType
   fieldError?: FieldErrorType
-  name?: string
 }
 
 export interface FormSubComponents {
-  // Select: FC<InputProps>
+  Select: FC<SelectProps>
   Input: FC<InputProps>
   Error: FC<ErrorProps>
 }

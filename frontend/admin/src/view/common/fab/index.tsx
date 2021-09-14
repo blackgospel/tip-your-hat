@@ -1,4 +1,4 @@
-import { ExtendButtonBase, Fab, FabTypeMap } from '@material-ui/core'
+import { ExtendButtonBase, Fab as MuiFab, FabTypeMap } from '@material-ui/core'
 import { FabContainer, FabWrapper } from './index.styles'
 
 interface FabProps
@@ -11,20 +11,14 @@ interface FabProps
   onClick: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const FloatingActionButton: React.FC<FabProps> = ({
-  children,
-  size = 'medium',
-  x,
-  y,
-  onClick,
-}) => {
+const Fab: React.FC<FabProps> = ({ children, size, x, y, onClick }) => {
   return (
     <FabContainer x={x} y={y}>
-      <Fab size={size} color="primary" onClick={onClick}>
+      <MuiFab size={size} onClick={onClick}>
         <FabWrapper>{children}</FabWrapper>
-      </Fab>
+      </MuiFab>
     </FabContainer>
   )
 }
 
-export default FloatingActionButton
+export default Fab

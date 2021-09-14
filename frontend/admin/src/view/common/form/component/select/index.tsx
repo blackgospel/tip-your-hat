@@ -1,47 +1,38 @@
-import React, { useState } from 'react'
+import { FormControl, InputLabel, MenuItem } from '@material-ui/core'
+import React from 'react'
 import { SelectProps } from '../../index.types'
 import Error from '../error'
-import {
-  FormInput,
-  InputContainer,
-  SelectHeader,
-  SelectHeaderTitle,
-  SelectList,
-  SelectListItem,
-} from './index.styles'
+import { FormSelectInput, InputContainer } from './index.styles'
 
 const Select: React.FC<SelectProps> = ({
   name,
-  title,
-  // handleChange,
   fieldError,
+  label,
   options,
-  // ...inputProps
+  required,
+  ...inputProps
 }) => {
-  const [isListOpen, _setIsListOpen] = useState(false)
-  const [headerTitle, _setHeaderTitle] = useState(title)
-
-  // const toggleList = () => {
-  //   setIsListOpen((state) => !state)
-  // }
-
   return (
     <InputContainer>
-      <FormInput>
-        <SelectHeader>
-          <SelectHeaderTitle>{headerTitle}</SelectHeaderTitle>
-        </SelectHeader>
-        {isListOpen && (
-          <SelectList>
-            {options.map((item) => {
-              return <SelectListItem key={item.id}>{item.title}</SelectListItem>
-            })}
-          </SelectList>
+      <FormControl
+        required={required}
+        error={Boolean(fieldError && fieldError[name])}
+      >
+        <InputLabel>{label}</InputLabel>
+        <FormSelectInput name={name} {...inputProps} label={label}>
+          {options.map(({ label, value }, index) => {
+            return (
+              <MenuItem key={`${label}${index}`} value={value}>
+                {label}
+              </MenuItem>
+            )
+          })}
+        </FormSelectInput>
+
+        {fieldError && fieldError[name] && (
+          <Error fieldError={fieldError} name={name} />
         )}
-      </FormInput>
-      {fieldError && fieldError[name!] && (
-        <Error fieldError={fieldError} name={name} />
-      )}
+      </FormControl>
     </InputContainer>
   )
 }

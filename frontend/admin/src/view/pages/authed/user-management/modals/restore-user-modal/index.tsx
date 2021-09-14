@@ -1,3 +1,4 @@
+import { VerticalSpacing } from 'common/global/spacing'
 import { UserDto } from 'generated/graphql'
 import React from 'react'
 import { Button } from 'view/common/global/button'
@@ -24,7 +25,9 @@ const RestoreUserModal: React.FC<RestoreUserModalProps> = ({
   return (
     <Modal close={close}>
       <ModalTitle>Restore User</ModalTitle>
+      <VerticalSpacing />
       <ModalText>Are you sure that you want to restore this user.</ModalText>
+      <VerticalSpacing />
       <Button onClick={handleSubmit}>
         {!loading ? 'Restore' : 'Restoring'}
       </Button>

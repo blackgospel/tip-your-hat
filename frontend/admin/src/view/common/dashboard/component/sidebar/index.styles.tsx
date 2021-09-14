@@ -12,7 +12,7 @@ export const DashboardSidebarContainer = styled.aside`
   grid-area: sidebar;
   display: none;
   background-color: ${({ theme }) => theme.colors.sidebar.background.primary};
-  padding: ${({ theme }) => theme.sizes.radius}px 0;
+  padding: ${({ theme }) => theme.sizes.padding}px 0;
   border-right: ${({ theme }) => theme.colors.sidebar.border};
 
   ${media.xs`
@@ -29,19 +29,12 @@ export const DashboardSidebarLogoContainer = styled.div`
 
 export const DashboardSidebarLogoText = styled(Typography)`
   font-family: ${({ theme }) => theme.fontFamily.secondary};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.coreColors.white};
   margin-top: ${({ theme }) => theme.sizes.small}px;
   margin-left: ${({ theme }) => theme.sizes.small}px;
   text-transform: uppercase;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
   ${({ theme }) => theme.fonts.h3};
-`
-
-export const DashboardSidebarUserInfo = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 ${({ theme }) => theme.sizes.padding}px;
 `
 
 export const DashboardSidebarAvatarContainer = styled.div`
@@ -58,13 +51,21 @@ export const DashboardSidebarAvatar = styled(Typography)`
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   font-weight: ${({ theme }) => theme.fontWeights.light};
   font-size: ${({ theme }) => theme.fontSizes.avatar}px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.coreColors.white};
   margin-top: ${({ theme }) => theme.sizes.small / 2}px;
+`
+
+export const DashboardSidebarUserInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 ${({ theme }) => theme.sizes.padding}px;
 `
 
 export const DashboardSidebarInfo = styled.div``
 
 export const DashboardSidebarInfoName = styled(Typography)`
+  color: ${({ theme }) => theme.colors.secondary};
   ${({ theme }) => theme.fonts.h3};
 `
 
@@ -138,14 +139,13 @@ export const DashboardSidebarListItemText = styled(Typography)`
   ${({ theme }) => theme.fonts.h3};
 `
 
-export const DashboardSidebarBottomNav = styled.div`
-  padding: 0 ${({ theme }) => theme.sizes.padding}px;
-`
+export const DashboardSidebarBottomNav = styled.div``
 
 export const DashboardSidebarSignOut = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 0 ${({ theme }) => theme.sizes.padding}px;
 
   svg {
     color: ${({ theme }) => theme.colors.menu.text.icon};

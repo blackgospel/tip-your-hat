@@ -60,8 +60,12 @@ export const FabContainer = styled.div<FabContainerProps>`
 
   button {
     background-color: ${({ theme, color }) =>
-      color ? theme.colors[color] : theme.colors.primary} !important;
+      color ? theme.coreColors[color] : theme.colors.primary} !important;
     transition: ${({ theme }) => theme.transitions.primary};
+
+    svg {
+      color: ${({ theme }) => theme.coreColors.white} !important;
+    }
 
     ${hover`
       filter: brightness(1.2);

@@ -16,9 +16,9 @@ const Login: React.FC = () => {
       <LoginContainer>
         <Logo />
         <VerticalSpacing />
-        <LoginTitle as="h2">Sign in to Tip Your Hat Admin</LoginTitle>
+        <LoginTitle variant="h4">Sign in to Tip Your Hat Admin</LoginTitle>
         <VerticalSpacing />
-        <LoginDescription textStyles="h3">
+        <LoginDescription>
           This is a admin dashboard to perform adminstration services on the Tip
           Your Hat application.
         </LoginDescription>
@@ -32,15 +32,13 @@ const Login: React.FC = () => {
           <Form.Input
             required
             name="email"
-            placeholder="Email"
-            label="Email Address"
+            label="Email"
             onChange={onChange('email')}
             value={fields.email}
           />
           <Form.Input
             required
             name="password"
-            placeholder="Password"
             label="Password"
             type="password"
             onChange={onChange('password')}

@@ -1,5 +1,4 @@
 import * as aws from '@pulumi/aws'
-import * as awsx from '@pulumi/awsx'
 import * as pulumi from '@pulumi/pulumi'
 import * as mime from 'mime'
 import { crawlDirectory } from './helpers/generic'
@@ -188,7 +187,7 @@ const cdn = new aws.cloudfront.Distribution('cdn', {
     cachedMethods: ['GET', 'HEAD', 'OPTIONS'],
 
     forwardedValues: {
-      cookies: { forward: 'none' },
+      cookies: { forward: 'all' },
       queryString: false,
     },
 

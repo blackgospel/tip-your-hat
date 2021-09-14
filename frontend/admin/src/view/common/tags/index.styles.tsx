@@ -1,7 +1,7 @@
 import { hover } from 'helpers/theme/media'
 import styled from 'styled-components/macro'
 
-export const DashboardTagContainer = styled.span`
+export const TagContainer = styled.span`
   display: flex;
   align-items: center;
   background-color: ${({ theme, color }) =>

@@ -1,11 +1,11 @@
+import { FormControl, InputLabel } from '@material-ui/core'
 import React from 'react'
 import { InputProps } from '../../index.types'
 import Error from '../error'
-import { FormInput, FormLabel, InputContainer, Required } from './index.styles'
+import { FormTextInput, InputContainer } from './index.styles'
 
 const Input: React.FC<InputProps> = ({
   name,
-  handleChange,
   fieldError,
   label,
   required,
@@ -13,15 +13,17 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <InputContainer>
-      {label && (
-        <FormLabel>
-          {label} {required && <Required>*</Required>}
-        </FormLabel>
-      )}
-      <FormInput name={name} onChange={handleChange} {...inputProps} />
-      {fieldError && fieldError[name] && (
-        <Error fieldError={fieldError} name={name} />
-      )}
+      <FormControl
+        required={required}
+        error={Boolean(fieldError && fieldError[name])}
+      >
+        <InputLabel>{label}</InputLabel>
+        <FormTextInput name={name} {...inputProps} label={label} />
+
+        {fieldError && fieldError[name] && (
+          <Error fieldError={fieldError} name={name} />
+        )}
+      </FormControl>
     </InputContainer>
   )
 }

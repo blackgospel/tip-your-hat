@@ -11,7 +11,7 @@ export const Backdrop = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 1;
-  z-index: 9998;
+  z-index: 999;
   overflow: hidden;
   transition: opacity 0.2s ease-in;
 `

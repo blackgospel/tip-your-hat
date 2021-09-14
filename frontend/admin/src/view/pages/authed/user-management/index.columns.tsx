@@ -1,13 +1,14 @@
 /* eslint-disable react/display-name */
 import Dropdown from 'common/dropdown'
+import Slider from 'common/slider'
 import { UserDto } from 'generated/graphql'
 
-const userTableColumns = (actions: any) => {
+const userTableColumns = (
+  menuActions: any,
+  deleteModal: any,
+  restoreModal: any
+) => {
   return [
-    {
-      name: 'Id',
-      selector: (row: UserDto) => row.id,
-    },
     {
       name: 'Email',
       selector: (row: UserDto) => row.email,
@@ -17,14 +18,23 @@ const userTableColumns = (actions: any) => {
       selector: (row: UserDto) => row.name,
     },
     {
-      name: 'isDeleted',
-      selector: (row: UserDto) => (row.isDeleted ? 'true' : 'false'),
+      name: 'Active',
+      selector: (row: UserDto) => (
+        <Slider
+          value={!row.isDeleted}
+          onChange={(checked: boolean) => {
+            checked ? restoreModal(row) : deleteModal(row)
+          }}
+        />
+      ),
     },
     {
       name: 'Actions',
       allowOverflow: true,
       button: true,
-      cell: (row: UserDto) => <Dropdown name="Actions" list={actions(row)} />,
+      cell: (row: UserDto) => (
+        <Dropdown name="Actions" list={menuActions(row)} />
+      ),
     },
   ]
 }

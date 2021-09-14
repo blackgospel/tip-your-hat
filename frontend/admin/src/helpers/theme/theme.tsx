@@ -1,15 +1,6 @@
 import { createTheme } from '@material-ui/core'
 
-export const muiTheme = createTheme({
-  typography: {
-    fontFamily: ['DM Sans', 'Poppins'].join(','),
-  },
-})
-
-export const colors = {
-  primary: '#F96D41',
-  secondary: '#25282F',
-  danger: '#ed1c24',
+export const coreColors = {
   black: '#1E1B26',
   white: '#FFFFFF',
   gray: '#2D3038',
@@ -22,8 +13,19 @@ export const colors = {
   indigo: '#6610f2',
   purple: '#ca8eff',
   pink: '#e83e8c',
+}
+
+export const colors = {
+  primary: '#F96D41',
+  secondary: '#25282F',
+  error: coreColors.red,
+  danger: coreColors.red,
+  warning: coreColors.orange,
+  info: coreColors.blue,
+  success: coreColors.green,
   text: {
-    primary: '#1f2d3d',
+    primary: '#151f2a',
+    secondary: '#1f2d3d',
     hover: '#626c77',
     disabled: '#626c77',
     muted: '#8493a5',
@@ -45,7 +47,6 @@ export const colors = {
       primary: '#fff',
       hover: '#ccc',
     },
-    border: '1px solid #dee2e6',
     text: {
       primary: '#1f2d3d',
       muted: '#8493a5',
@@ -168,14 +169,6 @@ export const fonts = {
   },
 }
 
-export const dashboardFonts = {
-  title: {
-    'font-size': fontSizes.largeTitle,
-    'font-weight': fontWeights.regular2,
-    'line-height': 55,
-  },
-}
-
 export const breakpoints = {
   xs: 600,
   sm: 960,
@@ -192,18 +185,62 @@ export const borderRadius = {
   primary: '0.25em',
 }
 
-const fontFamily = {
+export const fontFamily = {
   primary: 'DM Sans',
   secondary: 'Poppins',
 }
 
+export const muiTheme = createTheme({
+  typography: {
+    fontFamily: ['DM Sans', 'Poppins'].join(','),
+  },
+  palette: {
+    primary: {
+      main: colors.primary,
+    },
+    secondary: {
+      main: colors.secondary,
+    },
+    error: {
+      main: colors.error,
+    },
+    warning: {
+      main: colors.warning,
+    },
+    info: {
+      main: colors.info,
+    },
+    success: {
+      main: colors.success,
+    },
+  },
+  props: {
+    MuiButton: {
+      disableElevation: true,
+      color: 'primary',
+      variant: 'contained',
+    },
+    MuiFab: {
+      color: 'primary',
+      size: 'medium',
+    },
+    MuiFormControl: {
+      variant: 'outlined',
+      size: 'small',
+    },
+    MuiFormHelperText: {
+      variant: 'outlined',
+    },
+  },
+})
+
 const theme = {
+  coreColors,
   colors,
   sizes,
   fontSizes,
   fontWeights,
   fonts,
-  dashboardFonts,
   breakpoints,
   transitions,
   borderRadius,

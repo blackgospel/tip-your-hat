@@ -9,7 +9,7 @@ const Error: React.FC<ErrorProps> = ({ error, fieldError, name }) => {
         <ErrorList>
           {fieldError[name].map((item, index) => (
             <ErrorItem key={index}>
-              <ErrorItemMessage>{item.message}</ErrorItemMessage>
+              <ErrorItemMessage error>{item.message}</ErrorItemMessage>
             </ErrorItem>
           ))}
         </ErrorList>
@@ -25,7 +25,7 @@ const Error: React.FC<ErrorProps> = ({ error, fieldError, name }) => {
             .flat()
             .map((item, index) => (
               <ErrorItem key={index}>
-                <ErrorItemMessage>{item.message}</ErrorItemMessage>
+                <ErrorItemMessage error>{item.message}</ErrorItemMessage>
               </ErrorItem>
             ))}
         </ErrorList>

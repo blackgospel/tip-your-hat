@@ -35,17 +35,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
         <Logo />
         <DashboardSidebarLogoText>Tip Your Hat</DashboardSidebarLogoText>
       </DashboardSidebarLogoContainer>
-      <VerticalSpacing spacing={3} />
-      <DashboardSidebarUserInfo>
-        <DashboardSidebarAvatarContainer>
-          <DashboardSidebarAvatar>SA</DashboardSidebarAvatar>
-        </DashboardSidebarAvatarContainer>
-        <VerticalSpacing spacing={3} />
-        <DashboardSidebarInfo>
-          <DashboardSidebarInfoName>Seun Adesina</DashboardSidebarInfoName>
-          <DashboardSidebarInfoRole>Super Admin</DashboardSidebarInfoRole>
-        </DashboardSidebarInfo>
-      </DashboardSidebarUserInfo>
       <VerticalSpacing />
       <DashboardSidebarList>
         {AuthorisedNavbarRoutes.map(({ name, path, NavbarIcon }) => {
@@ -63,6 +52,17 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
       </DashboardSidebarList>
       <VerticalSpacing />
       <DashboardSidebarBottomNav>
+        <DashboardSidebarUserInfo>
+          <DashboardSidebarAvatarContainer>
+            <DashboardSidebarAvatar>SA</DashboardSidebarAvatar>
+          </DashboardSidebarAvatarContainer>
+          <VerticalSpacing spacing={3} />
+          <DashboardSidebarInfo>
+            <DashboardSidebarInfoName>Seun Adesina</DashboardSidebarInfoName>
+            <DashboardSidebarInfoRole>Super Admin</DashboardSidebarInfoRole>
+          </DashboardSidebarInfo>
+        </DashboardSidebarUserInfo>
+        <VerticalSpacing spacing={3} />
         <DashboardSidebarSignOut onClick={logout}>
           <BiPowerOff />
           <DashboardSidebarSignOutText>Sign Out</DashboardSidebarSignOutText>

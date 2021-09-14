@@ -1,4 +1,6 @@
 import { VerticalSpacing } from 'common/global/spacing'
+import { AUTH_ROLES } from 'constants/auth'
+import toTitleCase from 'helpers/generic/toTitleCase'
 import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import Form from 'view/common/form'
@@ -37,32 +39,38 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
         fieldError={errors.fieldErrors}
       >
         <Form.Input
+          required
           name="name"
-          placeholder="Name"
+          label="Name"
           onChange={onChange('name')}
           value={fields.name}
         />
         <Form.Input
+          required
           name="email"
-          placeholder="Email"
+          label="Email"
           onChange={onChange('email')}
           value={fields.email}
         />
         <Form.Input
+          required
           name="password"
-          placeholder="Password"
+          label="Password"
           type="password"
           onChange={onChange('password')}
           value={fields.password}
         />
-        <Form.Input
+        <Form.Select
           name="role"
-          placeholder="Role"
-          type="number"
-          onChange={onChange('role')}
+          label="Role"
+          onChange={(event) => onChange('role')(event)}
+          options={Object.keys(AUTH_ROLES).map((item) => {
+            return {
+              label: toTitleCase(item),
+              value: AUTH_ROLES[item as keyof typeof AUTH_ROLES],
+            }
+          })}
           value={fields.role}
-          min={0}
-          max={2}
         />
       </Form>
     </Modal>

@@ -1,9 +1,9 @@
-import DashboardTable from 'common/dashboard/component/table'
 import FloatingActionButton from 'common/fab'
+import DashboardTable from 'common/table'
 import { useGetAllUsersQuery, UserDto } from 'generated/graphql'
 import useModal from 'helpers/hooks/useModal'
 import React from 'react'
-import { BiPencil, BiPlus, BiSync, BiTrash } from 'react-icons/bi'
+import { BiPencil, BiPlus, BiSync } from 'react-icons/bi'
 import { Spinner } from 'routes/index.styles'
 import { Title } from 'view/common/global/title'
 import userTableColumns from './index.columns'
@@ -40,24 +40,22 @@ const UserManagement: React.FC = () => {
       <Title>User Management</Title>
       <DashboardTable
         title="Users"
-        columns={userTableColumns((row: UserDto) => [
-          {
-            name: 'Update',
-            icon: <BiPencil />,
-            onClick: () => showUpdateModal(row),
-          },
-          {
-            name: `${!row.isDeleted ? 'Delete' : 'Restore'}`,
-            icon: <BiTrash />,
-            onClick: () =>
-              !row.isDeleted ? showDeleteModal(row) : showRestoreModal(row),
-          },
-          {
-            name: 'Revoke',
-            icon: <BiSync />,
-            onClick: () => showRevokeModal(row),
-          },
-        ])}
+        columns={userTableColumns(
+          (row: UserDto) => [
+            {
+              name: 'Update',
+              icon: <BiPencil />,
+              onClick: () => showUpdateModal(row),
+            },
+            {
+              name: 'Revoke',
+              icon: <BiSync />,
+              onClick: () => showRevokeModal(row),
+            },
+          ],
+          showDeleteModal,
+          showRestoreModal
+        )}
         data={data.getAllUsers}
       />
       {createShow && (

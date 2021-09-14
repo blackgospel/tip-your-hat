@@ -1,3 +1,4 @@
+import { VerticalSpacing } from 'common/global/spacing'
 import { UserDto } from 'generated/graphql'
 import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
@@ -29,6 +30,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
   return (
     <Modal close={close}>
       <ModalTitle>Update User</ModalTitle>
+      <VerticalSpacing />
       <Form
         handleSubmit={handleSubmit}
         loading={loading}
@@ -37,24 +39,22 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
       >
         <Form.Input
           name="name"
-          placeholder="Name"
+          label="Name"
           onChange={onChange('name')}
           value={fields.name}
         />
         <Form.Input
           name="email"
-          placeholder="Email"
+          label="Email"
           onChange={onChange('email')}
           value={fields.email}
         />
         <Form.Input
           name="role"
-          placeholder="Role"
+          label="Role"
           type="number"
           onChange={onChange('role')}
           value={fields.role}
-          min={0}
-          max={2}
         />
       </Form>
     </Modal>

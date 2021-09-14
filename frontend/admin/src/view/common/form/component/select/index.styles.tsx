@@ -1,15 +1,12 @@
+import { Select } from '@material-ui/core'
 import styled from 'styled-components/macro'
 
 export const InputContainer = styled.div`
-  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: ${({ theme }) => theme.sizes.padding}px;
 `
 
-export const FormInput = styled.div``
-
-export const SelectHeader = styled.div``
-
-export const SelectHeaderTitle = styled.div``
-
-export const SelectList = styled.div``
-
-export const SelectListItem = styled.button``
+export const FormSelectInput = styled(Select)`
+  ${({ theme }) => theme.fonts.h4};
+`
