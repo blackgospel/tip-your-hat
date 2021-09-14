@@ -46,6 +46,9 @@ export class FullUserDto implements Partial<User> {
   tokenVersion: number
 
   @Field()
+  credits: number
+
+  @Field()
   @IsString({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   isDeleted: boolean
 }

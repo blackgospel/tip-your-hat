@@ -30,6 +30,7 @@ export type DeleteUserInput = {
 export type FullUserDto = {
   __typename?: 'FullUserDto';
   createdAt: Scalars['Float'];
+  credits: Scalars['Float'];
   email: Scalars['String'];
   id: Scalars['String'];
   isDeleted: Scalars['Boolean'];
@@ -241,12 +242,12 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'FullUserDto', id: string, email: string, name: string, createdAt: number, role: number, tokenVersion: number, isDeleted: boolean } };
+export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'FullUserDto', id: string, email: string, name: string, createdAt: number, role: number, tokenVersion: number, credits: number, isDeleted: boolean } };
 
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'FullUserDto', id: string, email: string, name: string, createdAt: number, role: number, tokenVersion: number, isDeleted: boolean }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'FullUserDto', id: string, email: string, name: string, createdAt: number, role: number, tokenVersion: number, credits: number, isDeleted: boolean }> };
 
 
 export const LoginAdminDocument = gql`
@@ -616,6 +617,7 @@ export const GetUserDocument = gql`
     createdAt
     role
     tokenVersion
+    credits
     isDeleted
   }
 }
@@ -657,6 +659,7 @@ export const GetAllUsersDocument = gql`
     createdAt
     role
     tokenVersion
+    credits
     isDeleted
   }
 }

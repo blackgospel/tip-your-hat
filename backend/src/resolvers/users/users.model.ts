@@ -57,6 +57,10 @@ class User {
   @Field({ nullable: true })
   tokenVersion?: number
 
+  @Property({ defaultValueProvider: () => 0 })
+  @Field({ nullable: true })
+  credits?: number
+
   @Property({ defaultValueProvider: () => false })
   @Field({ nullable: true })
   isDeleted?: boolean

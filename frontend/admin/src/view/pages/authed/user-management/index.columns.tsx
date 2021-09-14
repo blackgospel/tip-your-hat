@@ -36,6 +36,11 @@ const userTableColumns = (
       selector: (row: FullUserDto) => row.tokenVersion,
     },
     {
+      name: 'Credits',
+      center: true,
+      selector: (row: FullUserDto) => row.credits,
+    },
+    {
       name: 'Active',
       selector: (row: FullUserDto) => (
         <Slider
