@@ -22,12 +22,7 @@ const Slider: React.FC<SliderProps> = ({ value, onChange, name }) => {
 
   return (
     <SliderContainer>
-      <Switch
-        color="primary"
-        checked={active}
-        onChange={handleChange}
-        name={name}
-      />
+      <Switch checked={active} onChange={handleChange} name={name} />
     </SliderContainer>
   )
 }

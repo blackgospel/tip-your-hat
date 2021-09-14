@@ -6,3 +6,9 @@ export const AUTH_ROLES = {
   Admin: 1,
   Super_Admin: 2,
 }
+
+export const AUTH_ROLES_REVERSE = {
+  0: 'Basic',
+  1: 'Admin',
+  2: 'Super Admin',
+}

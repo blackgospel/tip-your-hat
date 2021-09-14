@@ -231,6 +231,10 @@ export const muiTheme = createTheme({
     MuiFormHelperText: {
       variant: 'outlined',
     },
+    MuiSwitch: {
+      color: 'primary',
+      size: 'small',
+    },
   },
 })
 

@@ -15,26 +15,37 @@ export type Scalars = {
 };
 
 export type CreateUserInput = {
-  id?: Maybe<Scalars['String']>;
   email: Scalars['String'];
-  password: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  password: Scalars['String'];
   role: Scalars['Float'];
 };
 
 export type DeleteUserInput = {
-  id: Scalars['String'];
   email?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+};
+
+export type FullUserDto = {
+  __typename?: 'FullUserDto';
+  createdAt: Scalars['Float'];
+  email: Scalars['String'];
+  id: Scalars['String'];
+  isDeleted: Scalars['Boolean'];
+  name: Scalars['String'];
+  role: Scalars['Float'];
+  tokenVersion: Scalars['Float'];
 };
 
 export type GetUserInput = {
-  id: Scalars['String'];
   email?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
 };
 
 export type LoginUserInput = {
-  id?: Maybe<Scalars['String']>;
   email: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
   password: Scalars['String'];
 };
 
@@ -46,47 +57,22 @@ export type LoginUserOutput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  register: Scalars['Boolean'];
+  createUser: UserDto;
+  deleteUser: Scalars['Boolean'];
+  deleteUserPermanently: Scalars['Boolean'];
   login: LoginUserOutput;
   loginAdmin: LoginUserOutput;
   logout: Scalars['Boolean'];
   refreshToken: RefreshTokenOutput;
-  revokeUserToken: Scalars['Boolean'];
-  createUser: UserDto;
-  updateUser: UserDto;
-  deleteUser: Scalars['Boolean'];
-  deleteUserPermanently: Scalars['Boolean'];
+  register: Scalars['Boolean'];
   restoreUser: Scalars['Boolean'];
-};
-
-
-export type MutationRegisterArgs = {
-  options: RegisterUserInput;
-};
-
-
-export type MutationLoginArgs = {
-  options: LoginUserInput;
-};
-
-
-export type MutationLoginAdminArgs = {
-  options: LoginUserInput;
-};
-
-
-export type MutationRevokeUserTokenArgs = {
-  options: RevokeUserTokenInput;
+  revokeUserToken: Scalars['Boolean'];
+  updateUser: UserDto;
 };
 
 
 export type MutationCreateUserArgs = {
   options: CreateUserInput;
-};
-
-
-export type MutationUpdateUserArgs = {
-  options: UpdateUserInput;
 };
 
 
@@ -100,17 +86,42 @@ export type MutationDeleteUserPermanentlyArgs = {
 };
 
 
+export type MutationLoginArgs = {
+  options: LoginUserInput;
+};
+
+
+export type MutationLoginAdminArgs = {
+  options: LoginUserInput;
+};
+
+
+export type MutationRegisterArgs = {
+  options: RegisterUserInput;
+};
+
+
 export type MutationRestoreUserArgs = {
   options: RestoreUserInput;
 };
 
+
+export type MutationRevokeUserTokenArgs = {
+  options: RevokeUserTokenInput;
+};
+
+
+export type MutationUpdateUserArgs = {
+  options: UpdateUserInput;
+};
+
 export type Query = {
   __typename?: 'Query';
-  hello: Scalars['String'];
   bye: Scalars['String'];
-  getCurrentUser?: Maybe<UserDto>;
-  getAllUsers: Array<UserDto>;
-  getUser: Array<UserDto>;
+  getAllUsers: Array<FullUserDto>;
+  getCurrentUser?: Maybe<FullUserDto>;
+  getUser: FullUserDto;
+  hello: Scalars['String'];
 };
 
 
@@ -120,40 +131,40 @@ export type QueryGetUserArgs = {
 
 export type RefreshTokenOutput = {
   __typename?: 'RefreshTokenOutput';
-  success: Scalars['Boolean'];
   accessToken: Scalars['String'];
+  success: Scalars['Boolean'];
 };
 
 export type RegisterUserInput = {
-  id?: Maybe<Scalars['String']>;
   email: Scalars['String'];
-  password: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type RestoreUserInput = {
-  id: Scalars['String'];
   email?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
 };
 
 export type RevokeUserTokenInput = {
-  id: Scalars['String'];
   email?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
 };
 
 export type UpdateUserInput = {
-  id: Scalars['String'];
   email?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   role?: Maybe<Scalars['Float']>;
 };
 
 export type UserDto = {
   __typename?: 'UserDto';
-  id: Scalars['String'];
   email: Scalars['String'];
-  name: Scalars['String'];
+  id: Scalars['String'];
   isDeleted: Scalars['Boolean'];
+  name: Scalars['String'];
 };
 
 export type LoginAdminMutationVariables = Exact<{
@@ -230,12 +241,12 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', getUser: Array<{ __typename?: 'UserDto', id: string, email: string, name: string, isDeleted: boolean }> };
+export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'FullUserDto', id: string, email: string, name: string, createdAt: number, role: number, tokenVersion: number, isDeleted: boolean } };
 
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'UserDto', id: string, email: string, name: string, isDeleted: boolean }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'FullUserDto', id: string, email: string, name: string, createdAt: number, role: number, tokenVersion: number, isDeleted: boolean }> };
 
 
 export const LoginAdminDocument = gql`
@@ -602,6 +613,9 @@ export const GetUserDocument = gql`
     id
     email
     name
+    createdAt
+    role
+    tokenVersion
     isDeleted
   }
 }
@@ -640,6 +654,9 @@ export const GetAllUsersDocument = gql`
     id
     email
     name
+    createdAt
+    role
+    tokenVersion
     isDeleted
   }
 }

@@ -3,6 +3,9 @@ query GetUser($getUserOptions: GetUserInput!) {
     id
     email
     name
+    createdAt
+    role
+    tokenVersion
     isDeleted
   }
 }

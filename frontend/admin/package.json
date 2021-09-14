@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "watch": "webpack serve --config webpack.dev.config.ts",
-    "build": "webpack --config webpack.prod.config.ts"
+    "build": "webpack --config webpack.prod.config.ts",
+    "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.4.8",

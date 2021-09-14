@@ -3,6 +3,9 @@ query GetAllUsers {
     id
     email
     name
+    createdAt
+    role
+    tokenVersion
     isDeleted
   }
 }

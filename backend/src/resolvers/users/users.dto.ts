@@ -21,3 +21,31 @@ export class UserDto implements Partial<User> {
   @IsString({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   isDeleted: boolean
 }
+
+@ObjectType()
+export class FullUserDto implements Partial<User> {
+  @Field()
+  @IsString({ message: GENERAL_ERRORS.VALIDATION_ERROR })
+  id: string
+
+  @Field()
+  @IsEmail(undefined, { message: GENERAL_ERRORS.VALIDATION_ERROR })
+  email: string
+
+  @Field()
+  @IsString({ message: GENERAL_ERRORS.VALIDATION_ERROR })
+  name: string
+
+  @Field()
+  createdAt: number
+
+  @Field()
+  role: number
+
+  @Field()
+  tokenVersion: number
+
+  @Field()
+  @IsString({ message: GENERAL_ERRORS.VALIDATION_ERROR })
+  isDeleted: boolean
+}

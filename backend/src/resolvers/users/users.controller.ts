@@ -6,7 +6,7 @@ import { formatDBResponse } from 'helpers/db-helpers'
 import CurrentContextUser from 'middleware/current-context-user-decorator'
 import UserExist from 'middleware/user-exist-decorator'
 import ValidateArgs from 'middleware/validate-input-decorator'
-import { UserDto } from 'resolvers/users/users.dto'
+import { FullUserDto, UserDto } from 'resolvers/users/users.dto'
 import {
   createUserService,
   deleteUserPermanentService,
@@ -28,7 +28,7 @@ import {
 @Resolver()
 export class UserResolver {
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
-  @Query(() => UserDto, { nullable: true })
+  @Query(() => FullUserDto, { nullable: true })
   async getCurrentUser(@CurrentContextUser() currentUser: User | null) {
     if (!currentUser) {
       throw new BadRequestError(USER_ERRORS.USER_CURRENT_USER_CONTEXT)
@@ -38,7 +38,7 @@ export class UserResolver {
   }
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
-  @Query(() => [UserDto])
+  @Query(() => [FullUserDto])
   async getAllUsers() {
     const users = await getAllUsersService()
 
@@ -46,7 +46,7 @@ export class UserResolver {
   }
 
   @Authorized([USER_ROLES.SUPER_ADMIN, USER_ROLES.ADMIN])
-  @Query(() => [UserDto])
+  @Query(() => FullUserDto)
   @ValidateArgs(GetUserInput)
   async getUser(
     @Arg('options') _options: GetUserInput,
