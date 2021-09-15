@@ -78,6 +78,10 @@ export const sizes = {
     xxl: 26,
   },
   spacing: [2, 4, 6, 8, 12, 16, 20, 24, 28, 32, 36, 42, 54, 64, 72, 96, 112],
+  maxWidth: {
+    primary: 1280,
+    modal: 640,
+  },
 }
 
 export const fontSizes = {
@@ -234,6 +238,9 @@ export const muiTheme = createTheme({
     MuiSwitch: {
       color: 'primary',
       size: 'small',
+    },
+    MuiCard: {
+      variant: 'outlined',
     },
   },
 })

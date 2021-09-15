@@ -1,6 +1,6 @@
+import Clear from '@material-ui/icons/Clear'
 import React, { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { BiX } from 'react-icons/bi'
 import { Backdrop, CloseButton, Container } from './index.styles'
 
 interface ModalProps {
@@ -20,7 +20,7 @@ const Modal: React.FC<ModalProps> = ({ close, children }) => {
     <Backdrop>
       <Container>
         <CloseButton onClick={close}>
-          <BiX />
+          <Clear />
         </CloseButton>
         {children}
       </Container>

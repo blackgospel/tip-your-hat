@@ -7,7 +7,7 @@ export const LoginContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: ${({ theme }) => theme.sizes.padding}px;
-  max-width: 30vw;
+  max-width: ${({ theme }) => theme.sizes.maxWidth.primary}px;
 `
 
 export const LoginTitle = styled(Typography)`

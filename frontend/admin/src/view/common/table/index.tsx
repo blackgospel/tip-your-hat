@@ -1,26 +1,61 @@
+import { ButtonGroup } from '@material-ui/core'
 import Card from 'common/card'
+import { Button } from 'common/global/button'
+import { HorizontalSpacing } from 'common/global/spacing'
 import DataTable, { TableProps } from 'react-data-table-component'
-import { TableContainer, TableDescription, TableTitle } from './index.styles'
+import {
+  TableContainer,
+  TableHeaderContainer,
+  TableTitle,
+} from './index.styles'
 
 export interface CustomTableProps extends TableProps {
   data: any
   columns: any
   title?: string
-  description?: string
+  actions?: { icon?: any; label?: string; onClick: any }[]
 }
 
 const Table: React.FC<CustomTableProps> = ({
   data,
   columns,
   title,
-  description,
+  actions,
 }) => {
   return (
     <Card>
-      {title && <TableTitle as="h3">{title}</TableTitle>}
-      {description && <TableDescription>{description}</TableDescription>}
+      <TableHeaderContainer>
+        {title && <TableTitle as="h2">{title}</TableTitle>}
+        {actions && (
+          <ButtonGroup
+            color="primary"
+            aria-label="outlined primary button group"
+          >
+            {actions.map(({ icon, label, onClick }, index) => {
+              return (
+                <Button key={index} onClick={onClick}>
+                  {icon && (
+                    <>
+                      {icon}
+                      <HorizontalSpacing spacing={1} />
+                    </>
+                  )}
+                  {label}
+                </Button>
+              )
+            })}
+          </ButtonGroup>
+        )}
+      </TableHeaderContainer>
       <TableContainer>
-        <DataTable columns={columns} data={data} responsive pagination />
+        <DataTable
+          columns={columns}
+          data={data}
+          responsive
+          pagination
+          paginationPerPage={5}
+          paginationComponentOptions={{ noRowsPerPage: true }}
+        />
       </TableContainer>
     </Card>
   )

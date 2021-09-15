@@ -6,7 +6,7 @@ export const DashboardMainContainer = styled.main`
 `
 
 export const DashboardMainWrapper = styled.div`
-  max-width: 1280px;
+  max-width: ${({ theme }) => theme.sizes.maxWidth.primary}px;
   height: 100%;
   margin: 0 auto;
   padding: ${({ theme }) => theme.sizes.padding}px;

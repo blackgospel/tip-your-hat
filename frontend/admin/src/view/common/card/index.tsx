@@ -4,7 +4,7 @@ import { CardContainer } from './index.styles'
 const Card: React.FC = ({ children }) => {
   return (
     <CardContainer>
-      <MuiCard variant="outlined">
+      <MuiCard>
         <CardContent>{children}</CardContent>
       </MuiCard>
     </CardContainer>

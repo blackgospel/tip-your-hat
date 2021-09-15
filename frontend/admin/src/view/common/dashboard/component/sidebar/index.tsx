@@ -1,9 +1,9 @@
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import { VerticalSpacing } from 'common/global/spacing'
 import Logo from 'common/logo'
 import useLogout from 'helpers/hooks/useLogout'
 import useRouter from 'helpers/hooks/useRouter'
 import React from 'react'
-import { BiPowerOff } from 'react-icons/bi'
 import { AuthorisedNavbarRoutes } from 'routes/index.routes'
 import { DashboardSidebarProps } from '../../index.types'
 import {
@@ -64,7 +64,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
         </DashboardSidebarUserInfo>
         <VerticalSpacing spacing={3} />
         <DashboardSidebarSignOut onClick={logout}>
-          <BiPowerOff />
+          <PowerSettingsNewIcon />
           <DashboardSidebarSignOutText>Sign Out</DashboardSidebarSignOutText>
         </DashboardSidebarSignOut>
       </DashboardSidebarBottomNav>

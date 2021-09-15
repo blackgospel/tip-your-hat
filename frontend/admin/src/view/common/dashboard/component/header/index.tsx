@@ -1,5 +1,5 @@
+import NotificationsIcon from '@material-ui/icons/Notifications'
 import React from 'react'
-import { BiBellPlus } from 'react-icons/bi'
 import { DashboardHeaderProps } from '../../index.types'
 import {
   DashboardHeaderContainer,
@@ -10,7 +10,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = () => {
   return (
     <DashboardHeaderContainer>
       <DashboardHeaderNotification>
-        <BiBellPlus />
+        <NotificationsIcon />
       </DashboardHeaderNotification>
     </DashboardHeaderContainer>
   )

@@ -19,7 +19,8 @@ export const Backdrop = styled.div`
 export const Container = styled.div`
   position: relative;
   background-color: white;
-  min-width: 30%;
+  max-width: ${({ theme }) => theme.sizes.maxWidth.modal}px;
+  width: 100%;
   box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
   padding: ${({ theme }) => theme.sizes.padding}px;
   border-radius: ${({ theme }) => theme.sizes.base}px;

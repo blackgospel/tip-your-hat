@@ -1,9 +1,8 @@
-import FloatingActionButton from 'common/fab'
+import CreateIcon from '@material-ui/icons/Create'
+import SyncIcon from '@material-ui/icons/Sync'
 import DashboardTable from 'common/table'
 import { useGetAllUsersQuery, UserDto } from 'generated/graphql'
 import useModal from 'helpers/hooks/useModal'
-import React from 'react'
-import { BiPencil, BiPlus, BiSync } from 'react-icons/bi'
 import { Spinner } from 'routes/index.styles'
 import { Title } from 'view/common/global/title'
 import userTableColumns from './index.columns'
@@ -44,12 +43,12 @@ const UserManagement: React.FC = () => {
           (row: UserDto) => [
             {
               name: 'Update',
-              icon: <BiPencil />,
+              icon: <CreateIcon />,
               onClick: () => showUpdateModal(row),
             },
             {
               name: 'Revoke',
-              icon: <BiSync />,
+              icon: <SyncIcon />,
               onClick: () => showRevokeModal(row),
             },
           ],
@@ -57,6 +56,12 @@ const UserManagement: React.FC = () => {
           showRestoreModal
         )}
         data={data.getAllUsers}
+        actions={[
+          {
+            label: 'Create User',
+            onClick: showCreateModal,
+          },
+        ]}
       />
       {createShow && (
         <CreateUserModal
@@ -93,9 +98,6 @@ const UserManagement: React.FC = () => {
           refetch={refetch}
         />
       )}
-      <FloatingActionButton x="right" y="bottom" onClick={showCreateModal}>
-        <BiPlus />
-      </FloatingActionButton>
     </UserManagementContainer>
   )
 }

@@ -7,18 +7,13 @@ export const TableHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 ${({ theme }) => theme.sizes.base}px;
 `
 
 export const TableTitle = styled(Typography)`
   color: ${({ theme }) => theme.colors.secondary};
   margin-bottom: ${({ theme }) => theme.sizes.radius}px;
-  ${({ theme }) => theme.fonts.h3};
-`
-
-export const TableDescription = styled(Typography)`
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-bottom: ${({ theme }) => theme.sizes.radius}px;
-  ${({ theme }) => theme.fonts.body3};
+  /* ${({ theme }) => theme.fonts.h2}; */
 `
 
 export const TableHeaderSearchContainer = styled.div``

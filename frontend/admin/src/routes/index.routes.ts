@@ -1,4 +1,5 @@
-import { BiHome, BiUser } from 'react-icons/bi'
+import GroupRoundedIcon from '@material-ui/icons/GroupRounded'
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded'
 import Dashboard from 'view/pages/authed/dashboard'
 import UserManagement from 'view/pages/authed/user-management'
 import Login from 'view/pages/unauthed/login'
@@ -31,7 +32,7 @@ export const AuthorisedRoutes = [
     path: '/',
     Component: Dashboard,
     navbar: true,
-    NavbarIcon: BiHome,
+    NavbarIcon: HomeRoundedIcon,
   },
   {
     name: 'User Management',
@@ -39,7 +40,7 @@ export const AuthorisedRoutes = [
     path: '/user-management',
     Component: UserManagement,
     navbar: true,
-    NavbarIcon: BiUser,
+    NavbarIcon: GroupRoundedIcon,
   },
 ]
 

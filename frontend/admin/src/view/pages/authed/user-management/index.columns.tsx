@@ -2,6 +2,7 @@
 import Dropdown from 'common/dropdown'
 import Slider from 'common/slider'
 import { CustomTableProps } from 'common/table'
+import Tag from 'common/tags'
 import { AUTH_ROLES_REVERSE } from 'constants/auth'
 import dayjs from 'dayjs'
 import { FullUserDto } from 'generated/graphql'
@@ -27,8 +28,21 @@ const userTableColumns = (
     },
     {
       name: 'Role',
-      selector: (row: FullUserDto) =>
-        AUTH_ROLES_REVERSE[row.role as keyof typeof AUTH_ROLES_REVERSE],
+      cell: (row: FullUserDto) => {
+        const role =
+          AUTH_ROLES_REVERSE[row.role as keyof typeof AUTH_ROLES_REVERSE]
+        const roleColors = {
+          0: 'green',
+          1: 'purple',
+          2: 'red',
+        }
+
+        return (
+          <Tag color={roleColors[row.role as keyof typeof roleColors]}>
+            {role}
+          </Tag>
+        )
+      },
     },
     {
       name: 'Token Version',

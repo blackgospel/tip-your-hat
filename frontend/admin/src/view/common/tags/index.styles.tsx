@@ -5,14 +5,13 @@ export const TagContainer = styled.span`
   display: flex;
   align-items: center;
   background-color: ${({ theme, color }) =>
-    color ? theme.colors[color] : theme.colors.blue};
-  color: ${({ theme }) => theme.colors.white};
+    color ? theme.coreColors[color] : theme.coreColors.blue};
+  color: ${({ theme }) => theme.coreColors.white};
   margin-right: ${({ theme }) => theme.sizes.base}px;
   padding: ${({ theme }) => theme.sizes.small / 2}px
     ${({ theme }) => theme.sizes.base}px;
   white-space: nowrap;
   border-radius: ${({ theme }) => theme.borderRadius.primary};
-  cursor: pointer;
   ${({ theme }) => theme.fonts.h5};
   transition: ${({ theme }) => theme.transitions.primary};
 
