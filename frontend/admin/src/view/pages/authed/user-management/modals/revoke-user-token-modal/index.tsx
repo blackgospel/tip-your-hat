@@ -1,6 +1,6 @@
 import { ApolloQueryResult, OperationVariables } from '@apollo/client'
 import { VerticalSpacing } from 'common/global/spacing'
-import { UserDto } from 'generated/graphql'
+import { FullUserDto } from 'generated/graphql'
 import React from 'react'
 import { Button } from 'view/common/global/button'
 import Modal from 'view/common/modal'
@@ -8,7 +8,7 @@ import { ModalText, ModalTitle } from 'view/common/modal/index.styles'
 import useRevokeUserToken from '../../hooks/useRevokeUserToken'
 
 interface RevokeUserTokenModalProps {
-  data: UserDto
+  data: FullUserDto
   close: () => void
   refetch: (
     variables?: Partial<OperationVariables>
@@ -26,14 +26,18 @@ const RevokeUserTokenModal: React.FC<RevokeUserTokenModalProps> = ({
   })
 
   return (
-    <Modal close={close}>
-      <ModalTitle>Revoke User</ModalTitle>
-      <VerticalSpacing />
-      <ModalText>
-        Are you sure that you want to revoke this users token: {data.name}.
-      </ModalText>
-      <VerticalSpacing />
-      <Button onClick={handleSubmit}>{!loading ? 'Revoke' : 'Revoking'}</Button>
+    <Modal open close={close}>
+      <Modal.Wrapper>
+        <ModalTitle>Revoke User</ModalTitle>
+        <VerticalSpacing />
+        <ModalText>
+          Are you sure that you want to revoke this users token: {data.name}.
+        </ModalText>
+        <VerticalSpacing />
+        <Button onClick={handleSubmit}>
+          {!loading ? 'Revoke' : 'Revoking'}
+        </Button>
+      </Modal.Wrapper>
     </Modal>
   )
 }

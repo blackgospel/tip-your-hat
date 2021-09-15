@@ -1,6 +1,6 @@
-import { UserDto, useRevokeUserTokenMutation } from 'generated/graphql'
+import { FullUserDto, useRevokeUserTokenMutation } from 'generated/graphql'
 
-const useRevokeUserToken = (data: UserDto, onSuccess?: () => void) => {
+const useRevokeUserToken = (data: FullUserDto, onSuccess?: () => void) => {
   const [revokeUserToken, { loading, error }] = useRevokeUserTokenMutation({
     variables: {
       revokeUserTokenOptions: {

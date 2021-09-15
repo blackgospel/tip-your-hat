@@ -53,3 +53,20 @@ export const ModalText = styled.p`
   ${({ theme }) => theme.fonts.body3};
   margin-bottom: ${({ theme }) => theme.sizes.base}px;
 `
+
+export const ModalContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+`
+
+export const ModalWrapper = styled.div`
+  background-color: white;
+  max-width: ${({ theme }) => theme.sizes.maxWidth.modal}px;
+  width: 100%;
+  padding: ${({ theme }) => theme.sizes.padding}px;
+  pointer-events: all;
+`

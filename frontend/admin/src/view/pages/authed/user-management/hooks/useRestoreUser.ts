@@ -1,6 +1,6 @@
-import { UserDto, useRestoreUserMutation } from 'generated/graphql'
+import { FullUserDto, useRestoreUserMutation } from 'generated/graphql'
 
-const useRestoreUser = (data: UserDto, onSuccess?: () => void) => {
+const useRestoreUser = (data: FullUserDto, onSuccess?: () => void) => {
   const [restoreUser, { loading, error }] = useRestoreUserMutation({
     variables: {
       restoreUserOptions: {

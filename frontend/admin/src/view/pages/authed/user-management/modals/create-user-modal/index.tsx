@@ -28,51 +28,53 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
   const { errors } = useErrors(error)
 
   return (
-    <Modal close={close}>
-      <ModalTitle>Create User</ModalTitle>
-      <Button onClick={randomUser}>Random User</Button>
-      <VerticalSpacing />
-      <Form
-        handleSubmit={handleSubmit}
-        loading={loading}
-        error={errors.formErrors}
-        fieldError={errors.fieldErrors}
-      >
-        <Form.Input
-          required
-          name="name"
-          label="Name"
-          onChange={onChange('name')}
-          value={fields.name}
-        />
-        <Form.Input
-          required
-          name="email"
-          label="Email"
-          onChange={onChange('email')}
-          value={fields.email}
-        />
-        <Form.Input
-          required
-          name="password"
-          label="Password"
-          type="password"
-          onChange={onChange('password')}
-          value={fields.password}
-        />
-        <Form.Select
-          name="role"
-          label="Role"
-          onChange={(event) => onChange('role')(event)}
-          options={Object.keys(AUTH_ROLES).map((item) => {
-            return {
-              label: toTitleCase(item),
-              value: AUTH_ROLES[item as keyof typeof AUTH_ROLES],
-            }
-          })}
-          value={fields.role}
-        />
-      </Form>
+    <Modal open close={close}>
+      <Modal.Wrapper>
+        <ModalTitle>Create User</ModalTitle>
+        <Button onClick={randomUser}>Random User</Button>
+        <VerticalSpacing />
+        <Form
+          handleSubmit={handleSubmit}
+          loading={loading}
+          error={errors.formErrors}
+          fieldError={errors.fieldErrors}
+        >
+          <Form.Input
+            required
+            name="name"
+            label="Name"
+            onChange={onChange('name')}
+            value={fields.name}
+          />
+          <Form.Input
+            required
+            name="email"
+            label="Email"
+            onChange={onChange('email')}
+            value={fields.email}
+          />
+          <Form.Input
+            required
+            name="password"
+            label="Password"
+            type="password"
+            onChange={onChange('password')}
+            value={fields.password}
+          />
+          <Form.Select
+            name="role"
+            label="Role"
+            onChange={(event) => onChange('role')(event)}
+            options={Object.keys(AUTH_ROLES).map((item) => {
+              return {
+                label: toTitleCase(item),
+                value: AUTH_ROLES[item as keyof typeof AUTH_ROLES],
+              }
+            })}
+            value={fields.role}
+          />
+        </Form>
+      </Modal.Wrapper>
     </Modal>
   )
 }

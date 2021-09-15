@@ -1,9 +1,9 @@
 import CreateIcon from '@material-ui/icons/Create'
 import SyncIcon from '@material-ui/icons/Sync'
+import Spinner from 'common/global/spinner'
 import DashboardTable from 'common/table'
-import { useGetAllUsersQuery, UserDto } from 'generated/graphql'
+import { FullUserDto, useGetAllUsersQuery } from 'generated/graphql'
 import useModal from 'helpers/hooks/useModal'
-import { Spinner } from 'routes/index.styles'
 import { Title } from 'view/common/global/title'
 import userTableColumns from './index.columns'
 import { UserManagementContainer } from './index.styles'
@@ -40,7 +40,7 @@ const UserManagement: React.FC = () => {
       <DashboardTable
         title="Users"
         columns={userTableColumns(
-          (row: UserDto) => [
+          (row: FullUserDto) => [
             {
               name: 'Update',
               icon: <CreateIcon />,

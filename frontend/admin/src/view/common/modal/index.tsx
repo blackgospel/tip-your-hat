@@ -1,32 +1,30 @@
-import Clear from '@material-ui/icons/Clear'
-import React, { useEffect } from 'react'
-import { createPortal } from 'react-dom'
-import { Backdrop, CloseButton, Container } from './index.styles'
+import {
+  Modal as MuiModal,
+  ModalProps as MuiModalProps,
+} from '@material-ui/core'
+import React, { FC } from 'react'
+import { ModalContainer, ModalWrapper } from './index.styles'
 
-interface ModalProps {
+interface ModalProps extends MuiModalProps {
   close: () => void
 }
 
-const Modal: React.FC<ModalProps> = ({ close, children }) => {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
+interface ModalSubComponents {
+  Wrapper: FC
+}
 
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [])
-
-  return createPortal(
-    <Backdrop>
-      <Container>
-        <CloseButton onClick={close}>
-          <Clear />
-        </CloseButton>
-        {children}
-      </Container>
-    </Backdrop>,
-    document.getElementById('root-modal') as HTMLElement
+const Modal: React.FC<ModalProps> & ModalSubComponents = ({
+  open,
+  close,
+  children,
+}) => {
+  return (
+    <MuiModal open={open} onClose={close}>
+      <ModalContainer>{children}</ModalContainer>
+    </MuiModal>
   )
 }
+
+Modal.Wrapper = ModalWrapper
 
 export default Modal

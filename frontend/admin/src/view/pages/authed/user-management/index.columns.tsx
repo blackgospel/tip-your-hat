@@ -32,9 +32,9 @@ const userTableColumns = (
         const role =
           AUTH_ROLES_REVERSE[row.role as keyof typeof AUTH_ROLES_REVERSE]
         const roleColors = {
-          0: 'green',
-          1: 'purple',
-          2: 'red',
+          0: 'blue',
+          1: 'green',
+          2: 'purple',
         }
 
         return (

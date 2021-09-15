@@ -1,7 +1,8 @@
+import Spinner from 'common/global/spinner'
 import useRefreshToken from 'helpers/hooks/useRefreshToken'
 import useCurrentUserStore from 'zustands/stores/current-user'
 import AuthedRoutes from './index.authed'
-import { RouteContainer, RoutesLoading, Spinner } from './index.styles'
+import { RouteContainer, RoutesLoading } from './index.styles'
 import UnauthedRoutes from './index.unauthed'
 
 const Routes: React.FC = () => {

@@ -1,6 +1,6 @@
-import { useDeleteUserMutation, UserDto } from 'generated/graphql'
+import { FullUserDto, useDeleteUserMutation } from 'generated/graphql'
 
-const useDeleteUser = (data: UserDto, onSuccess?: () => void) => {
+const useDeleteUser = (data: FullUserDto, onSuccess?: () => void) => {
   const [deleteUser, { loading, error }] = useDeleteUserMutation({
     variables: {
       deleteUserOptions: {

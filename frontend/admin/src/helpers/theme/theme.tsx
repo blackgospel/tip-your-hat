@@ -242,6 +242,9 @@ export const muiTheme = createTheme({
     MuiCard: {
       variant: 'outlined',
     },
+    MuiCircularProgress: {
+      color: 'primary',
+    },
   },
 })
 
