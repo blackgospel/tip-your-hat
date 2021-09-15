@@ -1,5 +1,6 @@
 import { VerticalSpacing } from 'common/global/spacing'
 import { FullUserDto } from 'generated/graphql'
+import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import { Button } from 'view/common/global/button'
 import Modal from 'view/common/modal'
@@ -17,10 +18,12 @@ const RestoreUserModal: React.FC<RestoreUserModalProps> = ({
   close,
   refetch,
 }) => {
-  const { handleSubmit, loading } = useRestoreUser(data, () => {
+  const { handleSubmit, loading, error } = useRestoreUser(data, () => {
     refetch()
     close()
   })
+
+  useErrors(error)
 
   return (
     <Modal open close={close}>

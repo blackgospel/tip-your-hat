@@ -1,12 +1,20 @@
+import { USER_MANAGEMENT_SNACKBAR_MESSAGES } from 'constants/enums'
 import { FullUserDto, useUpdateUserMutation } from 'generated/graphql'
+import useCustomSnackbar from 'helpers/hooks/useCustomSnackbar'
 import useFormField from 'helpers/hooks/useFormField'
 
-const useUpdateUser = (data: FullUserDto, onSuccess?: () => void) => {
+const useUpdateUser = (
+  data: FullUserDto,
+  onSuccess?: () => void,
+  toast = true
+) => {
   const { fields, onChange, resetFields } = useFormField({
     email: data.email,
     name: data.name,
     role: data.role,
   })
+
+  const enqueueCustomSnackbar = useCustomSnackbar()
 
   const [updateUser, { loading, error }] = useUpdateUserMutation({
     variables: {
@@ -23,6 +31,13 @@ const useUpdateUser = (data: FullUserDto, onSuccess?: () => void) => {
     await updateUser()
 
     resetFields()
+
+    if (toast) {
+      enqueueCustomSnackbar(
+        USER_MANAGEMENT_SNACKBAR_MESSAGES.UPDATE_USER,
+        'success'
+      )
+    }
 
     if (onSuccess) {
       onSuccess()

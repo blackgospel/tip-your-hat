@@ -16,7 +16,7 @@ interface FieldErrorInputs {
 */
 
 export const throwFormError = () => {
-  console.log('hi')
+  console.log('his')
 }
 
 export const throwFieldError = (errors: FieldErrorInputs[]) => {

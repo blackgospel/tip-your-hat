@@ -1,6 +1,7 @@
 import { ApolloQueryResult, OperationVariables } from '@apollo/client'
 import { VerticalSpacing } from 'common/global/spacing'
 import { FullUserDto } from 'generated/graphql'
+import useErrors from 'helpers/hooks/useErrors'
 import React from 'react'
 import { Button } from 'view/common/global/button'
 import Modal from 'view/common/modal'
@@ -20,10 +21,12 @@ const RevokeUserTokenModal: React.FC<RevokeUserTokenModalProps> = ({
   close,
   refetch,
 }) => {
-  const { handleSubmit, loading } = useRevokeUserToken(data, () => {
+  const { handleSubmit, loading, error } = useRevokeUserToken(data, () => {
     refetch()
     close()
   })
+
+  useErrors(error)
 
   return (
     <Modal open close={close}>

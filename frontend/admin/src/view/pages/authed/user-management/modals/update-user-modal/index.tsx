@@ -29,8 +29,6 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
   )
   const { errors } = useErrors(error)
 
-  console.log('fields,', fields)
-
   return (
     <Modal open close={close}>
       <Modal.Wrapper>

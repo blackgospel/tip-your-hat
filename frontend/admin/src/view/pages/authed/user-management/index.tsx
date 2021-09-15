@@ -1,5 +1,6 @@
 import CreateIcon from '@material-ui/icons/Create'
 import SyncIcon from '@material-ui/icons/Sync'
+import { VerticalSpacing } from 'common/global/spacing'
 import Spinner from 'common/global/spinner'
 import DashboardTable from 'common/table'
 import { FullUserDto, useGetAllUsersQuery } from 'generated/graphql'
@@ -37,6 +38,7 @@ const UserManagement: React.FC = () => {
   return (
     <UserManagementContainer>
       <Title>User Management</Title>
+      <VerticalSpacing />
       <DashboardTable
         title="Users"
         columns={userTableColumns(

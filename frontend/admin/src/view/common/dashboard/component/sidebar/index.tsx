@@ -1,10 +1,12 @@
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import { VerticalSpacing } from 'common/global/spacing'
 import Logo from 'common/logo'
+import { AUTH_ROLES_REVERSE } from 'constants/auth'
 import useLogout from 'helpers/hooks/useLogout'
 import useRouter from 'helpers/hooks/useRouter'
 import React from 'react'
 import { AuthorisedNavbarRoutes } from 'routes/index.routes'
+import useCurrentUserStore from 'zustands/stores/current-user'
 import { DashboardSidebarProps } from '../../index.types'
 import {
   DashboardSidebarAvatar,
@@ -27,6 +29,7 @@ import {
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
   const { pathname } = useRouter()
+  const { currentUser } = useCurrentUserStore()
   const logout = useLogout()
 
   return (
@@ -58,8 +61,16 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
           </DashboardSidebarAvatarContainer>
           <VerticalSpacing spacing={3} />
           <DashboardSidebarInfo>
-            <DashboardSidebarInfoName>Seun Adesina</DashboardSidebarInfoName>
-            <DashboardSidebarInfoRole>Super Admin</DashboardSidebarInfoRole>
+            <DashboardSidebarInfoName>
+              {currentUser?.name}
+            </DashboardSidebarInfoName>
+            <DashboardSidebarInfoRole>
+              {
+                AUTH_ROLES_REVERSE[
+                  currentUser?.role as keyof typeof AUTH_ROLES_REVERSE
+                ]
+              }
+            </DashboardSidebarInfoRole>
           </DashboardSidebarInfo>
         </DashboardSidebarUserInfo>
         <VerticalSpacing spacing={3} />

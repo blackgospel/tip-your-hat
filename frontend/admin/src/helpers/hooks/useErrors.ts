@@ -2,6 +2,7 @@ import { ApolloError } from '@apollo/client'
 import arrToObj from 'helpers/generic/arrToObj'
 import formatError from 'helpers/generic/formatError'
 import { useCallback, useEffect, useState } from 'react'
+import useCustomSnackbar from './useCustomSnackbar'
 
 interface UseErrorState {
   formErrors?: any
@@ -22,6 +23,8 @@ const useErrors = (error?: ApolloError) => {
     fieldErrors: null,
     generalErrors: null,
   })
+
+  const enqueueCustomSnackbar = useCustomSnackbar()
 
   const resetErrors = () => {
     setErrors({
@@ -58,9 +61,9 @@ const useErrors = (error?: ApolloError) => {
     const { type, formattedError } = formatError(error)
 
     if (type === 'error') {
+      enqueueCustomSnackbar(formattedError[0][0].message, 'error')
       setFormErrors(formattedError)
     } else {
-      console.log('errors', formattedError)
       setFieldErrors(formattedError)
     }
   }, [error, errors])

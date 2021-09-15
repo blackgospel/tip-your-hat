@@ -1,7 +1,7 @@
 import { ButtonGroup } from '@material-ui/core'
 import Card from 'common/card'
 import { Button } from 'common/global/button'
-import { HorizontalSpacing } from 'common/global/spacing'
+import { HorizontalSpacing, VerticalSpacing } from 'common/global/spacing'
 import DataTable, { TableProps } from 'react-data-table-component'
 import {
   TableContainer,
@@ -47,13 +47,14 @@ const Table: React.FC<CustomTableProps> = ({
           </ButtonGroup>
         )}
       </TableHeaderContainer>
+      <VerticalSpacing />
       <TableContainer>
         <DataTable
           columns={columns}
           data={data}
           responsive
           pagination
-          paginationPerPage={5}
+          paginationPerPage={7}
           paginationComponentOptions={{ noRowsPerPage: true }}
         />
       </TableContainer>

@@ -3,8 +3,16 @@ import jwtDecode from 'jwt-decode'
 import { SetState } from 'zustand'
 import { create, devtools, immer } from '../index'
 
+interface CurrentUser {
+  id: string
+  role: number
+  name: string
+  iat: number
+  exp: number
+}
+
 type CurrentUserStore = {
-  currentUser: Record<string, any> | null
+  currentUser: CurrentUser | null
   setCurrentUser: (token: string) => void
   removeCurrentUser: () => void
 }
@@ -22,7 +30,7 @@ const reducer = (set: SetState<CurrentUserStore>) => ({
     if (!user) return
 
     set((state) => {
-      state.currentUser = user as unknown as Record<string, any>
+      state.currentUser = user as unknown as CurrentUser
     })
 
     localStorage.setItem(ACCESS_TOKEN_KEY, token)
