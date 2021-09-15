@@ -5,6 +5,7 @@ import { GENERAL_ERRORS, USER_ERRORS } from 'errors/error-messages'
 import { formatDBResponse } from 'helpers/db-helpers'
 import { createJWTCookie, destroyJWTCookie, signAccessToken } from 'helpers/jwt'
 import { compare } from 'helpers/password'
+import { getWinDrawWinData } from 'helpers/scraper'
 import { verify } from 'jsonwebtoken'
 import isEmpty from 'lodash.isempty'
 import { isAuth } from 'middleware/auth-middleware'
@@ -38,6 +39,12 @@ import {
 export class AuthResolver {
   @Query(() => String)
   hello() {
+    return 'hi'
+  }
+
+  @Query(() => String)
+  async testScraper() {
+    await getWinDrawWinData()
     return 'hi'
   }
 

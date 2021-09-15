@@ -1,5 +1,6 @@
 import { ButtonGroup } from '@material-ui/core'
 import Card from 'common/card'
+import { Box } from 'common/global/box'
 import { Button } from 'common/global/button'
 import { HorizontalSpacing, VerticalSpacing } from 'common/global/spacing'
 import DataTable, { TableProps } from 'react-data-table-component'
@@ -25,7 +26,7 @@ const Table: React.FC<CustomTableProps> = ({
   return (
     <Card>
       <TableHeaderContainer>
-        {title && <TableTitle as="h2">{title}</TableTitle>}
+        {title ? <TableTitle as="h2">{title}</TableTitle> : <Box />}
         {actions && (
           <ButtonGroup
             color="primary"
