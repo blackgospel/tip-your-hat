@@ -224,6 +224,9 @@ export const muiTheme = createTheme({
       color: 'primary',
       variant: 'contained',
     },
+    MuiButtonGroup: {
+      color: 'primary',
+    },
     MuiFab: {
       color: 'primary',
       size: 'medium',

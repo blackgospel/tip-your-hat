@@ -40,7 +40,6 @@ const UserManagement: React.FC = () => {
       <Title>User Management</Title>
       <VerticalSpacing />
       <DashboardTable
-        // title="Users"
         columns={userTableColumns(
           (row: FullUserDto) => [
             {

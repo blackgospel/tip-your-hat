@@ -28,10 +28,7 @@ const Table: React.FC<CustomTableProps> = ({
       <TableHeaderContainer>
         {title ? <TableTitle as="h2">{title}</TableTitle> : <Box />}
         {actions && (
-          <ButtonGroup
-            color="primary"
-            aria-label="outlined primary button group"
-          >
+          <ButtonGroup>
             {actions.map(({ icon, label, onClick }, index) => {
               return (
                 <Button key={index} onClick={onClick}>
