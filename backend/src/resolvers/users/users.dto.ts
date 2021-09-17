@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator'
+import { IsBoolean, IsEmail, IsString } from 'class-validator'
 import { GENERAL_ERRORS } from 'errors/error-messages'
 import { Field, ObjectType } from 'type-graphql'
 import User from './users.model'
@@ -18,7 +18,7 @@ export class UserDto implements Partial<User> {
   name: string
 
   @Field()
-  @IsString({ message: GENERAL_ERRORS.VALIDATION_ERROR })
+  @IsBoolean({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   isDeleted: boolean
 }
 
@@ -49,6 +49,6 @@ export class FullUserDto implements Partial<User> {
   credits: number
 
   @Field()
-  @IsString({ message: GENERAL_ERRORS.VALIDATION_ERROR })
+  @IsBoolean({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   isDeleted: boolean
 }

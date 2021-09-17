@@ -4,6 +4,7 @@ import { config } from 'aws-sdk'
 import BadRequestError from 'errors/bad-request'
 import 'reflect-metadata'
 import { AuthResolver } from 'resolvers/auth/auth.controller'
+import { TipResolver } from 'resolvers/tips/tips.controller'
 import { UserResolver } from 'resolvers/users/users.controller'
 import { buildSchemaSync } from 'type-graphql'
 import {
@@ -19,7 +20,7 @@ config.update({
 
 const app = new ApolloServer({
   schema: buildSchemaSync({
-    resolvers: [AuthResolver, UserResolver],
+    resolvers: [AuthResolver, UserResolver, TipResolver],
     globalMiddlewares: [cookieParser],
     validate: false,
     authChecker: authorizationChecker,

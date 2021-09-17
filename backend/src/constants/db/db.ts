@@ -3,6 +3,7 @@ import { DynamoDB } from 'aws-sdk'
 export const dbKeySplit = '#'
 
 export const dbTableName = process.env.TABLE_NAME || 'testTable'
+export const dbTipsTableName = process.env.TABLE_NAME_TIPS || 'testTipTable'
 
 export const documentClient: DynamoDB = new DynamoDB({
   accessKeyId: process.env.ACCESS_KEY,
