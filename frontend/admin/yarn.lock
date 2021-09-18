@@ -1806,6 +1806,18 @@
   dependencies:
     jwt-decode "*"
 
+"@types/lodash.orderby@^4.6.6":
+  version "4.6.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.orderby/-/lodash.orderby-4.6.6.tgz#126543bb597477dc9b27d748b5822244f577915c"
+  integrity sha512-wQzu6xK+bSwhu45OeMI7fjywiIZiiaBzJB8W3fwnF1SJXHoOXRLutrSnVmq4yHPOM036qsy8lx9wHQcAbXNjJw==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.173"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.173.tgz#9d3b674c67a26cf673756f6aca7b429f237f91ed"
+  integrity sha512-vv0CAYoaEjCw/mLy96GBTnRoZrSxkGE0BKzKimdR8P3OzrNYNvBgtW7p055A+E8C31vXNUhWKoFCbhq7gbyhFg==
+
 "@types/mime@^1":
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
@@ -6282,10 +6294,10 @@ rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-data-table-component@7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-7.0.0.tgz#7a3cbc89794bdc31bbb2c9761537648b5b4cd817"
-  integrity sha512-ro6r5igdkaG2qEosDmY7LxOy7sTlYdb3uL6Hr/BXQ3uoUzmuSbsSMiT4ZDLLZiaNNujPzTDvrCLn/v7KvJ4v4g==
+react-data-table-component@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-7.1.0.tgz#76e5c3d85b0e39b9cc96f8b957bb8817be3f5416"
+  integrity sha512-vnpz8s5iJ2utuAFY1tNTkwzCtK6nOtMFzMbIMrHyFqHf9y/hkpQDjUOr9omOJtId5DpdlQG+Phh6vlWC2/avpg==
   dependencies:
     deepmerge "^4.2.2"
     lodash.orderby "^4.6.0"

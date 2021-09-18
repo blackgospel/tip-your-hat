@@ -22,18 +22,24 @@ export const batchCreateTips = async (
   tipData: {
     matchInfo: MatchInfo
     predictionInfo: PredictionInfo
+    matchStart: number
+    sport: string
   }[]
 ) => {
-  const formattedTips = tipData.map(({ matchInfo, predictionInfo }) => {
-    const id = shortid()
+  const formattedTips = tipData.map(
+    ({ matchInfo, predictionInfo, matchStart, sport }) => {
+      const id = shortid()
 
-    return {
-      pk: id,
-      sk: id,
-      matchInfo,
-      predictionInfo,
+      return {
+        pk: id,
+        sk: id,
+        matchInfo,
+        predictionInfo,
+        matchStart,
+        sport,
+      }
     }
-  })
+  )
 
   return await batchWriteTips(formattedTips)
 }

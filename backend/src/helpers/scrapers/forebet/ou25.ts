@@ -2,7 +2,7 @@ import axios from 'axios'
 import cheerio from 'cheerio'
 import dayjs from 'dayjs'
 import { MatchInfo, PredictionInfo } from 'resolvers/tips/tips.model'
-import { FOREBET_URLS } from '../index.sites'
+import { FOREBET_URLS, SPORTS } from '../index.sites'
 
 const ForeBetOU25Scraper = async () => {
   const siteUrl = FOREBET_URLS.OU25
@@ -19,6 +19,8 @@ const ForeBetOU25Scraper = async () => {
   const rawData: {
     matchInfo: MatchInfo
     predictionInfo: PredictionInfo
+    matchStart: number
+    sport: string
   }[] = []
 
   tableRows.each(function (_idx, el) {
@@ -26,12 +28,13 @@ const ForeBetOU25Scraper = async () => {
       matchInfo: {
         team1: '',
         team2: '',
-        matchStart: 0,
       },
       predictionInfo: {
         predictionName: '',
         predictionValue: '',
       },
+      matchStart: 0,
+      sport: SPORTS.FOOTBALL,
     }
 
     const over25 = $(el).find('div.fprc > span')[0]
@@ -60,7 +63,7 @@ const ForeBetOU25Scraper = async () => {
 
     prediction.matchInfo.team1 = team1
     prediction.matchInfo.team2 = team2
-    prediction.matchInfo.matchStart = time.valueOf()
+    prediction.matchStart = time.valueOf()
 
     rawData.push(prediction)
   })

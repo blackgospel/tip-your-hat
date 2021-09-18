@@ -1,5 +1,7 @@
+import AddShoppingCartRoundedIcon from '@material-ui/icons/AddShoppingCartRounded'
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded'
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded'
+import TipsManagement from 'pages/authed/tips-management'
 import Dashboard from 'view/pages/authed/dashboard'
 import UserManagement from 'view/pages/authed/user-management'
 import Login from 'view/pages/unauthed/login'
@@ -41,6 +43,14 @@ export const AuthorisedRoutes = [
     Component: UserManagement,
     navbar: true,
     NavbarIcon: GroupRoundedIcon,
+  },
+  {
+    name: 'Tips Management',
+    exact: true,
+    path: '/tips-management',
+    Component: TipsManagement,
+    navbar: true,
+    NavbarIcon: AddShoppingCartRoundedIcon,
   },
 ]
 

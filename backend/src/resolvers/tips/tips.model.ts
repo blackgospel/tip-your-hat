@@ -20,9 +20,6 @@ export class MatchInfo {
 
   @Field()
   team2?: string
-
-  @Field()
-  matchStart: number
 }
 
 @ObjectType()
@@ -58,6 +55,12 @@ class Tips {
 
   @Field()
   predictionInfo: PredictionInfo
+
+  @Field()
+  sport: string
+
+  @Field()
+  matchStart: number
 
   @Property({ defaultValueProvider: () => dayjs().valueOf() })
   @Field({ nullable: true })

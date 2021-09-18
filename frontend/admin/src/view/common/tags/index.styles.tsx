@@ -14,6 +14,7 @@ export const TagContainer = styled.span`
   border-radius: ${({ theme }) => theme.borderRadius.primary};
   ${({ theme }) => theme.fonts.h5};
   transition: ${({ theme }) => theme.transitions.primary};
+  text-transform: capitalize;
 
   svg {
     margin-right: ${({ theme }) => theme.sizes.small}px;

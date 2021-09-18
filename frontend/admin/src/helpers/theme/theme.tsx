@@ -219,6 +219,9 @@ export const muiTheme = createTheme({
     },
   },
   props: {
+    MuiInput: {
+      color: 'primary',
+    },
     MuiButton: {
       disableElevation: true,
       color: 'primary',

@@ -22,6 +22,7 @@ const Table: React.FC<CustomTableProps> = ({
   columns,
   title,
   actions,
+  ...tableProps
 }) => {
   return (
     <Card>
@@ -54,6 +55,7 @@ const Table: React.FC<CustomTableProps> = ({
           pagination
           paginationPerPage={7}
           paginationComponentOptions={{ noRowsPerPage: true }}
+          {...tableProps}
         />
       </TableContainer>
     </Card>

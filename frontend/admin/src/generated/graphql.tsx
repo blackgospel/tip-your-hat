@@ -56,11 +56,18 @@ export type LoginUserOutput = {
   user: UserDto;
 };
 
+export type MatchInfo = {
+  __typename?: 'MatchInfo';
+  team1: Scalars['String'];
+  team2: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: UserDto;
   deleteUser: Scalars['Boolean'];
   deleteUserPermanently: Scalars['Boolean'];
+  getTipsForDay: Scalars['Boolean'];
   login: LoginUserOutput;
   loginAdmin: LoginUserOutput;
   logout: Scalars['Boolean'];
@@ -116,9 +123,16 @@ export type MutationUpdateUserArgs = {
   options: UpdateUserInput;
 };
 
+export type PredictionInfo = {
+  __typename?: 'PredictionInfo';
+  predictionName: Scalars['String'];
+  predictionValue: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   bye: Scalars['String'];
+  getAllTips: Array<TipsDto>;
   getAllUsers: Array<FullUserDto>;
   getCurrentUser?: Maybe<FullUserDto>;
   getUser: FullUserDto;
@@ -151,6 +165,17 @@ export type RestoreUserInput = {
 export type RevokeUserTokenInput = {
   email?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+};
+
+export type TipsDto = {
+  __typename?: 'TipsDto';
+  id: Scalars['String'];
+  isActive: Scalars['Boolean'];
+  isDeleted: Scalars['Boolean'];
+  matchInfo: MatchInfo;
+  matchStart: Scalars['Float'];
+  predictionInfo: PredictionInfo;
+  sport: Scalars['String'];
 };
 
 export type UpdateUserInput = {
@@ -208,6 +233,11 @@ export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HelloQuery = { __typename?: 'Query', hello: string };
+
+export type GetAllAdminTipsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllAdminTipsQuery = { __typename?: 'Query', getAllTips: Array<{ __typename?: 'TipsDto', id: string, isActive: boolean, sport: string, matchStart: number, matchInfo: { __typename?: 'MatchInfo', team1: string, team2: string }, predictionInfo: { __typename?: 'PredictionInfo', predictionName: string, predictionValue: string } }> };
 
 export type CreateUserMutationVariables = Exact<{
   createUserOptions: CreateUserInput;
@@ -476,6 +506,51 @@ export function useHelloLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Hell
 export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
 export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
 export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;
+export const GetAllAdminTipsDocument = gql`
+    query GetAllAdminTips {
+  getAllTips {
+    id
+    matchInfo {
+      team1
+      team2
+    }
+    predictionInfo {
+      predictionName
+      predictionValue
+    }
+    isActive
+    sport
+    matchStart
+  }
+}
+    `;
+
+/**
+ * __useGetAllAdminTipsQuery__
+ *
+ * To run a query within a React component, call `useGetAllAdminTipsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllAdminTipsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllAdminTipsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllAdminTipsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllAdminTipsQuery, GetAllAdminTipsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllAdminTipsQuery, GetAllAdminTipsQueryVariables>(GetAllAdminTipsDocument, options);
+      }
+export function useGetAllAdminTipsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllAdminTipsQuery, GetAllAdminTipsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllAdminTipsQuery, GetAllAdminTipsQueryVariables>(GetAllAdminTipsDocument, options);
+        }
+export type GetAllAdminTipsQueryHookResult = ReturnType<typeof useGetAllAdminTipsQuery>;
+export type GetAllAdminTipsLazyQueryHookResult = ReturnType<typeof useGetAllAdminTipsLazyQuery>;
+export type GetAllAdminTipsQueryResult = Apollo.QueryResult<GetAllAdminTipsQuery, GetAllAdminTipsQueryVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($createUserOptions: CreateUserInput!) {
   createUser(options: $createUserOptions) {

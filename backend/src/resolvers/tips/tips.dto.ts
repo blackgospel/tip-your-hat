@@ -18,6 +18,13 @@ export class TipsDto implements Partial<Tips> {
   predictionInfo: PredictionInfo
 
   @Field()
+  @IsString({ message: GENERAL_ERRORS.VALIDATION_ERROR })
+  sport: string
+
+  @Field()
+  matchStart: number
+
+  @Field()
   @IsBoolean({ message: GENERAL_ERRORS.VALIDATION_ERROR })
   isActive: boolean
 
