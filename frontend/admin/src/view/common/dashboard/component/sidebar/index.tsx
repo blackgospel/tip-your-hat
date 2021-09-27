@@ -1,4 +1,4 @@
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
 import { VerticalSpacing } from 'common/global/spacing'
 import Logo from 'common/logo'
 import { AUTH_ROLES_REVERSE } from 'constants/auth'

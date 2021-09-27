@@ -1,7 +1,4 @@
-import {
-  Modal as MuiModal,
-  ModalProps as MuiModalProps,
-} from '@material-ui/core'
+import { Modal as MuiModal, ModalProps as MuiModalProps } from '@mui/material'
 import React, { FC } from 'react'
 import { ModalContainer, ModalWrapper } from './index.styles'
 

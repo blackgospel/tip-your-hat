@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from '@material-ui/core'
+import { IconButton, Menu, MenuItem } from '@mui/material'
 import { Button } from 'common/global/button'
 import { useState } from 'react'
 import {
@@ -8,11 +8,12 @@ import {
 } from './index.styles'
 
 interface DropdownProps {
-  name: string
+  name?: string
   list: { name: string; icon?: any; onClick: any }[]
+  Icon?: any
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ name, list }) => {
+const Dropdown: React.FC<DropdownProps> = ({ name, list, Icon }) => {
   const [element, setElement] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null)
@@ -27,11 +28,16 @@ const Dropdown: React.FC<DropdownProps> = ({ name, list }) => {
 
   return (
     <DropdownContainer>
-      <Button onClick={handleToggle}>{name}</Button>
+      {Icon ? (
+        <IconButton onClick={handleToggle}>
+          <Icon color="primary" />
+        </IconButton>
+      ) : (
+        <Button onClick={handleToggle}>{name}</Button>
+      )}
       <Menu
         id="menu"
         anchorEl={element}
-        getContentAnchorEl={null}
         keepMounted
         open={Boolean(element)}
         onClose={handleClose}

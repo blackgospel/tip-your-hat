@@ -1,12 +1,14 @@
 import { css } from 'styled-components'
-import { breakpoints } from './theme'
+import { customBreakpoints } from './theme'
 
-export default Object.keys(breakpoints).reduce((acc: any, label) => {
-  acc[label as keyof typeof breakpoints] = (
+export default Object.keys(customBreakpoints).reduce((acc: any, label) => {
+  acc[label as keyof typeof customBreakpoints] = (
     literals: TemplateStringsArray,
     ...args: any[]
   ) => css`
-    @media (min-width: ${breakpoints[label as keyof typeof breakpoints]}px) {
+    @media (min-width: ${customBreakpoints[
+        label as keyof typeof customBreakpoints
+      ]}px) {
       ${css(literals, ...args)};
     }
   `

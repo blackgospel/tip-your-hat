@@ -1,5 +1,3 @@
-import { createTheme } from '@material-ui/core'
-
 export const coreColors = {
   black: '#1E1B26',
   white: '#FFFFFF',
@@ -173,7 +171,7 @@ export const fonts = {
   },
 }
 
-export const breakpoints = {
+export const customBreakpoints = {
   xs: 600,
   sm: 960,
   md: 1200,
@@ -181,7 +179,7 @@ export const breakpoints = {
   xl: 1920,
 }
 
-export const transitions = {
+export const customTransitions = {
   primary: '150ms ease-in-out',
 }
 
@@ -194,66 +192,6 @@ export const fontFamily = {
   secondary: 'Poppins',
 }
 
-export const muiTheme = createTheme({
-  typography: {
-    fontFamily: ['DM Sans', 'Poppins'].join(','),
-  },
-  palette: {
-    primary: {
-      main: colors.primary,
-    },
-    secondary: {
-      main: colors.secondary,
-    },
-    error: {
-      main: colors.error,
-    },
-    warning: {
-      main: colors.warning,
-    },
-    info: {
-      main: colors.info,
-    },
-    success: {
-      main: colors.success,
-    },
-  },
-  props: {
-    MuiInput: {
-      color: 'primary',
-    },
-    MuiButton: {
-      disableElevation: true,
-      color: 'primary',
-      variant: 'contained',
-    },
-    MuiButtonGroup: {
-      color: 'primary',
-    },
-    MuiFab: {
-      color: 'primary',
-      size: 'medium',
-    },
-    MuiFormControl: {
-      variant: 'outlined',
-      size: 'small',
-    },
-    MuiFormHelperText: {
-      variant: 'outlined',
-    },
-    MuiSwitch: {
-      color: 'primary',
-      size: 'small',
-    },
-    MuiCard: {
-      variant: 'outlined',
-    },
-    MuiCircularProgress: {
-      color: 'primary',
-    },
-  },
-})
-
 const theme = {
   coreColors,
   colors,
@@ -261,8 +199,8 @@ const theme = {
   fontSizes,
   fontWeights,
   fonts,
-  breakpoints,
-  transitions,
+  customBreakpoints,
+  customTransitions,
   borderRadius,
   fontFamily,
 }

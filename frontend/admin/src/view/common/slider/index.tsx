@@ -1,4 +1,4 @@
-import { Switch, SwitchProps as MuiSwitchProps } from '@material-ui/core'
+import { Switch, SwitchProps as MuiSwitchProps } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { SliderContainer } from './index.styles'
 

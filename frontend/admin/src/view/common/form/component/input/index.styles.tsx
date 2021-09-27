@@ -1,4 +1,4 @@
-import { OutlinedInput } from '@material-ui/core'
+import { OutlinedInput } from '@mui/material'
 import styled from 'styled-components/macro'
 
 export const InputContainer = styled.div`

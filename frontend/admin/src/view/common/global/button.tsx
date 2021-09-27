@@ -1,4 +1,4 @@
-import { Button as MuiButton } from '@material-ui/core'
+import { Button as MuiButton } from '@mui/material'
 import styled, { css } from 'styled-components/macro'
 
 export const Button = styled(MuiButton)`

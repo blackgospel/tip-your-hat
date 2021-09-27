@@ -1,4 +1,4 @@
-import { Select } from '@material-ui/core'
+import { Select } from '@mui/material'
 import styled from 'styled-components/macro'
 
 export const InputContainer = styled.div`

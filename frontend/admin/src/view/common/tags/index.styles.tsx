@@ -13,7 +13,7 @@ export const TagContainer = styled.span`
   white-space: nowrap;
   border-radius: ${({ theme }) => theme.borderRadius.primary};
   ${({ theme }) => theme.fonts.h5};
-  transition: ${({ theme }) => theme.transitions.primary};
+  transition: ${({ theme }) => theme.customTransitions.primary};
   text-transform: capitalize;
 
   svg {

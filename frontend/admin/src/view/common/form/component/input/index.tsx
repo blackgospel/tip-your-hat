@@ -1,4 +1,4 @@
-import { FormControl, InputLabel } from '@material-ui/core'
+import { FormControl, InputLabel } from '@mui/material'
 import React from 'react'
 import { InputProps } from '../../index.types'
 import Error from '../error'

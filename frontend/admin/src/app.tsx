@@ -1,9 +1,8 @@
-import {
-  StylesProvider,
-  ThemeProvider as MuiThemeProvider,
-} from '@material-ui/core'
+import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material'
+import { StylesProvider } from '@mui/styles'
 import 'assets/fonts/index.css'
-import theme, { muiTheme } from 'helpers/theme/theme'
+import muiTheme from 'helpers/theme/muiTheme'
+import theme from 'helpers/theme/theme'
 import { SnackbarProvider } from 'notistack'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
@@ -21,6 +20,7 @@ const App: React.FC = () => {
       <MuiThemeProvider theme={muiTheme}>
         <StylesProvider injectFirst>
           <StyledThemeProvider theme={theme}>
+            <CssBaseline />
             <BrowserRouter>
               <Routes />
             </BrowserRouter>

@@ -61,7 +61,7 @@ export const FabContainer = styled.div<FabContainerProps>`
   button {
     background-color: ${({ theme, color }) =>
       color ? theme.coreColors[color] : theme.colors.primary} !important;
-    transition: ${({ theme }) => theme.transitions.primary};
+    transition: ${({ theme }) => theme.customTransitions.primary};
 
     svg {
       color: ${({ theme }) => theme.coreColors.white} !important;

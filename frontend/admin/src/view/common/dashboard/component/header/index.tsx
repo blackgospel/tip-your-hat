@@ -1,4 +1,4 @@
-import NotificationsIcon from '@material-ui/icons/Notifications'
+import NotificationsIcon from '@mui/icons-material/Notifications'
 import React from 'react'
 import { DashboardHeaderProps } from '../../index.types'
 import {

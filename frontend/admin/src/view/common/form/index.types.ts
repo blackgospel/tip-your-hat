@@ -1,7 +1,7 @@
 import {
   OutlinedInputProps,
   SelectProps as MuiSelectProps,
-} from '@material-ui/core'
+} from '@mui/material'
 import { FC } from 'react'
 
 export type RawErrorType = [{ message: string; field?: string }]

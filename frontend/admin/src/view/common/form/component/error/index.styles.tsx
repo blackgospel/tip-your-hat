@@ -1,4 +1,4 @@
-import { FormHelperText } from '@material-ui/core'
+import { FormHelperText } from '@mui/material'
 import styled from 'styled-components/macro'
 
 export const Errors = styled.div``

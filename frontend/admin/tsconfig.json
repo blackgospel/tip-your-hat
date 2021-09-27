@@ -14,7 +14,7 @@
       "pages/*": ["./view/pages/*"],
       "view/*": ["./view/*"],
       "zustands/*": ["./zustands/*"],
-      "src/*": ["./*"]
+      "src/*": ["./*"],
     },
     "target": "es2019",
     "module": "commonjs",

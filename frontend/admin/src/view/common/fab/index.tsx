@@ -1,4 +1,4 @@
-import { ExtendButtonBase, Fab as MuiFab, FabTypeMap } from '@material-ui/core'
+import { ExtendButtonBase, Fab as MuiFab, FabTypeMap } from '@mui/material'
 import { FabContainer, FabWrapper } from './index.styles'
 
 interface FabProps

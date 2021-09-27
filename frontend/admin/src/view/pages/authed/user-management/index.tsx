@@ -1,5 +1,5 @@
-import CreateIcon from '@material-ui/icons/Create'
-import SyncIcon from '@material-ui/icons/Sync'
+import CreateIcon from '@mui/icons-material/Create'
+import SyncIcon from '@mui/icons-material/Sync'
 import { VerticalSpacing } from 'common/global/spacing'
 import Spinner from 'common/global/spinner'
 import DashboardTable from 'common/table'
@@ -29,7 +29,7 @@ const UserManagement: React.FC = () => {
 
   if (loading || !data) {
     return (
-      <UserManagementContainer loading={loading || !data}>
+      <UserManagementContainer isLoading={loading || !data}>
         <Spinner />
       </UserManagementContainer>
     )

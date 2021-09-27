@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import Dropdown from 'common/dropdown'
+import { IconButton } from '@mui/material'
 import Slider from 'common/slider'
 import { CustomTableProps } from 'common/table'
 import Tag from 'common/tags'
@@ -70,7 +70,15 @@ const userTableColumns = (
       allowOverflow: true,
       button: true,
       cell: (row: FullUserDto) => (
-        <Dropdown name="Actions" list={menuActions(row)} />
+        <>
+          {menuActions(row).map((item: any) => {
+            return (
+              <IconButton key={item.name} onClick={item.onClick}>
+                {item.icon}
+              </IconButton>
+            )
+          })}
+        </>
       ),
     },
   ]

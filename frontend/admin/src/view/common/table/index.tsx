@@ -1,4 +1,4 @@
-import { ButtonGroup } from '@material-ui/core'
+import { ButtonGroup } from '@mui/material'
 import Card from 'common/card'
 import { Box } from 'common/global/box'
 import { Button } from 'common/global/button'

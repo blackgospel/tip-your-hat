@@ -54,6 +54,9 @@ const config: Configuration = {
     ],
   },
   resolve: {
+    alias: {
+      '@mui/styled-engine': '@mui/styled-engine-sc',
+    },
     extensions: ['.tsx', '.ts', '.js'],
     plugins: [new TsconfigPathsPlugin()],
     fallback: {

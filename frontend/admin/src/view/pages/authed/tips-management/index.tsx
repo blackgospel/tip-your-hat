@@ -11,7 +11,9 @@ import tipsAdminTableColumns from './index.columns'
 import { TipsManagementContainer } from './index.styles'
 
 const TipsManagement: React.FC = () => {
-  const { data, loading } = useGetAllAdminTipsQuery()
+  const { data, loading } = useGetAllAdminTipsQuery({
+    fetchPolicy: 'network-only',
+  })
   const {
     filteredItems,
     filterText,

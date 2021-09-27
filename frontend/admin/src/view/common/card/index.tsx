@@ -1,4 +1,4 @@
-import { Card as MuiCard, CardContent } from '@material-ui/core'
+import { Card as MuiCard, CardContent } from '@mui/material'
 import { CardContainer } from './index.styles'
 
 const Card: React.FC = ({ children }) => {

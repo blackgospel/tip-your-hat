@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
   }
 
-  a {
+  /* a {
     text-decoration: none;
     outline: 0;
   }
@@ -81,7 +81,7 @@ const GlobalStyle = createGlobalStyle`
   
   p {
     margin: 0;
-  }
+  } */
 `
 
 export default GlobalStyle
