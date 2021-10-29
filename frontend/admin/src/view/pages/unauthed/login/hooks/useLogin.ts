@@ -1,4 +1,5 @@
 import { useLoginAdminMutation } from 'generated/graphql'
+import useErrors from 'helpers/hooks/useErrors'
 import useFormField from 'helpers/hooks/useFormField'
 import useCurrentUserStore from 'zustands/stores/current-user'
 
@@ -18,6 +19,8 @@ const useLogin = (onSuccess?: () => void) => {
     },
   })
 
+  const { errors } = useErrors(error, false)
+
   const handleSubmit = async () => {
     const response = await login()
 
@@ -35,7 +38,7 @@ const useLogin = (onSuccess?: () => void) => {
     onChange,
     fields,
     loading,
-    error,
+    errors,
   }
 }
 

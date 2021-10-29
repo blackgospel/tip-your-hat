@@ -1,28 +1,19 @@
 import Copyright from 'common/copyright'
 import { VerticalSpacing } from 'common/global/spacing'
-import useErrors from 'helpers/hooks/useErrors'
+import Typography from 'common/typography'
 import Form from 'view/common/form'
 import { PageContainer } from 'view/common/global/page-container'
-import Logo from 'view/common/logo'
 import useLogin from './hooks/useLogin'
-import { LoginContainer, LoginDescription, LoginTitle } from './index.styles'
+import { LoginContainer } from './index.styles'
 
 const Login: React.FC = () => {
-  const { handleSubmit, fields, onChange, loading, error } = useLogin()
-  const { errors } = useErrors(error)
+  const { handleSubmit, fields, onChange, loading, errors } = useLogin()
 
   return (
     <PageContainer center>
       <LoginContainer>
-        <Logo />
-        <VerticalSpacing />
-        <LoginTitle variant="h4">Sign in to Tip Your Hat Admin</LoginTitle>
-        <VerticalSpacing />
-        <LoginDescription>
-          This is a admin dashboard to perform adminstration services on the Tip
-          Your Hat application.
-        </LoginDescription>
-        <VerticalSpacing />
+        <Typography tag="h1">Sign in to Tip Your Hat Admin</Typography>
+        <VerticalSpacing spacing={3} />
         <Form
           handleSubmit={handleSubmit}
           loading={loading}

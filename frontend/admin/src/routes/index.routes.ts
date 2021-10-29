@@ -2,29 +2,33 @@ import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRound
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import TipsManagement from 'pages/authed/tips-management'
+import Home from 'pages/unauthed/home'
+import Register from 'pages/unauthed/register'
 import Dashboard from 'view/pages/authed/dashboard'
 import UserManagement from 'view/pages/authed/user-management'
 import Login from 'view/pages/unauthed/login'
 
 export const UnAuthorisedRoutes = [
   {
-    name: 'Login',
+    name: 'Home',
     exact: true,
     path: '/',
-    Component: Login,
+    Component: Home,
   },
-  // {
-  //   name: 'Register',
-  //   exact: true,
-  //   path: '/register',
-  //   Component: Register,
-  // },
-  // {
-  //   name: 'Home',
-  //   exact: true,
-  //   path: '/',
-  //   Component: Home,
-  // },
+  {
+    name: 'Register',
+    exact: true,
+    path: '/register',
+    Component: Register,
+    navbar: true,
+  },
+  {
+    name: 'Login',
+    exact: true,
+    path: '/login',
+    Component: Login,
+    navbar: true,
+  },
 ]
 
 export const AuthorisedRoutes = [
@@ -55,5 +59,9 @@ export const AuthorisedRoutes = [
 ]
 
 export const AuthorisedNavbarRoutes = AuthorisedRoutes.filter(
+  ({ navbar }) => navbar
+)
+
+export const UnAuthorisedNavbarRoutes = UnAuthorisedRoutes.filter(
   ({ navbar }) => navbar
 )

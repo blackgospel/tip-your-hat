@@ -60,6 +60,8 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
   }
 
+  */
+
   ul,
   ol,
   dd {
@@ -76,12 +78,11 @@ const GlobalStyle = createGlobalStyle`
   h6 {
     margin: 0;
     padding: 0;
-    font-weight: 600;
   }
-  
+
   p {
     margin: 0;
-  } */
+  }
 `
 
 export default GlobalStyle

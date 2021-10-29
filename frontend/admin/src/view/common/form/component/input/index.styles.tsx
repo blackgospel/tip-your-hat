@@ -8,5 +8,5 @@ export const InputContainer = styled.div`
 `
 
 export const FormTextInput = styled(OutlinedInput)`
-  ${({ theme }) => theme.fonts.h4};
+  ${({ theme }) => theme.customTypography.p2};
 `

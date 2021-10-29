@@ -1,6 +1,6 @@
 import { ButtonGroup } from '@mui/material'
 import Card from 'common/card'
-import { Box } from 'common/global/box'
+import Box from 'common/global/box'
 import { Button } from 'common/global/button'
 import { HorizontalSpacing, VerticalSpacing } from 'common/global/spacing'
 import DataTable, { TableProps } from 'react-data-table-component'

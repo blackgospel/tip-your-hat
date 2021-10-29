@@ -17,7 +17,7 @@ interface ClientErrors {
   generalErrors?: string[]
 }
 
-const useErrors = (error?: ApolloError) => {
+const useErrors = (error?: ApolloError, showToast = true) => {
   const [errors, setErrors] = useState<UseErrorState>({
     formErrors: null,
     fieldErrors: null,
@@ -61,7 +61,9 @@ const useErrors = (error?: ApolloError) => {
     const { type, formattedError } = formatError(error)
 
     if (type === 'error') {
-      enqueueCustomSnackbar(formattedError[0][0].message, 'error')
+      if (showToast) {
+        enqueueCustomSnackbar(formattedError[0][0].message, 'error')
+      }
       setFormErrors(formattedError)
     } else {
       setFieldErrors(formattedError)

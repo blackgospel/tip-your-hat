@@ -6,7 +6,7 @@ export const Errors = styled.div``
 export const ErrorList = styled.ul``
 
 export const ErrorItem = styled.li`
-  margin-top: 2px;
+  /* margin-top: 2px; */
 `
 
 export const ErrorItemMessage = styled(FormHelperText)``

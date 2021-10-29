@@ -1,3 +1,8 @@
 import styled from 'styled-components/macro'
 
-export const HomeContainer = styled.div``
+export const HomeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`

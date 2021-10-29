@@ -89,6 +89,10 @@ export const fontSizes = {
   h3: 16,
   h4: 14,
   h5: 12,
+  p1: 12,
+  p2: 16,
+  p3: 20,
+  p4: 24,
   body1: 30,
   body2: 20,
   body3: 16,
@@ -171,6 +175,63 @@ export const fonts = {
   },
 }
 
+export const customTypography = {
+  h1: {
+    'font-size': fontSizes.h1,
+    'font-weight': fontWeights.bold,
+  },
+  h2: {
+    'font-size': fontSizes.h2,
+    'font-weight': fontWeights.bold,
+  },
+  h3: {
+    'font-size': fontSizes.h3,
+    'font-weight': fontWeights.bold,
+  },
+  h4: {
+    'font-size': fontSizes.h4,
+    'font-weight': fontWeights.bold,
+  },
+  h5: {
+    'font-size': fontSizes.h5,
+    'font-weight': fontWeights.bold,
+  },
+  p1: {
+    'font-size': fontSizes.p1,
+  },
+  p2: {
+    'font-size': fontSizes.p2,
+  },
+  p3: {
+    'font-size': fontSizes.p3,
+  },
+  p4: {
+    'font-size': fontSizes.p4,
+  },
+  strong: {
+    'font-size': fontSizes.p2,
+    'font-weight': fontWeights.bold,
+  },
+  a: {
+    'font-size': fontSizes.p2,
+  },
+  link: {
+    'font-size': fontSizes.p2,
+  },
+}
+
+export const typographyStyles = {
+  textCenter: {
+    'text-align': 'center',
+  },
+  textLeft: {
+    'text-align': 'left',
+  },
+  textRight: {
+    'text-align': 'right',
+  },
+}
+
 export const customBreakpoints = {
   xs: 600,
   sm: 960,
@@ -201,8 +262,10 @@ const theme = {
   fonts,
   customBreakpoints,
   customTransitions,
+  customTypography,
   borderRadius,
   fontFamily,
+  typographyStyles,
 }
 
 export default theme
