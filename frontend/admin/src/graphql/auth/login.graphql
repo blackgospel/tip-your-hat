@@ -1,5 +1,5 @@
-mutation LoginAdmin($loginAdminOptions: LoginUserInput!) {
-  loginAdmin(options: $loginAdminOptions) {
+mutation Login($loginAdminOptions: LoginUserInput!) {
+  login(options: $loginAdminOptions) {
     accessToken
     user {
       id

@@ -1,4 +1,5 @@
 import Dashboard from 'common/dashboard'
+import { Suspense } from 'react'
 import { Redirect, Switch } from 'react-router-dom'
 import { AuthorisedRoutes } from './index.routes'
 import { AuthedContainer } from './index.styles'
@@ -8,16 +9,14 @@ const AuthedRoutes = () => {
   return (
     <AuthedContainer>
       <Dashboard>
-        <Switch>
-          {AuthorisedRoutes.map(({ exact, path, Component }, index) => {
-            return (
-              <PrivateRoute key={index} exact={exact} path={path}>
-                <Component />
-              </PrivateRoute>
-            )
-          })}
-          <Redirect to={AuthorisedRoutes[0].path} />
-        </Switch>
+        <Suspense fallback="Loading...">
+          <Switch>
+            {AuthorisedRoutes.map(({ ...rest }) => {
+              return <PrivateRoute key={rest.path} {...rest} />
+            })}
+            <Redirect to={AuthorisedRoutes[0].path} />
+          </Switch>
+        </Suspense>
       </Dashboard>
     </AuthedContainer>
   )

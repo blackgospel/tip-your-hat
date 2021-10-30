@@ -14,7 +14,6 @@ import {
   DashboardSidebarBottomNav,
   DashboardSidebarContainer,
   DashboardSidebarInfo,
-  DashboardSidebarInfoName,
   DashboardSidebarInfoRole,
   DashboardSidebarList,
   DashboardSidebarListItem,
@@ -61,9 +60,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = () => {
           </DashboardSidebarAvatarContainer>
           <VerticalSpacing spacing={3} />
           <DashboardSidebarInfo>
-            <DashboardSidebarInfoName>
-              {currentUser?.name}
-            </DashboardSidebarInfoName>
             <DashboardSidebarInfoRole>
               {
                 AUTH_ROLES_REVERSE[

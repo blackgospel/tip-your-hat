@@ -69,7 +69,6 @@ export type Mutation = {
   deleteUserPermanently: Scalars['Boolean'];
   getTipsForDay: Scalars['Boolean'];
   login: LoginUserOutput;
-  loginAdmin: LoginUserOutput;
   logout: Scalars['Boolean'];
   refreshToken: RefreshTokenOutput;
   register: Scalars['Boolean'];
@@ -95,11 +94,6 @@ export type MutationDeleteUserPermanentlyArgs = {
 
 
 export type MutationLoginArgs = {
-  options: LoginUserInput;
-};
-
-
-export type MutationLoginAdminArgs = {
   options: LoginUserInput;
 };
 
@@ -193,12 +187,12 @@ export type UserDto = {
   name: Scalars['String'];
 };
 
-export type LoginAdminMutationVariables = Exact<{
+export type LoginMutationVariables = Exact<{
   loginAdminOptions: LoginUserInput;
 }>;
 
 
-export type LoginAdminMutation = { __typename?: 'Mutation', loginAdmin: { __typename?: 'LoginUserOutput', accessToken: string, user: { __typename?: 'UserDto', id: string, email: string, name: string } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginUserOutput', accessToken: string, user: { __typename?: 'UserDto', id: string, email: string, name: string } } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -280,9 +274,9 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'FullUserDto', id: string, email: string, name: string, createdAt: number, role: number, tokenVersion: number, credits: number, isDeleted: boolean }> };
 
 
-export const LoginAdminDocument = gql`
-    mutation LoginAdmin($loginAdminOptions: LoginUserInput!) {
-  loginAdmin(options: $loginAdminOptions) {
+export const LoginDocument = gql`
+    mutation Login($loginAdminOptions: LoginUserInput!) {
+  login(options: $loginAdminOptions) {
     accessToken
     user {
       id
@@ -292,32 +286,32 @@ export const LoginAdminDocument = gql`
   }
 }
     `;
-export type LoginAdminMutationFn = Apollo.MutationFunction<LoginAdminMutation, LoginAdminMutationVariables>;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
- * __useLoginAdminMutation__
+ * __useLoginMutation__
  *
- * To run a mutation, you first call `useLoginAdminMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useLoginAdminMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [loginAdminMutation, { data, loading, error }] = useLoginAdminMutation({
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
  *      loginAdminOptions: // value for 'loginAdminOptions'
  *   },
  * });
  */
-export function useLoginAdminMutation(baseOptions?: Apollo.MutationHookOptions<LoginAdminMutation, LoginAdminMutationVariables>) {
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginAdminMutation, LoginAdminMutationVariables>(LoginAdminDocument, options);
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
       }
-export type LoginAdminMutationHookResult = ReturnType<typeof useLoginAdminMutation>;
-export type LoginAdminMutationResult = Apollo.MutationResult<LoginAdminMutation>;
-export type LoginAdminMutationOptions = Apollo.BaseMutationOptions<LoginAdminMutation, LoginAdminMutationVariables>;
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const LogoutDocument = gql`
     mutation Logout {
   logout

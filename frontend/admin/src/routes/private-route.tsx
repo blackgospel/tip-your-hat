@@ -1,21 +1,27 @@
+import { ComponentType, LazyExoticComponent } from 'react'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 import useCurrentUserStore from 'zustands/stores/current-user'
 
-const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
+interface PrivateRouteProps extends RouteProps {
+  path: string
+  exact: boolean
+  component?: LazyExoticComponent<ComponentType<any>>
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ ...rest }) => {
   const { currentUser } = useCurrentUserStore()
 
   return (
     <Route
       {...rest}
-      exact
-      render={({ location }) =>
-        currentUser ? (
-          children
+      render={(props) =>
+        currentUser && rest.component ? (
+          <rest.component {...props} />
         ) : (
           <Redirect
             to={{
               pathname: '/login',
-              state: { from: location },
+              state: { from: props.location },
             }}
           />
         )

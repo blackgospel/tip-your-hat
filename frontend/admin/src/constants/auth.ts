@@ -12,3 +12,8 @@ export const AUTH_ROLES_REVERSE = {
   1: 'Admin',
   2: 'Super Admin',
 }
+
+export const AUTH_NAVBAR_CATEGORIES = {
+  ADMIN: 'Admin',
+  OTHER: '',
+}

@@ -59,6 +59,7 @@
     "@typescript-eslint/parser": "^4.31.0",
     "apollo-link-token-refresh": "^0.3.2",
     "babel-loader": "^8.2.2",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
     "babel-plugin-macros": "^3.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.2.0",
