@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('ProductSans Black'),
+    url('./ProductSans/ProductSans-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('ProductSans Black'),
+    url('./ProductSans/ProductSans-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 500;
+  src: local('ProductSans Bold'),
+    url('./ProductSans/ProductSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('ProductSans Medium'),
+    url('./ProductSans/ProductSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('ProductSans Regular'),
+    url('./ProductSans/ProductSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 200;
+  src: local('ProductSans Light'),
+    url('./ProductSans/ProductSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 100;
+  src: local('ProductSans Thin'),
+    url('./ProductSans/ProductSans-Thin.ttf') format('truetype');
+}

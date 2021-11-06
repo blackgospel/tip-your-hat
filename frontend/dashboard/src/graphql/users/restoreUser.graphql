@@ -1,0 +1,3 @@
+mutation RestoreUser($restoreUserOptions: RestoreUserInput!) {
+  restoreUser(options: $restoreUserOptions)
+}

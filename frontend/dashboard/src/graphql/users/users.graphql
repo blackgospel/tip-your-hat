@@ -1,0 +1,12 @@
+query GetAllUsers {
+  getAllUsers {
+    id
+    email
+    name
+    createdAt
+    role
+    tokenVersion
+    credits
+    isDeleted
+  }
+}

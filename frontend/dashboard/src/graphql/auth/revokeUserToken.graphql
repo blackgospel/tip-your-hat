@@ -1,0 +1,3 @@
+mutation RevokeUserToken($revokeUserTokenOptions: RevokeUserTokenInput!) {
+  revokeUserToken(options: $revokeUserTokenOptions)
+}

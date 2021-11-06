@@ -1,0 +1,12 @@
+query GetUser($getUserOptions: GetUserInput!) {
+  getUser(options: $getUserOptions) {
+    id
+    email
+    name
+    createdAt
+    role
+    tokenVersion
+    credits
+    isDeleted
+  }
+}

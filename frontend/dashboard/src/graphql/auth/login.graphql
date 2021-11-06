@@ -1,0 +1,10 @@
+mutation Login($loginAdminOptions: LoginUserInput!) {
+  login(options: $loginAdminOptions) {
+    accessToken
+    user {
+      id
+      email
+      name
+    }
+  }
+}
