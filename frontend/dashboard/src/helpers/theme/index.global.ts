@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components/macro'
 
 const GlobalStyle = createGlobalStyle`
   *,
@@ -24,6 +24,8 @@ const GlobalStyle = createGlobalStyle`
   
   #root {
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   
   ul,

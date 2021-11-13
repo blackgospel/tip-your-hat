@@ -27,17 +27,17 @@ const ShowcaseButtons: React.FC = () => {
       <VSpacing space="medium" />
       <H3>Colors</H3>
       <ShowcaseComponents>
-        <Button bg="primary">Base</Button>
+        <Button color="primary">Base</Button>
         <HSpacing />
-        <Button bg="secondary">Base</Button>
+        <Button color="secondary">Base</Button>
         <HSpacing />
-        <Button bg="success">Base</Button>
+        <Button color="success">Base</Button>
         <HSpacing />
-        <Button bg="info">Base</Button>
+        <Button color="info">Base</Button>
         <HSpacing />
-        <Button bg="danger">Base</Button>
+        <Button color="error">Base</Button>
         <HSpacing />
-        <Button bg="warning">Base</Button>
+        <Button color="warning">Base</Button>
       </ShowcaseComponents>
       <VSpacing space="medium" />
       <H3>Variants</H3>
@@ -87,6 +87,8 @@ const ShowcaseButtons: React.FC = () => {
         <Button variant="text" loading={true}>
           Base
         </Button>
+        <HSpacing />
+        <Button loading={false}>Base</Button>
       </ShowcaseComponents>
       <VSpacing space="medium" />
       <H3>Button with icons</H3>

@@ -1,13 +1,10 @@
-import Showcase from 'pages/global/showcase/index.showcase'
-import { Route, Switch } from 'react-router'
+import AuthedRoutes from './components/index.authed'
 import { RouteContainer } from './index.styles'
 
 const Routes: React.FC = () => {
   return (
     <RouteContainer>
-      <Switch>
-        <Route exact path="/showcase" component={Showcase} />
-      </Switch>
+      <AuthedRoutes />
     </RouteContainer>
   )
 }

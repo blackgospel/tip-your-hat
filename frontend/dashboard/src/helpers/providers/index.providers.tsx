@@ -2,6 +2,7 @@ import { ApolloProvider } from '@apollo/client'
 import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material'
 import 'assets/fonts/index.css'
 import client from 'helpers/apollo/apollo.config'
+import muiTheme from 'helpers/theme/index.mui'
 import theme from 'helpers/theme/index.theme'
 import { SnackbarProvider } from 'notistack'
 import { BrowserRouter } from 'react-router-dom'
@@ -17,7 +18,7 @@ const Providers: React.FC = ({ children }) => {
           horizontal: 'right',
         }}
       >
-        <MuiThemeProvider theme={createTheme()}>
+        <MuiThemeProvider theme={createTheme(muiTheme)}>
           <StyledThemeProvider theme={theme}>
             <BrowserRouter>{children}</BrowserRouter>
           </StyledThemeProvider>

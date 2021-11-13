@@ -10,9 +10,9 @@ enum SpacingSizes {
   large = 6,
 }
 
-export const BaseSpacing = styled.div<SpacingProps>`
-  margin: ${({ theme: { spacing }, space }) =>
-    space ? spacing[SpacingSizes[space]] : spacing[SpacingSizes.small]}px;
+const BaseSpacing = styled.div<SpacingProps>`
+  margin: ${({ theme: { spacings }, space }) =>
+    space ? spacings[SpacingSizes[space]] : spacings[SpacingSizes.small]}px;
 `
 
 export const Spacing = styled(BaseSpacing)``
