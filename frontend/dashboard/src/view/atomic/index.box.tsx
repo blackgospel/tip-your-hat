@@ -9,18 +9,19 @@ interface BoxProps {
   h100?: boolean
   w100?: boolean
   flexFill?: boolean
+  surface?: boolean
   bgColor?: 'primary' | 'secondary' | 'error'
 }
 
 interface FlexProps {
   column?: boolean
+  between?: boolean
+  center?: boolean
   hcenter?: boolean
   vcenter?: boolean
 }
 
 const BaseStyles = css<BoxProps>`
-  background-color: ${({ theme: { surfaceColors } }) => surfaceColors.surface};
-
   ${({ smallPadding, theme: { spacings } }) =>
     smallPadding &&
     css`
@@ -37,6 +38,12 @@ const BaseStyles = css<BoxProps>`
     bgColor &&
     css`
       background-color: ${statusMainColors[bgColor]};
+    `}
+
+    ${({ surface, theme: { surfaceColors } }) =>
+    surface &&
+    css`
+      background-color: ${surfaceColors.surface};
     `}
 
     ${({ h100 }) =>
@@ -79,6 +86,19 @@ const FlexContainer = styled.div<FlexProps>`
     hcenter &&
     css`
       align-items: center;
+    `}
+
+    ${({ center }) =>
+    center &&
+    css`
+      justify-content: center;
+      align-items: center;
+    `}
+
+    ${({ between }) =>
+    between &&
+    css`
+      justify-content: space-between;
     `}
 `
 

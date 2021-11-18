@@ -29,6 +29,7 @@ interface InputProps
   readOnly?: boolean
   startIcon?: React.ReactNode
   endIcon?: React.ReactNode
+  fullWidth?: boolean
 }
 
 interface SelectProps extends Pick<MuiSelectProps, 'MenuProps'> {
@@ -64,8 +65,8 @@ const BaseStyles = css<InputProps>`
 `
 
 const BaseTextInput = styled(
-  ({ readOnly, startIcon, endIcon, ...otherProps }: InputProps) => (
-    <MuiFormControl>
+  ({ readOnly, startIcon, endIcon, fullWidth, ...otherProps }: InputProps) => (
+    <MuiFormControl fullWidth={fullWidth}>
       <MuiTextField
         {...{ variant: 'outlined', size: 'small' }}
         {...(readOnly && { InputProps: { readOnly: true } })}

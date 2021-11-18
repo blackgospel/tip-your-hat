@@ -8,6 +8,11 @@ const palette = {
         main: theme.statusMainColors[
           item as keyof typeof theme.statusMainColors
         ],
+        dark: theme.statusDarkColors[
+          item as keyof typeof theme.statusDarkColors
+        ],
+        light:
+          theme.statusDarkColors[item as keyof typeof theme.statusDarkColors],
       },
     }),
     {}

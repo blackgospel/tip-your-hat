@@ -21,7 +21,7 @@ interface TypographyProps
   > {
   strong?: boolean
   color?: 'primary' | 'secondary' | 'background' | 'surface' | 'error'
-  size?: 'small' | 'regular' | 'large'
+  size?: 'xsmall' | 'small' | 'regular' | 'large'
   href?: string
   align?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
 }
@@ -34,6 +34,7 @@ enum TypographySizes {
   h5 = 120,
   h6 = 100,
   subtitle = 110,
+  xsmall = 60,
   small = 90,
   regular = 100,
   large = 110,
@@ -93,6 +94,10 @@ export const H6 = styled(BaseTypography).attrs(asProp('h6'))`
 
 export const Subtitle = styled(BaseTypography).attrs(asProp())`
   font-size: ${TypographySizes.subtitle}%;
+`
+
+export const XSmallText = styled(BaseTypography).attrs(asProp())`
+  font-size: ${TypographySizes.xsmall}%;
 `
 
 export const SmallText = styled(BaseTypography).attrs(asProp())`

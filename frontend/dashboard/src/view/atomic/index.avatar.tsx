@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components/macro'
 interface AvatarProps {
   children: React.ReactNode
   bgColor?: any
+  onClick?: any
 }
 
 const BaseStyles = css`
@@ -23,4 +24,20 @@ const BaseAvatar = styled(
   ${BaseStyles};
 `
 
+const BaseSquareAvatar = styled(
+  ({ bgColor = colors.purple[300], ...otherProps }: AvatarProps) => (
+    <MuiAvatar
+      {...{ variant: 'rounded' }}
+      {...{ sx: { bgColor } }}
+      {...otherProps}
+    />
+  )
+)`
+  ${BaseStyles};
+`
+
 export const CircleAvatar = styled(BaseAvatar)``
+
+export const SquareAvatar = styled(BaseSquareAvatar)``
+
+export const IconAvatar = styled(BaseAvatar)``

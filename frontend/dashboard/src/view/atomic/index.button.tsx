@@ -7,7 +7,7 @@ interface ButtonProps
     MuiButtonProps,
     Exclude<
       keyof MuiButtonProps,
-      'classes' | 'disableFocusRipple' | 'fullWidth' | 'href' | 'size' | 'sx'
+      'classes' | 'disableFocusRipple' | 'href' | 'size' | 'sx'
     >
   > {
   loading?: boolean

@@ -51,6 +51,10 @@ const config: Configuration = {
           name: 'assets/[name].[ext]',
         },
       },
+      {
+        test: /\.svg$/,
+        loader: '@svgr/webpack',
+      },
     ],
   },
   resolve: {

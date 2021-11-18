@@ -1,18 +1,8 @@
-// const colors = {
-//   blue: ['#63a4ff', '#1976d2', '#004ba0'],
-//   green: ['#2e7d32', '#60ad5e', '#005005'],
-//   teal: ['#52c7b8', '#009688', '#00675b'],
-//   red: ['#ff6659', '#d32f2f', '#9a0007'],
-//   orange: ['#ff9d3f', '#ef6c00', '#b53d00'],
-//   grey: ['#9e9e9e', '#cfcfcf', '#707070'],
-//   purple: ['#9c4dcc', '#6a1b9a', '#38006b'],
-//   black: ['#000000', '#000000', '#000000'],
-//   white: ['#FFFFFF', '#FFFFFF', '#FFFFFF'],
-// }
+import { colors as MuiColors } from '@mui/material'
 
 const statusColors = {
-  primary: 'purple',
-  secondary: 'orange',
+  primary: 'blue',
+  secondary: 'purple',
   accent: 'yellow',
   success: 'green',
   info: 'teal',
@@ -20,15 +10,63 @@ const statusColors = {
   warning: 'orange',
 }
 
+// const colors = {
+//   blue: ['#63a4ff', '#1976d2', '#004ba0', '#FFFFFF'],
+//   green: ['#60ad5e', '#2e7d32', '#005005', '#FFFFFF'],
+//   teal: ['#52c7b8', '#009688', '#00675b', '#FFFFFF'],
+//   red: ['#ff6659', '#d32f2f', '#9a0007', '#FFFFFF'],
+//   orange: ['#ff9d3f', '#ef6c00', '#b53d00', '#FFFFFF'],
+//   grey: ['#9e9e9e', '#cfcfcf', '#707070', '#000000'],
+//   purple: ['#d05ce3', '#9c27b0', '#6a0080', '#FFFFFF'],
+//   yellow: ['#ffff72', '#ffeb3b', '#c8b900', '#000000'],
+//   black: ['#000000', '#000000', '#000000', '#FFFFFF'],
+//   white: ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#000000'],
+// }
+
 const colors = {
-  blue: ['#63a4ff', '#1976d2', '#004ba0', '#FFFFFF'],
-  green: ['#60ad5e', '#2e7d32', '#005005', '#FFFFFF'],
-  teal: ['#52c7b8', '#009688', '#00675b', '#FFFFFF'],
-  red: ['#ff6659', '#d32f2f', '#9a0007', '#FFFFFF'],
-  orange: ['#ff9d3f', '#ef6c00', '#b53d00', '#FFFFFF'],
-  grey: ['#9e9e9e', '#cfcfcf', '#707070', '#000000'],
-  purple: ['#d05ce3', '#9c27b0', '#6a0080', '#FFFFFF'],
-  yellow: ['#ffff72', '#ffeb3b', '#c8b900', '#000000'],
+  blue: [
+    MuiColors.blue[50],
+    MuiColors.blue[500],
+    MuiColors.blue[600],
+    '#FFFFFF',
+  ],
+  green: [
+    MuiColors.green['A100'],
+    MuiColors.green['A400'],
+    MuiColors.green['A700'],
+    '#FFFFFF',
+  ],
+  teal: [
+    MuiColors.teal[50],
+    MuiColors.teal[200],
+    MuiColors.teal[400],
+    '#FFFFFF',
+  ],
+  red: [MuiColors.red[50], MuiColors.red[200], MuiColors.red[800], '#FFFFFF'],
+  orange: [
+    MuiColors.deepOrange[50],
+    MuiColors.deepOrange[200],
+    MuiColors.deepOrange[800],
+    '#FFFFFF',
+  ],
+  grey: [
+    MuiColors.grey[50],
+    MuiColors.grey[500],
+    MuiColors.grey[600],
+    '#000000',
+  ],
+  purple: [
+    MuiColors.deepPurple[50],
+    MuiColors.deepPurple[500],
+    MuiColors.deepPurple[600],
+    '#FFFFFF',
+  ],
+  yellow: [
+    MuiColors.amber[50],
+    MuiColors.amber[100],
+    MuiColors.amber[500],
+    '#000000',
+  ],
   black: ['#000000', '#000000', '#000000', '#FFFFFF'],
   white: ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#000000'],
 }
@@ -87,6 +125,18 @@ const fontFamily = {
 
 const spacings = [0, 4, 8, 12, 16, 24, 32, 48, 64]
 
+const borderRadiuses = {
+  xsmall: 6,
+  small: 12,
+  medium: 24,
+  large: 32,
+  circle: '100%',
+}
+
+const transition = {
+  primary: '150ms ease-in-out',
+}
+
 const fontSizes = [8, 12, 16, 22, 24, 32]
 
 const theme = {
@@ -99,6 +149,8 @@ const theme = {
   fontFamily,
   spacings,
   fontSizes,
+  borderRadiuses,
+  transition,
 }
 
 export default theme
