@@ -30,7 +30,7 @@ export const MatchList = [
   },
   {
     homeName: 'New Orlean Pelicans',
-    homeSlug: 'NO',
+    homeSlug: 'NOP',
     homeForm: ['L', 'W', 'L', 'L', 'L'],
     awayName: 'Miami Heat',
     awaySlug: 'MIA',
@@ -39,7 +39,7 @@ export const MatchList = [
   },
   {
     homeName: 'Washington Wizards',
-    homeSlug: 'WSH',
+    homeSlug: 'WAS',
     homeForm: ['L', 'W', 'L', 'L', 'W'],
     awayName: 'Charlotte Hornets',
     awaySlug: 'CHA',
@@ -51,7 +51,7 @@ export const MatchList = [
     homeSlug: 'ORL',
     homeForm: ['L', 'L', 'L', 'L', 'L'],
     awayName: 'New York Knicks',
-    awaySlug: 'NY',
+    awaySlug: 'NYK',
     awayForm: ['W', 'W', 'W', 'W', 'W'],
     matchStart: dayjs().format('HH:mm A'),
   },

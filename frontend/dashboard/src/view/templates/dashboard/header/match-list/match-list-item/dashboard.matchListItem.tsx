@@ -1,4 +1,4 @@
-import * as Logos from 'react-nba-logos'
+import NBALogos from 'constants/nba-logos'
 import * as S from './index.styles'
 
 interface ListItemProps {
@@ -18,7 +18,8 @@ interface MatchListItemProps {
 const DashboardMatchListItem: React.FC<MatchListItemProps> = ({ item }) => {
   const { homeSlug, homeForm, awaySlug, awayForm, matchStart } = item
 
-  // const { [homeSlug], [awaySlug] } = Logos
+  const HomeIcon = NBALogos[homeSlug as keyof typeof NBALogos]
+  const AwayIcon = NBALogos[awaySlug as keyof typeof NBALogos]
 
   return (
     <S.Container>
@@ -27,13 +28,13 @@ const DashboardMatchListItem: React.FC<MatchListItemProps> = ({ item }) => {
       </S.TimeBox>
       <S.MatchDetailsBox>
         <S.TeamDetailsBox>
-          <Logos.BOS size={18} />
+          <HomeIcon size={18} />
           <S.TeamName>{homeSlug}</S.TeamName>
         </S.TeamDetailsBox>
         <S.FormBox>
-          {homeForm.map((item: string) => {
+          {homeForm.map((item: string, index) => {
             return (
-              <S.TeamFormBox key={item}>
+              <S.TeamFormBox key={item + homeSlug + index}>
                 <S.TeamForm>{item}</S.TeamForm>
               </S.TeamFormBox>
             )
@@ -42,13 +43,13 @@ const DashboardMatchListItem: React.FC<MatchListItemProps> = ({ item }) => {
       </S.MatchDetailsBox>
       <S.MatchDetailsBox>
         <S.TeamDetailsBox>
-          <Logos.BOS size={18} />
+          <AwayIcon size={18} />
           <S.TeamName>{awaySlug}</S.TeamName>
         </S.TeamDetailsBox>
         <S.FormBox>
-          {awayForm.map((item: string) => {
+          {awayForm.map((item: string, index) => {
             return (
-              <S.TeamFormBox key={item}>
+              <S.TeamFormBox key={item + awaySlug + index}>
                 <S.TeamForm>{item}</S.TeamForm>
               </S.TeamFormBox>
             )

@@ -1,12 +1,16 @@
+import { Outlet } from 'react-router-dom'
 import DashboardHeader from './header/dashboard.header'
-import { DashboardContainer } from './index.styles'
+import * as S from './index.styles'
+import DashboardMain from './main/dashboard.main'
 
-const DashboardTemplate: React.FC = ({ children }) => {
+const DashboardTemplate: React.FC = () => {
   return (
-    <DashboardContainer>
+    <S.DashboardContainer>
       <DashboardHeader />
-      {children}
-    </DashboardContainer>
+      <DashboardMain>
+        <Outlet />
+      </DashboardMain>
+    </S.DashboardContainer>
   )
 }
 

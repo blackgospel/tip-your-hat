@@ -2,10 +2,9 @@ import { IconSearch, IconTools, IconUser } from '@tabler/icons'
 import Logo from 'assets/images/logo.svg'
 import useMuiDialog from 'helpers/hooks/useMuiDialog'
 import useMuiMenu from 'helpers/hooks/useMuiMenu'
-import { Box } from 'view/atomic'
-import DashboardMatchList from '../match-list/dashboard.matchList'
-import DashboardSearchModal from '../search-modal/dashboard.searchModal'
 import * as S from './index.styles'
+import DashboardMatchList from './match-list/dashboard.matchList'
+import DashboardSearchModal from './search-modal/dashboard.searchModal'
 
 const DashboardHeader: React.FC = () => {
   const { anchorEl, open, handleClick, handleClose } = useMuiMenu()
@@ -16,7 +15,7 @@ const DashboardHeader: React.FC = () => {
   } = useMuiDialog()
 
   return (
-    <S.Container>
+    <S.HeaderContainer>
       <S.ImageContainer>
         <S.Image>
           <Logo />
@@ -26,9 +25,7 @@ const DashboardHeader: React.FC = () => {
         <S.NavItem onClick={handleSearchOpen}>
           <IconSearch />
         </S.NavItem>
-        <Box>
-          <DashboardMatchList />
-        </Box>
+        <DashboardMatchList />
         <S.NavGroup>
           <S.NavAvatar onClick={handleClick}>SA</S.NavAvatar>
           <S.NavMenu
@@ -48,7 +45,7 @@ const DashboardHeader: React.FC = () => {
           onClose: handleSearchClose,
         }}
       />
-    </S.Container>
+    </S.HeaderContainer>
   )
 }
 

@@ -1,3 +1,4 @@
+import { position } from 'helpers/theme/funcs/position.funcs'
 import styled from 'styled-components/macro'
 import { Box } from 'view/atomic'
 
@@ -7,10 +8,10 @@ interface DashboardProps {
 
 export const DashboardContainer = styled(
   ({ children, ...otherProps }: DashboardProps) => (
-    <Box flex column flexFill {...otherProps}>
+    <Box flex column flexFill w100 h100 {...otherProps}>
       {children}
     </Box>
   )
 )`
-  position: relative;
+  ${position('fixed')}
 `

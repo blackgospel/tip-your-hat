@@ -116,7 +116,7 @@ const NavIconButton = styled(
   })
 )``
 
-export const Container = styled(
+export const HeaderContainer = styled(
   ({ children, ...otherProps }: DashboardProps) => (
     <Box flex {...otherProps}>
       {children}
@@ -128,6 +128,7 @@ export const Container = styled(
   ${position('absolute', { b: 0, r: 0 })};
   background-color: ${darkColors('primary')}d4;
   border-top-left-radius: ${borderRadius('large')}px;
+  z-index: 99;
 `
 
 export const ImageContainer = styled(

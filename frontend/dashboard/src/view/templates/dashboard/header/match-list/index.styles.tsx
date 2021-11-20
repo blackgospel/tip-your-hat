@@ -27,7 +27,7 @@ export const DashboardMatchListContainer = styled(
   overflow-x: scroll;
 `
 
-const BaseAvatar: React.FC<Partial<IconButtonProps> & CustomStyleProps> = ({
+const BaseAvatar: React.FC<IconButtonProps & CustomStyleProps> = ({
   color,
   background,
   transition,

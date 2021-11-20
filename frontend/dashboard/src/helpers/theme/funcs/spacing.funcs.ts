@@ -2,7 +2,7 @@ const createSpacingFn =
   (parameters: any[]) =>
   (multiplier: number) =>
   (props: { theme: { spacings: any[] } }) => {
-    const value = props.theme.spacings[multiplier]
+    const value = props.theme.spacings[multiplier] || multiplier
     return parameters.map((param: any) => `${param}: ${value}px;`).join('')
   }
 

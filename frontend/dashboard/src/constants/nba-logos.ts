@@ -1,0 +1,36 @@
+import * as Logos from 'react-nba-logos'
+
+const NBALogos = {
+  ATL: Logos.ATL,
+  BKN: Logos.BKN,
+  BOS: Logos.BOS,
+  CHA: Logos.CHA,
+  CHI: Logos.CHI,
+  CLE: Logos.CLE,
+  DAL: Logos.DAL,
+  DEN: Logos.DEN,
+  DET: Logos.DET,
+  GSW: Logos.GSW,
+  HOU: Logos.HOU,
+  IND: Logos.IND,
+  LAC: Logos.LAC,
+  LAL: Logos.LAL,
+  MEM: Logos.MEM,
+  MIA: Logos.MIA,
+  MIL: Logos.MIL,
+  MIN: Logos.MIN,
+  NOP: Logos.NOP,
+  NYK: Logos.NYK,
+  OKC: Logos.OKC,
+  ORL: Logos.ORL,
+  PHI: Logos.PHI,
+  PHX: Logos.PHX,
+  POR: Logos.POR,
+  SAC: Logos.SAC,
+  SAS: Logos.SAS,
+  TOR: Logos.TOR,
+  UTA: Logos.UTA,
+  WAS: Logos.WAS,
+}
+
+export default NBALogos
