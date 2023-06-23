@@ -1,8 +1,5 @@
 export NODE_ENV=test
 
-export AWS_ACCESS_KEY_ID=AKIA3TA2JVTYS473XJUR
-export AWS_SECRET_ACCESS_KEY=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
-
 export PROJECT_NAME=$(cat $CWD/package.json | jq -r '.name')
 
 export ADMIN_FRONTEND_DIR=${CWD}/frontend/admin
